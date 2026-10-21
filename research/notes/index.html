@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Development notes on materials solvers, FFT implementation, grain-boundary analysis, and adaptive computation by Jingkun Jiang.">
+  <link rel="canonical" href="https://raneccc.github.io/personal-website/research/notes/">
+  <meta name="theme-color" content="#b31a1b">
+  <title>Research notes | Jingkun Jiang</title>
+  <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/site.css?v=research-notes-17">
+  <script type="module" src="../../assets/research-nav.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="site-name" href="../../">Jingkun Jiang</a>
+  <nav class="desktop-nav" aria-label="Main navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav>
+  <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav></details>
+</div></header>
+<main id="main" class="research-main single-research notes-main">
+  <header class="research-page-heading research-detail-heading"><p class="research-breadcrumb"><a href="../">Research</a></p><h1>Research notes</h1><div class="summary-prose"><p>Much of this work happened between the first working solver and the current manuscript. These notes follow a few of those steps: building solvers, writing an FFT library, working with crystal defects, and deciding which blocks need an update.</p></div></header>
+  <aside class="research-index-shell"><nav class="research-toc" aria-label="Research notes contents">
+    <div class="toc-group"><a href="#solvers">Material solvers</a><a href="#fft">FFT implementation</a><a href="#grain-boundaries">Grains &amp; defects</a><a href="#adaptive-updates">Adaptive updates</a></div>
+  </nav></aside>
+  <div class="research-content">
+    <section id="solvers" class="research-group" aria-labelledby="solvers-title">
+      <header class="research-group-heading"><h2 id="solvers-title">Building the solvers</h2></header>
+      <div class="section-copy summary-prose">
+        <p>I began with a three-dimensional phase-field solver for dendritic growth. Getting a reasonable shape was only the first check: I varied anisotropy and seed initialization, inspected the coupled phase and temperature fields, and reorganized the finite-difference loops and memory layout before building parallel versions.</p>
+        <p>I then built phase-field crystal (PFC), structural PFC (XPFC), and amplitude PFC (APFC) solvers, which represent crystals through density fields or their amplitudes. In APFC, I worked with three complex amplitudes and reconstructed the density field. Abrupt seed boundaries and inconsistent phases could create misleading patterns, so I compared amplitude, phase, and phase-gradient views and tested smoother initial conditions.</p>
+      </div>
+      <p class="research-note-links"><a href="../#polycrystals">Crystal models and analysis →</a></p>
+    </section>
+    <section id="fft" class="research-group" aria-labelledby="fft-title">
+      <header class="research-group-heading"><h2 id="fft-title">Writing an FFT library</h2></header>
+      <div class="section-copy summary-prose">
+        <p>I wrote a small FFT library while building the early PFC solver. Starting from Cooley–Tukey decomposition, I worked through recursive and iterative implementations, bit-reversal indexing, and precomputed factors, then compared the implementation with FFTW. The reports also record questions about memory contiguity, temporary buffers, and transform planning.</p>
+        <p>These experiments made the FFT less of a black box. Later, when moving to cuFFT and MPI, I could separate local transforms from packing, redistribution, and boundary-state exchange. That distinction matters when measuring speed: reducing one update stage does not automatically reduce the full solver’s transform and communication costs.</p>
+      </div>
+      <p class="research-note-links"><a href="../#distributed-fft">Distributed FFT implementation →</a></p>
+    </section>
+    <section id="grain-boundaries" class="research-group" aria-labelledby="grain-boundaries-title">
+      <header class="research-group-heading"><h2 id="grain-boundaries-title">Grain boundaries &amp; defects</h2></header>
+      <div class="section-copy summary-prose">
+        <p>I also used simpler PFC setups, including a small-angle circular grain boundary, to look more closely at defects and boundary motion. A grain inside a surrounding crystal is easier to inspect than a whole polycrystal. I use these exploratory cases to check the solver and the analysis together.</p>
+        <p>To analyze larger fields, I extract density peaks, calculate local orientations, and use periodic neighbors to group grains. OVITO helps me inspect the particle data; the two-dimensional segmentation and statistics come from my own code. Choices such as neighbor distance, 60° orientation periodicity, and low-density masks can change the statistics, so I check those choices alongside the images.</p>
+      </div>
+      <figure class="section-figure notes-detail-figure"><a class="figure-link" href="../../assets/images/notes-grain-segmentation.jpg"><img src="../../assets/images/notes-grain-segmentation.jpg" alt="A grain-segmentation output from an early PFC analysis test, illustrating the analysis implementation rather than a measured growth law." width="456" height="450" loading="lazy" decoding="async"></a><figcaption>Grain segmentation · A development example.</figcaption></figure>
+      <p class="research-note-links"><a href="../#grain-analysis">Density-field analysis workflow →</a></p>
+    </section>
+    <section id="adaptive-updates" class="research-group" aria-labelledby="adaptive-updates-title">
+      <header class="research-group-heading"><h2 id="adaptive-updates-title">From thresholds to a framework</h2></header>
+      <div class="section-copy summary-prose">
+        <p>The first spectral-activation experiments did not simply work after choosing a threshold. FFT normalization could make almost every block appear active. A fixed change threshold could also behave very differently early and late in an evolution. I compared candidate activity measures, neighboring-block activation, and transition smoothing while watching the real field, spectrum, and activation history together.</p>
+      </div>
+      <figure class="section-figure"><div class="notes-figure-pair">
+        <a class="figure-link" href="../../assets/images/notes-fourier-amplitude.jpg"><img src="../../assets/images/notes-fourier-amplitude.jpg" alt="Fourier-amplitude field from an early transition-smoothing development test." width="910" height="900" loading="lazy" decoding="async"></a>
+        <a class="figure-link" href="../../assets/images/notes-activation-mask.jpg"><img src="../../assets/images/notes-activation-mask.jpg" alt="Block activation mask from the same early transition-smoothing test, before the final sp-DBA framework." width="770" height="774" loading="lazy" decoding="async"></a>
+      </div><figcaption>Fourier amplitude and block mask · An early transition-smoothing prototype.</figcaption></figure>
+      <div class="section-copy summary-prose">
+        <p>This work developed into sp-DBA’s shared framework: state preparation, blockwise model updates, and consistency control, matched to GPU execution. The final design retains the solver’s representation and transform workflow; its acceleration is measured separately for the update stage and the whole run.</p>
+        <p>One practical lesson was to check more than whether the image looked right. Depending on the model, I tracked field errors, mean density, free energy, and grain statistics, and separated changes in the solution from changes caused by the analysis itself.</p>
+      </div>
+      <p class="research-note-links"><a href="../#spdba">sp-DBA research →</a> · <a href="https://arxiv.org/abs/2609.03922">Preprint</a></p>
+    </section>
+  </div>
+</main>
+<footer class="site-footer"><div class="footer-inner"><span>Jingkun Jiang · Hunan University</span><a href="mailto:JJJK0506@hnu.edu.cn">JJJK0506@hnu.edu.cn</a></div></footer>
+</body>
+</html>

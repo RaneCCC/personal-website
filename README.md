@@ -6,7 +6,7 @@ Four main pages: Home, Research, Personal Statement, and CV. The Research page h
 
 ## Editing and publishing
 
-Edit the page's `index.html`; shared typography and layout are in `assets/site.css`. Research section links and IDs are maintained in `research/index.html`; `assets/research-nav.js` highlights the current section. Archived manuscript events are in `research/submission-history/index.html`. No build step is required.
+Edit the page's `index.html`; shared typography and layout are in `assets/site.css`. Research section links and IDs are maintained in `research/index.html`; `assets/research-nav.js` highlights the current section. Development notes are in `research/notes/index.html`; archived manuscript events are in `research/submission-history/index.html`. No build step is required.
 
 For a local preview, run `python3 -m http.server 63541 --bind 127.0.0.1` from this repository and open `http://127.0.0.1:63541/`.
 

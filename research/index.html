@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>Research | Jingkun Jiang</title>
   <link rel="preload" href="../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site.css?v=research-story-15">
+  <link rel="stylesheet" href="../assets/site.css?v=research-notes-17">
   <script type="module" src="../assets/research-nav.js"></script>
 </head>
 <body>
@@ -19,13 +19,14 @@
   <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../">Home</a><a href="../research/" aria-current="page">Research</a><a href="../personal-statement/">Personal Statement</a><a href="../cv/">CV</a></nav></details>
 </div></header>
 <main id="main" class="research-main single-research">
-  <header class="research-page-heading research-detail-heading"><h1>Research</h1><div class="summary-prose"><p>I develop adaptive methods and parallel solvers for materials simulations, and tools to analyze their microstructures.</p></div></header>
+  <header class="research-page-heading research-detail-heading"><h1>Research</h1><div class="summary-prose"><p>I work on scientific computing and high-performance computing for large-scale physical simulations. I started with C++ phase-field and phase-field crystal solvers for dendritic growth and grain evolution, then moved to GPU acceleration, distributed FFTs, and adaptive Fourier-domain computation. I also develop tools that turn simulated density fields into information about defects, grain boundaries, and grain statistics.</p></div></header>
   <aside class="research-index-shell"><nav class="research-toc" aria-label="Research contents">
     <div class="toc-group"><p class="toc-group-label">Adaptive computing</p><a href="#dba">DBA · Prior work</a><a href="#spdba">sp-DBA</a>
       <div class="toc-applications"><a href="#spdba-pfc">PFC</a><a href="#coupled-fields">RCD</a><a href="#digital-backpropagation">DBP</a></div>
     </div>
     <div class="toc-group"><p class="toc-group-label">Parallel computing</p><a href="#distributed-fft">Distributed FFTs</a></div>
     <div class="toc-group"><p class="toc-group-label">Materials modeling</p><a href="#polycrystals">Crystal models &amp; analysis</a><a href="#solidification">Dendritic growth</a></div>
+    <a class="toc-record" href="./notes/">Research notes</a>
   </nav></aside>
   <div class="research-content">
 
@@ -62,6 +63,7 @@
         </section>
       </div>
     </div>
+    <p class="research-note-links"><a href="./notes/#adaptive-updates">Activation and validation notes →</a></p>
     <p id="manuscript-history" class="submission-history-link"><a href="./submission-history/">Submission history</a></p>
   </section>
 
@@ -74,6 +76,7 @@
 <figure class="section-figure state-exchange-figure"><a class="figure-link" href="../assets/images/distributed-state-exchange-s20.png"><img src="../assets/images/distributed-state-exchange-s20.png" alt="Figure S20: neighboring MPI ranks exchange block-state metadata, then coordinate local boundary decisions using imported state halos." width="2400" height="1350" loading="lazy" decoding="async"></a></figure>
       <div class="summary-prose"><p>Larger simulations can outgrow a single GPU’s memory. I implemented distributed FFTs for PFC by splitting the field into slabs across GPUs and combining local transforms with MPI redistribution. Neighboring ranks exchange block-state metadata to coordinate adaptive updates across slab boundaries. The full FFT/IFFT workflow and global redistribution remain in place.</p></div>
     </div>
+    <p class="research-note-links"><a href="./notes/#fft">FFT implementation notes →</a></p>
   </section>
 
   <section id="materials" class="research-group" aria-labelledby="materials-title">
@@ -90,16 +93,17 @@
         </ol><figcaption class="source-credit">Analysis workflow (schematic).</figcaption></figure>
 <figure class="section-figure"><a class="figure-link" href="../assets/images/xpfc-gsd-8192.png"><img src="../assets/images/xpfc-gsd-8192.png" alt="Normalized grain-size distributions from a separate 8192-squared XPFC example, illustrating the statistical analysis workflow." width="1010" height="966" loading="lazy" decoding="async"></a><figcaption class="source-credit">Grain-size distributions · A separate 8192² XPFC example.</figcaption></figure>
       </div>
-      <div class="section-copy summary-prose"><p>To turn simulated density fields into grain statistics, I extract density peaks, calculate local orientations from sixfold bond order, and export in-plane quaternions for inspection in OVITO. My periodic region-growing code segments grains and measures their areas, equivalent diameters, and size distributions.</p></div>
+      <div class="section-copy summary-prose"><p>I use PFC setups ranging from polycrystals to a small-angle circular grain boundary to examine grain evolution and defects. For larger fields, I extract density peaks, calculate local orientations from sixfold bond order, and export in-plane quaternions for inspection in OVITO. My periodic region-growing code measures grain areas, equivalent diameters, and size distributions.</p></div>
+      <p class="research-note-links"><a href="./notes/#grain-boundaries">Grain-boundary and analysis notes →</a></p>
       <section id="amplitude-models" class="research-example material-model" aria-labelledby="amplitude-models-title"><h3 id="amplitude-models-title">Amplitude phase-field crystal (APFC)</h3>
-        <div class="section-copy summary-prose"><p>APFC describes crystal patterns through complex amplitudes. I implemented two-dimensional solvers using three amplitudes, reconstructed the density field, and developed CPU/FFTW and CUDA/cuFFT versions.</p></div>
+        <div class="section-copy summary-prose"><p>APFC describes crystal patterns through complex amplitudes. I implemented two-dimensional solvers using three amplitudes, reconstructed the density field, and developed CPU/FFTW and CUDA/cuFFT versions. I also tested how seed initialization, phase consistency, and smoothing affected the reconstructed crystal pattern.</p></div>
       </section>
     </section>
     <div id="material-solvers">
       <section id="solidification" class="research-example material-model" aria-labelledby="solidification-title"><h3 id="solidification-title">Phase-field (PF) modeling</h3><p class="application-field">Three-dimensional dendritic growth</p>
         <div class="mechanism-row">
 <figure class="section-figure"><a class="figure-link" href="../assets/images/pf-dendrite-self.jpg"><img src="../assets/images/pf-dendrite-self.jpg" alt="A three-dimensional dendrite from my early phase-field and temperature solver." width="1454" height="1216" loading="lazy" decoding="async"></a></figure>
-          <div class="summary-prose"><p>Phase-field models let a solid–liquid boundary emerge from continuous fields as a crystal grows. I built a three-dimensional solver coupling phase and temperature, using finite differences, and implemented CPU/OpenMP, MPI, and CUDA versions. The image shows an early dendritic-growth example.</p></div>
+          <div class="summary-prose"><p>Phase-field models let a solid–liquid boundary emerge from continuous fields as a crystal grows. I built a three-dimensional solver coupling phase and temperature, using finite differences, and implemented CPU/OpenMP, MPI, and CUDA versions. Parameter and initialization checks were part of this development; the image shows an early dendritic-growth example.</p></div>
         </div>
       </section>
     </div>

@@ -154,6 +154,11 @@ h3 { font-size: 18px; }
 .supporting-heading h2 { font-size: 28px; }
 .research-content { min-width: 0; padding-bottom: 62px; }
 .submission-history-link { margin: 12px 0 0; font-size: 16px; }
+.research-note-links { max-width: 720px; margin: 18px auto 0; font-size: 16px; }
+.research-toc .toc-record { margin-top: 18px; }
+.notes-detail-figure { max-width: 420px; }
+.notes-figure-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; align-items: center; }
+.notes-figure-pair > .figure-link { padding: 0; border: 0; }
 .history-main { min-height: calc(100svh - 157px); padding-bottom: 20px; }
 .section-copy { max-width: 720px; margin: 24px auto; }
 .section-figure { margin: 26px auto; width: 100%; }
@@ -264,6 +269,7 @@ figcaption a { white-space: normal; margin-left: 4px; }
   .toc-applications a { font-size: 13px; padding-block: 4px; }
 }
 @media (max-width: 900px) {
+  .notes-figure-pair { grid-template-columns: minmax(0,1fr); max-width: 460px; margin-inline: auto; }
   .pfc-analysis-figures .figure-link, .pfc-analysis-figures .figure-placeholder { height: auto; }
   .pfc-analysis-figures .figure-placeholder { min-height: 210px; }
   .pfc-analysis-figures img { height: auto; }
