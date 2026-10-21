@@ -19,7 +19,7 @@
   <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../">Home</a><a href="../research/" aria-current="page">Research</a><a href="../personal-statement/">Personal Statement</a><a href="../cv/">CV</a></nav></details>
 </div></header>
 <main id="main" class="research-main single-research">
-  <header class="research-page-heading research-detail-heading"><h1>Research</h1><div class="summary-prose"><p>My research connects adaptive scientific computing with computational materials. I develop methods for repeated Fourier-domain calculations, implement parallel solvers, and analyze the resulting microstructures.</p></div></header>
+  <header class="research-page-heading research-detail-heading"><h1>Research</h1><div class="summary-prose"><p>I develop adaptive methods and parallel solvers for materials simulations, and tools to analyze their microstructures.</p></div></header>
   <aside class="research-index-shell"><nav class="research-toc" aria-label="Research contents">
     <div class="toc-group"><p class="toc-group-label">Adaptive computing</p><a href="#dba">DBA · Prior work</a><a href="#spdba">sp-DBA</a>
       <div class="toc-applications"><a href="#spdba-pfc">PFC</a><a href="#coupled-fields">RCD</a><a href="#digital-backpropagation">DBP</a></div>
@@ -30,8 +30,8 @@
   <div class="research-content">
 
   <section id="dba" class="research-group" aria-labelledby="dba-title">
-    <header class="research-group-heading"><h2 id="dba-title">DBA</h2></header>
-    <div class="section-copy summary-prose"><p>Dynamic block activation (DBA), developed by Ruoyao Zhang and Yang Xia, activates computation near evolving features such as solid–liquid interfaces and reduces work in quieter regions. Its software–hardware co-design maps numerical blocks to GPU thread blocks and stores activation parameters in shared memory, keeping threads on a common execution path. By overlapping boundary communication with computation, the reported dendritic-growth tests achieved near-ideal strong and weak scaling on up to 32 GPUs.</p></div>
+    <header class="research-group-heading"><h2 id="dba-title">DBA · Prior work</h2></header>
+    <div class="section-copy summary-prose"><p>A growing crystal changes most near its solid–liquid interface. Dynamic block activation (DBA), developed by Ruoyao Zhang and Yang Xia, concentrates computation around such evolving regions. Its blocks match GPU execution, with activation states held in shared memory. Overlapping communication with computation enabled near-ideal scaling to 32 GPUs in the paper’s dendritic-growth tests. This real-space approach is the starting point for sp-DBA.</p></div>
 <figure class="section-figure"><a class="figure-link" href="../assets/images/dba-figure-2-complete.png"><img src="../assets/images/dba-figure-2-complete.png" alt="Zhang and Xia (2025), complete Figure 2a–c: dendritic growth, active blocks for the phase field and temperature, and a 16-GPU simulation of 200 nuclei." width="1760" height="1024" loading="lazy" decoding="async"></a><figcaption class="source-credit">Dendritic growth and field-specific active blocks · Figure 2a–c, <a href="https://www.nature.com/articles/s43588-025-00780-2">Zhang &amp; Xia, Nature Computational Science (2025)</a>.</figcaption></figure>
   </section>
 
@@ -39,31 +39,29 @@
   <section id="adaptive-computing" class="research-group" aria-labelledby="spdba">
     <header class="research-group-heading"><h2 id="spdba">sp-DBA</h2></header>
     <div class="section-copy summary-prose spdba-intro">
-      <p>DBA brings adaptivity to real-space simulations. Extending it to Fourier space is less direct: each mode spans the whole physical domain, so local activation rules cannot simply be reused. I led the design and implementation of sp-DBA with my advisor, Prof. Yang Xia, to make transform-domain workflows adaptive while retaining established solvers.</p>
-      <p>The framework matches GPU execution, complements optimized transforms, preserves existing numerical methods, and is simple to integrate. We demonstrated it in <a href="#spdba-pfc">phase-field crystal (PFC)</a> models of crystalline materials, <a href="#coupled-fields">reaction–cross-diffusion (RCD)</a> models of biological pattern formation, and <a href="#digital-backpropagation">digital backpropagation (DBP)</a> for optical communications.</p>
-      <p>With eigendecomposition, sp-DBA achieved up to <strong>28.1×</strong> faster RCD updates than direct-matrix Regular. Controlled Gaussian-wave-packet DBP tests reached <strong>8.4×</strong> overall acceleration over full-update Regular.</p>
+      <p>Fourier pseudo-spectral solvers use fast Fourier transforms (FFTs) to move between real space and Fourier space. DBA’s local activation rules cannot be transferred directly, because each Fourier mode describes structure across the whole domain. I led the design and implementation of sp-DBA with my advisor, Prof. Yang Xia, to bring adaptive computation into these established workflows.</p>
+      <p>The framework selects which blocks of the transformed field need updating as a simulation evolves. It follows GPU blockwise execution, works alongside optimized transforms, preserves existing equations and numerical methods, and needs only limited solver-specific changes. We demonstrated it in <a href="#spdba-pfc">phase-field crystal (PFC)</a> models of materials, <a href="#coupled-fields">reaction–cross-diffusion (RCD)</a> models of biological patterns, and <a href="#digital-backpropagation">digital backpropagation (DBP)</a> for optical communications.</p>
     </div>
-    <div class="section-copy summary-prose spectral-workflow"><p>For periodic problems, pseudo-spectral solvers use fast Fourier transforms (FFTs) to move between real space and Fourier space. Nonlinear terms are evaluated in real space; spatial derivatives become multiplications in Fourier space. sp-DBA adapts the transformed-field updates between transforms.</p></div>
+    <p class="research-publication"><strong>Jingkun Jiang</strong>, Pingchuan Deng, and Yang Xia. <a href="https://arxiv.org/abs/2609.03922">sp-DBA: a general framework for adaptive transform-domain computation.</a> Preprint (2026).</p>
     <figure class="section-figure framework-figure"><a class="figure-link" href="../assets/images/spdba-figure-1.png"><img src="../assets/images/spdba-figure-1.png" alt="sp-DBA overview, Figure 1a–c: transformed fields are divided into active, transition and frozen blocks; adaptive updates sit between the forward and inverse transforms; each block maps to a common GPU execution path." width="1800" height="1926" loading="lazy" decoding="async"></a><figcaption class="source-credit">sp-DBA · Data, workflow, and GPU execution. Figure 1a–c.</figcaption></figure>
     <div id="applications" class="spdba-applications">
       <section id="spdba-pfc" class="research-example" aria-labelledby="spdba-pfc-title"><h3 id="spdba-pfc-title">Phase-field crystal (PFC)</h3><p class="application-field">Materials science · Polycrystalline coarsening</p>
-        <div class="section-copy summary-prose application-context"><p>PFC models describe a crystal through a continuous density field whose peaks resolve atomic-scale lattice order. High-order spatial terms and periodic lattice order make Fourier pseudo-spectral methods a natural choice. In the structural PFC (XPFC) example below, strong Fourier amplitudes concentrate in narrow rings associated with the lattice spacing. sp-DBA focuses updates around these bands as grains and their boundaries evolve.</p></div>
+        <div class="section-copy summary-prose application-context"><p>PFC models follow crystal ordering through a continuous density field that resolves the atomic lattice. Their high-order spatial terms and periodic structure suit Fourier pseudo-spectral methods. In this structural PFC (XPFC) example, strong Fourier amplitudes cluster in narrow rings set by the lattice spacing. sp-DBA focuses updates around these bands as grains evolve.</p></div>
 <figure class="section-figure"><a class="figure-link" href="../assets/images/xpfc-figure-2a.png"><img src="../assets/images/xpfc-figure-2a.png" alt="XPFC crystal structures, Fourier amplitudes and spectral block states. Regular at time 10 and sp-DBA at times 100 and 10000 are different-time evolution snapshots." width="2655" height="1005" loading="lazy" decoding="async"></a><figcaption class="source-credit">Evolution snapshots · Regular at t = 10; sp-DBA at t = 100 and 10,000.</figcaption></figure>
       </section>
       <div class="application-stack">
         <section id="coupled-fields" class="research-example" aria-labelledby="rcd-title"><h3 id="rcd-title">Reaction–cross-diffusion (RCD)</h3><p class="application-field">Biological pattern formation</p>
-          <div class="summary-prose application-context"><p>Reaction–cross-diffusion (RCD) models describe how interacting components react and spread to form patterns. A component’s motion can depend on how the others vary across space. In this eight-component test, sp-DBA concentrates coupled updates in the Fourier bands where patterns develop.</p></div>
+          <div class="summary-prose application-context"><p>RCD models describe interacting components whose reactions and coupled diffusion produce patterns. sp-DBA concentrates updates in the relevant Fourier bands; the image shows an eight-component example. In a separate 48-component benchmark, sp-DBA with eigendecomposition achieved up to <strong>28.1×</strong> update-stage speedup over direct-matrix Regular.</p></div>
 <figure class="application-figure"><a class="figure-link" href="../assets/images/rcd-figure-3a.png"><img src="../assets/images/rcd-figure-3a.png" alt="Eight-component reaction–cross-diffusion morphology on a 256-cubed grid at 1000, 4000 and 20000 steps. Blue is sp-DBA; gray Regular wireframes appear at the latter two times." width="2410" height="992" loading="lazy" decoding="async"></a></figure>
 
         </section>
         <section id="digital-backpropagation" class="research-example" aria-labelledby="dbp-title"><h3 id="dbp-title">Digital backpropagation (DBP)</h3><p class="application-field">Optical communications</p>
-          <div class="summary-prose application-context"><p>Digital backpropagation (DBP) numerically reverses optical-signal propagation to compensate for distortion. In our controlled Gaussian-wave-packet tests, most signal power stays within narrow frequency bands. sp-DBA targets those bands during linear updates; nonlinear steps and FFT/IFFT operations remain unchanged.</p></div>
+          <div class="summary-prose application-context"><p>DBP aims to recover optical signals by numerically reversing their propagation through a fiber. In our controlled Gaussian-wave-packet tests, sp-DBA concentrates linear updates in the occupied frequency bands, while retaining nonlinear steps and FFT/IFFT operations. Overall speedup reached <strong>8.4×</strong> over full-update Regular.</p></div>
 <figure class="application-figure signal-figure"><a class="figure-link" href="../assets/images/dbp-figure-4ab.png"><img src="../assets/images/dbp-figure-4ab.png" alt="Digital backpropagation with controlled Gaussian wave packets: adaptive frequency-domain linear updates, signal recovery and spectral block states." width="2495" height="1540" loading="lazy" decoding="async"></a></figure>
 
         </section>
       </div>
     </div>
-    <p class="research-publication"><strong>Jingkun Jiang</strong>, Pingchuan Deng, and Yang Xia. <a href="https://arxiv.org/abs/2609.03922">sp-DBA: a general framework for adaptive transform-domain computation.</a> Preprint (2026).</p>
     <p id="manuscript-history" class="submission-history-link"><a href="./submission-history/">Submission history</a></p>
   </section>
 
@@ -74,14 +72,14 @@
     </div>
     <div class="mechanism-row distributed-mechanism">
 <figure class="section-figure state-exchange-figure"><a class="figure-link" href="../assets/images/distributed-state-exchange-s20.png"><img src="../assets/images/distributed-state-exchange-s20.png" alt="Figure S20: neighboring MPI ranks exchange block-state metadata, then coordinate local boundary decisions using imported state halos." width="2400" height="1350" loading="lazy" decoding="async"></a></figure>
-      <div class="summary-prose"><p>I implemented distributed FFTs for PFC by splitting the simulation field into slabs across GPUs. Each GPU performs local transforms; MPI redistributes data between stages. Neighboring ranks exchange block-state metadata to coordinate adaptive updates at slab boundaries. The complete FFT/IFFT workflow and global redistribution remain in place.</p></div>
+      <div class="summary-prose"><p>Larger simulations can outgrow a single GPU’s memory. I implemented distributed FFTs for PFC by splitting the field into slabs across GPUs and combining local transforms with MPI redistribution. Neighboring ranks exchange block-state metadata to coordinate adaptive updates across slab boundaries. The full FFT/IFFT workflow and global redistribution remain in place.</p></div>
     </div>
   </section>
 
   <section id="materials" class="research-group" aria-labelledby="materials-title">
     <header class="research-group-heading"><h2 id="materials-title">Computational Materials</h2></header>
     <section id="polycrystals" class="research-example" aria-labelledby="pfc-analysis-title"><h3 id="pfc-analysis-title">Phase-field crystal models</h3>
-      <div class="section-copy summary-prose"><p>I developed PFC, structural PFC (XPFC), and amplitude PFC (APFC) solvers for crystalline microstructure evolution. PFC/XPFC use Fourier pseudo-spectral discretization with fourth-order exponential time differencing (ETD4), implemented on CPUs and GPUs.</p></div>
+      <div class="section-copy summary-prose"><p>To study how crystals form and evolve, I developed PFC, structural PFC (XPFC), and amplitude PFC (APFC) solvers. The PFC/XPFC implementations use Fourier pseudo-spectral discretization and fourth-order exponential time differencing (ETD4), with CPU and GPU versions.</p></div>
       <div id="grain-analysis" class="pfc-analysis-figures">
 <figure class="section-figure"><a class="figure-link" href="../assets/images/pfc-polycrystal-density.png"><img src="../assets/images/pfc-polycrystal-density.png" alt="An early PFC polycrystalline density-field snapshot from my September 2025 presentation; a solver example without an inferred timestep or performance comparison." width="1280" height="1280" loading="lazy" decoding="async"></a><figcaption class="source-credit">PFC density field · A separate example from the XPFC statistics at right.</figcaption></figure>
         <figure class="section-figure"><ol class="grain-workflow" aria-label="Grain analysis workflow">
@@ -92,16 +90,16 @@
         </ol><figcaption class="source-credit">Analysis workflow (schematic).</figcaption></figure>
 <figure class="section-figure"><a class="figure-link" href="../assets/images/xpfc-gsd-8192.png"><img src="../assets/images/xpfc-gsd-8192.png" alt="Normalized grain-size distributions from a separate 8192-squared XPFC example, illustrating the statistical analysis workflow." width="1010" height="966" loading="lazy" decoding="async"></a><figcaption class="source-credit">Grain-size distributions · A separate 8192² XPFC example.</figcaption></figure>
       </div>
-      <div class="section-copy summary-prose"><p>I extract density peaks, calculate local orientations from sixfold bond order, and export particle data with in-plane quaternions for inspection in OVITO. My segmentation code uses periodic neighbors and region growing to measure grain areas, equivalent diameters, and size distributions.</p></div>
+      <div class="section-copy summary-prose"><p>To turn simulated density fields into grain statistics, I extract density peaks, calculate local orientations from sixfold bond order, and export in-plane quaternions for inspection in OVITO. My periodic region-growing code segments grains and measures their areas, equivalent diameters, and size distributions.</p></div>
       <section id="amplitude-models" class="research-example material-model" aria-labelledby="amplitude-models-title"><h3 id="amplitude-models-title">Amplitude phase-field crystal (APFC)</h3>
-        <div class="section-copy summary-prose"><p>I implemented two-dimensional APFC solvers with three complex amplitudes and reconstructed density fields, including CPU/FFTW and CUDA/cuFFT versions.</p></div>
+        <div class="section-copy summary-prose"><p>APFC describes crystal patterns through complex amplitudes. I implemented two-dimensional solvers using three amplitudes, reconstructed the density field, and developed CPU/FFTW and CUDA/cuFFT versions.</p></div>
       </section>
     </section>
     <div id="material-solvers">
       <section id="solidification" class="research-example material-model" aria-labelledby="solidification-title"><h3 id="solidification-title">Phase-field (PF) modeling</h3><p class="application-field">Three-dimensional dendritic growth</p>
         <div class="mechanism-row">
 <figure class="section-figure"><a class="figure-link" href="../assets/images/pf-dendrite-self.jpg"><img src="../assets/images/pf-dendrite-self.jpg" alt="A three-dimensional dendrite from my early phase-field and temperature solver." width="1454" height="1216" loading="lazy" decoding="async"></a></figure>
-          <div class="summary-prose"><p>Phase-field models describe a growing solid with a continuous field, so its moving boundary emerges from the equations. I implemented a three-dimensional solver coupling crystal phase and temperature, using finite differences with CPU/OpenMP, MPI, and CUDA versions. The image comes from early development.</p></div>
+          <div class="summary-prose"><p>Phase-field models let a solid–liquid boundary emerge from continuous fields as a crystal grows. I built a three-dimensional solver coupling phase and temperature, using finite differences, and implemented CPU/OpenMP, MPI, and CUDA versions. The image shows an early dendritic-growth example.</p></div>
         </div>
       </section>
     </div>
