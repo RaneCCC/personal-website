@@ -5,13 +5,6 @@
   font-display: swap;
   src: url("./fonts/montserrat-latin-700-800.woff2") format("woff2");
 }
-@font-face {
-  font-family: "Latin Modern Math";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./fonts/latinmodern-math.otf") format("opentype");
-}
 :root {
   color-scheme: light;
   --ink: #242c32;
@@ -472,6 +465,9 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   #pdf-scroll { height: auto; overflow: visible; padding: 0; }
 }
 
+.framework-benefits { margin: 0 0 16px; padding-left: 19px; }
+.framework-benefits li { padding-left: 3px; margin-bottom: 9px; }
+
 /* The Research overview stays brief; implementation details have their own pages. */
 .compact-research .research-page-heading { padding-top: 36px; }
 .compact-research .research-page-heading .summary-prose { margin-top: 16px; }
@@ -483,15 +479,13 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .overview-row .section-figure { margin: 0; }
 .compact-research .overview-row .summary-prose p { margin-bottom: 14px; }
 .compact-research .overview-row .summary-prose p:last-child { margin-bottom: 0; }
-.compact-research .dba-row, .compact-research .spdba-row, .compact-research .spdba-workflow-row { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); }
+.compact-research .dba-row, .compact-research .spdba-row { grid-template-columns: minmax(0,.43fr) minmax(0,.57fr); }
+.compact-research .spdba-workflow-row { grid-template-columns: minmax(0,.34fr) minmax(0,.66fr); }
 .compact-research .framework-figure .figure-link { display: flex; justify-content: center; }
 .compact-research .framework-figure img, .compact-research .workflow-detail-figure img { width: 100%; height: auto; }
 .compact-research .research-publication { margin-top: 14px; padding-top: 12px; font-size: 15px; line-height: 1.6; }
-.compact-research .publication-row { align-items: stretch; }
-.publication-row > .section-figure { display: flex; flex-direction: column; }
-.publication-row > .section-figure > .figure-link { margin-block: auto; }
-.publication-row .reference-column { display: flex; flex-direction: column; }
-.compact-research .overview-row .summary-prose .publication-note { margin: auto 0 0; padding-top: 18px; font-size: 14px; line-height: 1.65; color: var(--muted); }
+
+.compact-research .overview-row .summary-prose .publication-note { margin: 0; padding-top: 8px; font-size: 14px; line-height: 1.65; color: var(--muted); }
 .publication-note a { color: inherit; font-weight: 400; text-decoration: underline; text-decoration-color: #c8cccf; text-underline-offset: 3px; }
 .publication-note a:hover { color: var(--accent); }
 .compact-research .research-example { margin-top: 26px; }
@@ -499,12 +493,12 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .application-field { font-size: 15px; margin: 0 0 14px; }
 .compact-research .application-context p { margin-bottom: 14px; }
 .compact-research .pfc-application-figure { max-width: 720px; margin-block: 18px; }
-.compact-research .application-row { grid-template-columns: minmax(0,.62fr) minmax(0,.38fr); }
+.compact-research .application-row, .compact-research .fft-overview-row { grid-template-columns: minmax(0,.48fr) minmax(0,.52fr); }
 .compact-research .application-row img { width: 100%; height: auto; }
 .compact-research .research-note-links { margin: 12px 0 0; font-size: 15px; }
 .detail-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; margin-top: 16px; }
 .compact-research .grain-workflow-figure { max-width: 720px; margin-block: 18px; }
-.compact-research .grain-case { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); gap: 24px; margin-top: 18px; }
+.compact-research .grain-case { grid-template-columns: minmax(0,.43fr) minmax(0,.57fr); gap: 24px; margin-top: 18px; }
 .compact-research .model-summaries { gap: 28px; margin-top: 30px; }
 .compact-research .model-summaries h3 { min-height: 62px; font-size: 22px; }
 .compact-research .model-summaries .figure-link { height: 220px; }
@@ -514,14 +508,14 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .section-copy { margin-block: 16px; }
 .model-equation { margin: 16px 0; padding: 16px 0 12px; border-block: 1px solid var(--rule); text-align: center; }
 .equation-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 28px; min-width: 0; }
-.model-equation math { font-family: "Latin Modern Math", serif; font-size: 20px; margin: 0; }
-.math-expression > .math-narrow { display: none; }
-.model-equation .equation-note { margin: 8px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+/* Math is typeset once with LaTeX and exported as SVG paths. */
+.equation-expression { min-width: 0; max-width: 100%; }
+.equation-expression picture { display: block; }
+.model-equation .equation-image { width: var(--equation-width); max-width: 100%; height: auto; margin-inline: auto; }
+.model-equation .equation-note { margin: 12px auto 0; max-width: 76ch; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.equation-note var { font-family: "Times New Roman", serif; }
 .model-summaries .model-equation { margin-top: 2px; }
-.model-summaries .model-equation math { font-size: 19px; }
-.pfc-equations math, .rcd-equations math, .dbp-equations math, .pf-equations math { font-size: 18px; }
-.dbp-equations .equation-row { gap: 18px 22px; }
-.equation-stack .equation-row { flex-direction: column; gap: 20px; }
+.equation-stack .equation-row { flex-direction: column; gap: 18px; }
 .detail-main { max-width: 960px; margin: 0 auto; padding: 36px 48px 56px; }
 .detail-heading { border-bottom: 2px solid var(--rule); padding-bottom: 20px; margin-bottom: 24px; }
 .detail-heading h1 { font-size: clamp(30px,4vw,38px); }
@@ -533,24 +527,23 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 @media (max-width: 900px) {
   .compact-research .overview-row, .compact-research .grain-case { grid-template-columns: minmax(0,1fr); gap: 18px; }
   .compact-research .dba-row .section-figure { max-width: 430px; margin-inline: auto; }
-  .compact-research .spdba-row .framework-figure, .compact-research .spdba-workflow-row .workflow-detail-figure { max-width: 520px; margin-inline: auto; }
-  .compact-research .application-row .section-figure { max-width: 560px; margin-inline: auto; }
+  .compact-research .spdba-row .framework-figure, .compact-research .spdba-workflow-row .workflow-detail-figure { max-width: 440px; margin-inline: auto; }
+  .compact-research .application-row .section-figure { max-width: 500px; margin-inline: auto; }
   .compact-research .grain-case { max-width: 560px; }
   .compact-research .model-summaries h3 { min-height: 0; }
   .compact-research .model-summaries .figure-link { height: auto; }
   .compact-research .model-summaries img { max-height: none; }
-  .model-equation math, .model-summaries .model-equation math { font-size: 18px; }
+
   .model-equation .equation-row { gap: 18px 24px; }
   .detail-main { padding-inline: 36px; }
 }
 @media (max-width: 700px) {
   .detail-main { padding: 28px 26px 44px; }
-  .math-expression > .math-wide { display: none; }
-  .math-expression > .math-narrow { display: block; }
+  .model-equation .equation-image { width: calc(var(--equation-narrow-width) * .9); }
   .compact-research .research-group-heading h2 { font-size: 27px; }
   .compact-research .research-example > h3 { font-size: 23px; }
 }
 @media (max-width: 359px) {
   .detail-main { padding-inline: 20px; }
-  .model-equation math, .model-summaries .model-equation math { font-size: 16px; }
+
 }
