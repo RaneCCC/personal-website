@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>PF · Dendritic growth | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=research-equations-24">
+  <link rel="stylesheet" href="../../assets/site.css?v=research-background-25">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -20,28 +20,29 @@
 <main id="main" class="detail-main">
   <header class="detail-heading"><p class="detail-back"><a href="../#solidification">← Research</a></p><h1 id="pf-development-title">PF · Dendritic growth</h1></header>
   <article id="pf-development" class="detail-content" aria-labelledby="pf-development-title">
-<div class="section-copy summary-prose">
+<div class="model-equation pf-equations" role="group" aria-label="Kobayashi coupled phase and temperature model"><div class="equation-row"><div class="math-expression"><math class="math-wide" xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Kobayashi phase evolution"><semantics><mrow><mi>τ</mi><mfrac><mrow><mo>∂</mo><mi>p</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>=</mo><msup><mi>ε</mi><mn>2</mn></msup><msup><mo>∇</mo><mn>2</mn></msup><mi>p</mi><mo>+</mo><mi>p</mi><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><mo>)</mo></mrow><mrow><mo>[</mo><mrow><mi>p</mi><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>+</mo><mrow><mi>m</mi><mrow><mo>(</mo><mrow><mi>T</mi><mo>,</mo><mo>−</mo><mo>∇</mo><mi>p</mi></mrow><mo>)</mo></mrow></mrow></mrow><mo>]</mo></mrow></mrow><annotation encoding="application/x-tex">\tau\partial_t p=\epsilon^2\nabla^2p+p(1-p)[p-\frac12+m(T,-\nabla p)]</annotation></semantics></math><math class="math-narrow" xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Kobayashi phase evolution — compact line layout"><semantics><mtable columnalign="left" rowspacing="0.4em"><mtr><mtd><mrow><mi>τ</mi><mfrac><mrow><mo>∂</mo><mi>p</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>=</mo><msup><mi>ε</mi><mn>2</mn></msup><msup><mo>∇</mo><mn>2</mn></msup><mi>p</mi></mrow></mtd></mtr><mtr><mtd><mrow><mo>+</mo><mi>p</mi><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow><mo>)</mo></mrow><mrow><mo>[</mo><mrow><mi>p</mi><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>+</mo><mrow><mi>m</mi><mrow><mo>(</mo><mrow><mi>T</mi><mo>,</mo><mo>−</mo><mo>∇</mo><mi>p</mi></mrow><mo>)</mo></mrow></mrow></mrow><mo>]</mo></mrow></mrow></mtd></mtr></mtable></semantics></math></div><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Temperature and latent heat coupling"><semantics><mrow><mfrac><mrow><mo>∂</mo><mi>T</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>=</mo><msup><mo>∇</mo><mn>2</mn></msup><mi>T</mi><mo>+</mo><mfrac><mrow><mo>∂</mo><mi>p</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\partial_tT=\nabla^2T+\partial_t p</annotation></semantics></math></div><p class="equation-note">Kobayashi’s three-dimensional model: p is the phase field and T is temperature; anisotropy enters m.</p></div><div class="model-equation equation-stack" role="group" aria-label="Directional driving and cubic anisotropy in the implemented Kobayashi model"><div class="equation-row"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Temperature dependent driving"><semantics><mrow><mi>m</mi><mrow><mo>(</mo><mrow><mi>T</mi><mo>,</mo><mi mathvariant="normal">𝐯</mi></mrow><mo>)</mo></mrow><mo>=</mo><mo>−</mo><mfrac><mi>α</mi><mi>π</mi></mfrac><mi mathvariant="normal">arctan</mi><mrow><mo>[</mo><mrow><mi>γ</mi><mi>σ</mi><mrow><mo>(</mo><mi mathvariant="normal">𝐯</mi><mo>)</mo></mrow><mi>T</mi></mrow><mo>]</mo></mrow></mrow></semantics></math><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Cubic anisotropy"><semantics><mrow><mi>σ</mi><mrow><mo>(</mo><mi mathvariant="normal">𝐯</mi><mo>)</mo></mrow><mo>=</mo><mn>1</mn><mo>−</mo><mi>δ</mi><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>3</mn></munderover><msup><msub><mi>v</mi><mi>i</mi></msub><mn>4</mn></msup></mrow><msup><mrow><mo>(</mo><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>3</mn></munderover><msup><msub><mi>v</mi><mi>i</mi></msub><mn>2</mn></msup></mrow><mo>)</mo></mrow><mn>2</mn></msup></mfrac></mrow><mo>)</mo></mrow></mrow></semantics></math><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Interface direction"><semantics><mrow><mi mathvariant="normal">𝐯</mi><mo>=</mo><mo>−</mo><mo>∇</mo><mi>p</mi></mrow></semantics></math></div><p class="equation-note">p = 0 is liquid and p = 1 is solid. γ controls temperature sensitivity and δ controls cubic anisotropy. My code uses σ = 1 at vanishing gradients.</p></div><div class="section-copy summary-prose">
       <p>A plausible dendrite shape was only a starting point. I varied anisotropy, undercooling, temperature-related parameters, and seed size while inspecting the coupled phase and temperature fields. I also reorganized the finite-difference loops and memory layout before building parallel versions. These snapshots record how the developing morphology responded to those choices.</p>
       </div>
       <figure class="section-figure">
       <a class="figure-link" href="../../pictures/research/pf_main.png"><img src="../../pictures/research/pf_main.png" alt="Phase-field development comparison at the anisotropy delta settings shown in the original image." width="2638" height="1074" loading="lazy" decoding="async"></a>
-      <figcaption>Anisotropy comparison · Original settings and views retained.</figcaption>
+      <figcaption>Three-dimensional phase-field dendrites at anisotropy settings δ = 0.15, 0.25, 0.4, and 0.8. Each column shows two views of the same case, making the change in branching and tip shape easier to compare.</figcaption>
       </figure>
       <figure class="section-figure">
 <a class="figure-link" href="../../pictures/research/pf_gamma.png"><img src="../../pictures/research/pf_gamma.png" alt="Complete phase-field morphology comparison at the three labeled gamma settings, with two views of each case." width="2270" height="1174" loading="lazy" decoding="async"></a>
-<figcaption>Temperature-related parameter comparison · Labeled γ settings.</figcaption>
+<figcaption>Three-dimensional phase-field morphology for the labeled γ settings, 30, 40, and 50. The upper and lower rows give two views of each case, showing how the developing dendrite changes across these parameter tests.</figcaption>
 </figure>
       <details class="notes-extra">
       <summary>Seed-size and undercooling comparisons</summary>
       <figure class="section-figure">
       <a class="figure-link" href="../../pictures/research/pf_seed_size.png"><img src="../../pictures/research/pf_seed_size.png" alt="Phase-field development snapshots comparing initial seed sizes." width="2806" height="960" loading="lazy" decoding="async"></a>
-      <figcaption>Initial seed-size comparison.</figcaption>
+      <figcaption>Phase-field seed-size tests with the five initial settings labeled above the columns (0.10–1.00). Paired views show the resulting three-dimensional morphologies, including differences near the initial seed and along the dendritic branches.</figcaption>
       </figure>
       <figure class="section-figure">
       <a class="figure-link" href="../../pictures/research/pf_undercooling.png"><img src="../../pictures/research/pf_undercooling.png" alt="Phase-field development comparison at the undercooling Delta settings labeled in the source." width="2582" height="1086" loading="lazy" decoding="async"></a>
-      <figcaption>Undercooling comparison.</figcaption>
+      <figcaption>Phase-field dendrites for the labeled undercooling settings 0.20, 0.25, 0.30, and 0.35. Two views of each case show how the developing three-dimensional branching pattern changes across the parameter comparison.</figcaption>
       </figure>
       </details>
+<p class="model-references">Model: Ryo Kobayashi. <a href="https://doi.org/10.1080/10586458.1994.10504577">A Numerical Approach to Three-Dimensional Dendritic Solidification.</a> <i>Experimental Mathematics</i> 3(1), 59–81 (1994).</p>
   </article>
 </main>
 </body>

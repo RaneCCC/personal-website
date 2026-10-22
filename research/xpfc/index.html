@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>XPFC · Real and Fourier space | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=research-equations-24">
+  <link rel="stylesheet" href="../../assets/site.css?v=research-background-25">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -20,19 +20,19 @@
 <main id="main" class="detail-main">
   <header class="detail-heading"><p class="detail-back"><a href="../#structural-models">← Research</a></p><h1 id="xpfc-development-title">XPFC · Real and Fourier space</h1></header>
   <article id="xpfc-development" class="detail-content" aria-labelledby="xpfc-development-title">
-<div class="section-copy summary-prose">
+<div class="model-equation equation-stack" role="group" aria-label="XPFC nonlocal correlation"><div class="equation-row"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Nonlocal XPFC evolution"><semantics><mrow><mfrac><mrow><mo>∂</mo><mi>ψ</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>=</mo><msup><mo>∇</mo><mn>2</mn></msup><mrow><mo>[</mo><mrow><mi>ψ</mi><mo>−</mo><msub><mi>C</mi><mn>2</mn></msub><mo>∗</mo><mi>ψ</mi><mo>−</mo><mfrac><mi>ω</mi><mn>2</mn></mfrac><msup><mi>ψ</mi><mn>2</mn></msup><mo>+</mo><mfrac><mi>u</mi><mn>3</mn></mfrac><msup><mi>ψ</mi><mn>3</mn></msup></mrow><mo>]</mo></mrow></mrow></semantics></math><math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="Definition of correlation convolution"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub><mo>∗</mo><mi>ψ</mi><mo>=</mo><mo>∫</mo><msub><mi>C</mi><mn>2</mn></msub><mrow><mo>(</mo><mrow><mo>|</mo><mrow><mi mathvariant="normal">𝐫</mi><mo>−</mo><mrow><mi mathvariant="normal">𝐫</mi><mo>′</mo></mrow></mrow><mo>|</mo></mrow><mo>)</mo></mrow><mi>ψ</mi><mrow><mo>(</mo><mrow><mi mathvariant="normal">𝐫</mi><mo>′</mo></mrow><mo>)</mo></mrow><mi>d</mi><mrow><mi mathvariant="normal">𝐫</mi><mo>′</mo></mrow></mrow></semantics></math></div><p class="equation-note">The convolution and ω/u notation match the nonlocal model in our preprint.</p></div><div class="section-copy summary-prose">
       <p>In XPFC, changing the model changes which lattice spacings the free energy favors. The nonlocal term becomes a multiplication by a correlation kernel in Fourier space. I compared density fields, Fourier-space views, and line cuts for different lattice setups and parameter settings. These paired views helped me inspect the solver’s response to the model. The montage pairs density fields with Fourier-space fields and line cuts, including two-dimensional and projected lattice cases.</p>
       </div>
       <figure class="section-figure">
       <a class="figure-link" href="../../pictures/research/xpfc_details.png"><img src="../../pictures/research/xpfc_details.png" alt="Complete exploratory XPFC montage: real-space density, Fourier-space fields, and line cuts for two-dimensional and projected lattice cases." width="2464" height="1310" loading="lazy" decoding="async"></a>
-      <figcaption>Density fields, Fourier-space views, and line cuts · Original lattice-case labels retained.</figcaption>
+      <figcaption>Exploratory XPFC lattice tests. Each column shows real-space density (top), the displayed real part of the Fourier field (middle), and a spectral line cut (bottom). Labels retain the original two-dimensional and projected-lattice descriptions.</figcaption>
       </figure>
       <div class="section-copy summary-prose">
       <p>I also compared the labeled α settings at several stages of polycrystalline evolution. The paired real-space and Fourier-space views made changes in the developing patterns easier to inspect.</p>
       </div>
       <figure class="section-figure">
       <a class="figure-link" href="../../pictures/research/xpfc_alpha.png"><img src="../../pictures/research/xpfc_alpha.png" alt="Complete real-space and Fourier-space XPFC diagnostic montage across the labeled alpha settings and stages." width="2832" height="1610" loading="lazy" decoding="async"></a>
-      <figcaption>Exploratory α comparison · Original settings and stage labels retained.</figcaption>
+      <figcaption>XPFC comparison at α = 0.1, 0.4, 0.8, and 2.0, with snapshots labeled 0, 6,000, 8,000, and 20,000. Within each group, density fields, Fourier-space views, and line cuts are aligned by parameter setting to show the developing patterns.</figcaption>
       </figure>
       <p class="model-references">Model background: <a href="https://doi.org/10.1103/PhysRevE.83.031601">Greenwood, Rottler &amp; Provatas (2011)</a>.</p>
   </article>
