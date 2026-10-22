@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#b31a1b">
   <title>Research notes | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=fft-grains-21">
-  <script type="module" src="../../assets/research-nav.js?v=fft-grains-21"></script>
+  <link rel="stylesheet" href="../../assets/site.css?v=materials-white-22">
+  <script type="module" src="../../assets/research-nav.js?v=materials-white-22"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -21,7 +21,7 @@
 <main id="main" class="research-main single-research notes-main">
   <header class="research-page-heading research-detail-heading"><p class="research-breadcrumb"><a href="../">Research</a></p><h1>Research notes</h1><div class="summary-prose"><p>Much of this work happened between the first working solver and the current manuscript. These notes follow a few of those steps: building solvers, implementing FFTs, and turning density fields into information about grains and defects.</p></div></header>
   <aside class="research-index-shell"><nav class="research-toc" aria-label="Research notes contents">
-    <div class="toc-group"><a href="#solvers">Material solvers</a><div class="toc-applications"><a href="#pf-development">PF</a><a href="#apfc-development">APFC</a><a href="#xpfc-development">XPFC</a></div><a href="#fft">FFT practice</a><a href="#grain-boundaries">Grains &amp; defects</a><a href="#adaptive-updates">Adaptive updates</a></div>
+    <div class="toc-group"><a href="#solvers">Material solvers</a><div class="toc-applications"><a href="#pf-development">PF · Dendritic growth</a><a href="#apfc-development">APFC &amp; XPFC</a></div><a href="#fft">FFT practice</a><a href="#grain-boundaries">Grains &amp; defects</a><a href="#adaptive-updates">Adaptive updates</a></div>
   </nav></aside>
   <div class="research-content">
     <section id="solvers" class="research-group" aria-labelledby="solvers-title">
@@ -30,7 +30,7 @@
       <p>I started with coupled phase and temperature fields, then worked with atomic-periodic densities and complex amplitudes. These development views show the checks behind the solvers: how a seed is initialized, which quantities are inspected, and what changes when the model settings change.</p>
       </div>
       <section id="pf-development" class="research-example" aria-labelledby="pf-development-title">
-      <h3 id="pf-development-title">PF · Parameters and initialization</h3>
+      <h3 id="pf-development-title">PF · Dendritic growth</h3>
       <div class="section-copy summary-prose">
       <p>A plausible dendrite shape was only a starting point. I varied anisotropy, undercooling, temperature-related parameters, and seed size while inspecting the coupled phase and temperature fields. I also reorganized the finite-difference loops and memory layout before building parallel versions. These snapshots record how the developing morphology responded to those choices.</p>
       </div>
@@ -103,8 +103,14 @@
       <header class="research-group-heading"><h2 id="fft-title">FFT practice</h2></header>
       <div class="section-copy summary-prose"><p>Writing an FFT helped me understand the transform I was using in my solvers. Moving it across GPUs then made memory layout and communication just as important as the arithmetic.</p></div>
       <h3 class="notes-subheading">Cooley–Tukey implementation</h3>
-      <div class="section-copy summary-prose"><p>I wrote a small FFT library around Cooley–Tukey decomposition, working through recursive and iterative versions, bit-reversal indexing, and precomputed twiddle factors. I compared it with FFTW and examined temporary buffers and memory contiguity. The handwritten notes below show part of that process: roots of unity, even–odd decomposition, and how the smaller transforms fit together.</p></div>
+      <div class="section-copy summary-prose"><p>An early idea behind sp-DBA was to apply DBA-style activation to Fourier-space updates. I wanted to understand the transform inside my PFC solver, so I wrote the FFT library used in its first CPU version. What drew me in was how Cooley–Tukey breaks a large transform into smaller ones that fit together so neatly.</p><p>I started with a recursive implementation, then worked on iterative butterflies, bit-reversal reordering, precomputed twiddle factors, and memory layout. In my early CPU tests, the optimized implementation came close to FFTW on the larger power-of-two two-dimensional grids I tested. Working through these versions helped me connect the mathematics of the transform with the cost of moving and accessing data.</p></div>
+      <div class="fft-figure-slots" aria-label="Reserved illustrations for FFT implementation">
+        <figure class="section-figure"><div class="figure-slot fft-figure-slot" role="img" aria-label="Reserved figure: FFT within the PFC solver"></div><figcaption>FFT within the PFC solver</figcaption></figure>
+        <figure class="section-figure"><div class="figure-slot fft-figure-slot" role="img" aria-label="Reserved figure: recursive decomposition and iterative FFT implementation"></div><figcaption>From recursive to iterative FFT</figcaption></figure>
+      </div>
+      <details class="notes-extra fft-working-notes"><summary>Handwritten working notes</summary>
       <figure class="section-figure fft-notes-figure"><a class="figure-link" href="../../assets/images/fft-working-notes.jpg"><img src="../../assets/images/fft-working-notes.jpg" alt="Handwritten working notes on roots of unity, even–odd polynomial decomposition, and the FFT." width="4032" height="3024" loading="lazy" decoding="async"></a><figcaption>Working notes · Cooley–Tukey decomposition.</figcaption></figure>
+      </details>
       <h3 id="distributed-practice" class="notes-subheading">Distributed FFTs</h3>
       <div class="section-copy summary-prose"><p>For larger PFC fields, I implemented a slab-decomposed workflow combining local cuFFT transforms with packing, MPI redistribution, and unpacking. This separates the local arithmetic from the data movement needed for a global transform. The workflow below retains the full FFT/IFFT and redistribution stages.</p></div>
       <figure class="section-figure"><a class="figure-link" href="../../assets/images/distributed-workflow-s18.png"><img src="../../assets/images/distributed-workflow-s18.png" alt="Figure S18: local slabs, distributed FFT, local blocks with MPI state halos, adaptive updates and distributed inverse FFT. Global transpose and all-to-all communication remain." width="2400" height="1113" loading="lazy" decoding="async"></a></figure>
@@ -114,7 +120,7 @@
     </section>
     <section id="grain-boundaries" class="research-group" aria-labelledby="grain-boundaries-title">
       <header class="research-group-heading"><h2 id="grain-boundaries-title">From density fields to grain statistics</h2></header>
-      <div class="section-copy summary-prose"><p>A PFC simulation gives me a continuous field. To measure grains in a single atomic layer, I need to turn that field into particles, assign in-plane orientations, and group the particles into grains. The same particle dump supports two paths: Python analysis and visual inspection in OVITO.</p></div>
+      <div class="section-copy summary-prose"><p>A PFC simulation gives me a continuous field. To measure grains in a single atomic layer, I need to turn that field into particles, assign in-plane orientations, and group the particles into grains. The same particle dump supports two paths: Python analysis and visual inspection in OVITO. In the overview figure, particle colors show local orientation rather than grain identity.</p></div>
       <ol id="grain-statistics-workflow" class="analysis-route">
         <li><h3>Inspect the field and extract atoms</h3><p>I inspect the real-space density field in ParaView. My C++/CUDA routines locate density maxima, turning the periodic field into discrete particle positions while retaining a density value for each peak.</p></li>
         <li><h3>Compute orientations and write a dump</h3><p>For this monolayer workflow, I calculate in-plane orientation myself from sixfold bond order. I export the positions, density, orientation angle, and a quaternion representing rotation about the layer normal in a LAMMPS-style dump. This supplies the orientation explicitly rather than relying on a bulk three-dimensional structure-identification step.</p></li>

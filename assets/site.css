@@ -200,6 +200,15 @@ h3 { font-size: 18px; }
 .grain-media .figure-link { padding: 0; border: 0; width: 100%; }
 .grain-media img { width: 100%; height: auto; }
 .figure-slot { border: 1px solid var(--line); background: #fafbfc; }
+.grain-overview { scroll-margin-top: 98px; }
+.grain-case { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 32px; align-items: center; margin-top: 28px; }
+.grain-case .section-figure { margin: 0; min-width: 0; }
+.grain-case video { display: block; width: 100%; height: auto; }
+.grain-case .summary-prose p { margin: 0; }
+.fft-figure-slots { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.fft-figure-slots .section-figure { min-width: 0; margin: 24px 0; }
+.fft-figure-slot { aspect-ratio: 16 / 10; }
+.fft-working-notes { margin-top: 12px; }
 .notes-subheading { font: 700 23px/1.4 var(--display); margin-top: 34px; }
 .fft-notes-figure { max-width: 720px; }
 .analysis-route { max-width: 720px; margin: 30px auto; padding-left: 28px; scroll-margin-top: 98px; }
@@ -302,6 +311,9 @@ figcaption a { white-space: normal; margin-left: 4px; }
   .toc-applications a { font-size: 13px; padding-block: 4px; }
 }
 @media (max-width: 900px) {
+  .grain-case, .fft-figure-slots { grid-template-columns: minmax(0,1fr); gap: 24px; }
+  .grain-case { max-width: 600px; margin-inline: auto; }
+  .fft-figure-slots .section-figure { margin-block: 12px; }
   .model-summaries, .grain-gallery { grid-template-columns: minmax(0,1fr); }
   .model-summaries { gap: 40px; }
   .model-summaries h3 { min-height: 0; }

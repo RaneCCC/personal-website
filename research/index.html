@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#b31a1b">
   <title>Research | Jingkun Jiang</title>
   <link rel="preload" href="../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site.css?v=fft-grains-21">
-  <script type="module" src="../assets/research-nav.js?v=fft-grains-21"></script>
+  <link rel="stylesheet" href="../assets/site.css?v=materials-white-22">
+  <script type="module" src="../assets/research-nav.js?v=materials-white-22"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -25,7 +25,7 @@
       <div class="toc-applications"><a href="#spdba-pfc">PFC</a><a href="#coupled-fields">RCD</a><a href="#digital-backpropagation">DBP</a></div>
     </div>
     <div class="toc-group"><p class="toc-group-label">Numerical computing</p><a href="#distributed-fft">FFT implementations</a></div>
-    <div class="toc-group"><p class="toc-group-label">Materials modeling</p><a href="#grain-boundaries">Grains &amp; defects</a><a href="#amplitude-models">APFC</a><a href="#structural-models">XPFC</a><a href="#solidification">Dendritic growth</a></div>
+    <div class="toc-group"><p class="toc-group-label">Materials modeling</p><a href="#grain-boundaries">Grains &amp; defects</a><a href="#amplitude-models">APFC &amp; XPFC</a><a href="#solidification">PF · Dendritic growth</a></div>
     <a class="toc-record" href="./notes/">Research notes</a>
   </nav></aside>
   <div class="research-content">
@@ -80,21 +80,23 @@
       <p class="application-field">Phase-field crystal (PFC) · From density fields to grain statistics</p>
       <div class="section-copy summary-prose">
         <p>PFC resolves a crystal’s periodic density, so defects and grain boundaries emerge in the same field. I built Fourier-based CPU/GPU solvers and used polycrystals and a small-angle circular boundary to inspect how these structures evolve.</p>
-        <p>To connect those fields to grain statistics, I extract density peaks and compute in-plane orientations in C++/CUDA, then export particle data for inspection in OVITO. My Python code segments grains under periodic boundaries and measures their areas and size distributions.</p>
+        <p>I turn the density field into atom-like sites by detecting its peaks, then calculate local orientations. My Python code groups these sites into grains under periodic boundaries and measures their areas and size distributions. I inspect the exported particles and orientations in OVITO.</p>
       </div>
-      <div id="grain-analysis" class="grain-gallery">
+      <div id="grain-analysis" class="grain-overview">
         <figure class="section-figure">
-          <div class="grain-media"><a class="figure-link" href="../assets/images/pfc-circular-boundary.png"><img src="../assets/images/pfc-circular-boundary.png" alt="Simulation frame showing a small-angle circular grain boundary within an atomic-periodic PFC field." width="640" height="480" loading="lazy" decoding="async"></a></div>
-          <figcaption>Small-angle circular grain boundary · PFC simulation frame.</figcaption>
+          <a class="figure-link" href="../assets/images/pfc-grain-analysis-overview.png"><img src="../assets/images/pfc-grain-analysis-overview.png" alt="Density fields, extracted atom-like sites and local orientations alongside the grain-reconstruction and statistics workflow. Colors encode orientation, not grain identity." width="1788" height="994" loading="lazy" decoding="async"></a>
+          <figcaption>Density-to-grain analysis workflow. Particle colors show local orientation θ; black markers denote grain-boundary and defect candidates.</figcaption>
         </figure>
-        <figure class="section-figure">
-          <div class="grain-media figure-slot" role="img" aria-label="Figure area reserved for a local-orientation view in OVITO"></div>
-          <figcaption>Local orientation · OVITO</figcaption>
-        </figure>
-        <figure class="section-figure">
-          <div class="grain-media figure-slot" role="img" aria-label="Figure area reserved for grain segmentation"></div>
-          <figcaption>Grain segmentation</figcaption>
-        </figure>
+        <div class="grain-case">
+          <figure class="section-figure">
+            <video controls playsinline preload="none" poster="../assets/images/pfc-circular-boundary.png" width="640" height="480" aria-label="PFC simulation of a small-angle circular grain boundary">
+              <source src="../assets/videos/pfc-circular-grain-boundary.mp4" type="video/mp4">
+              <a href="../assets/videos/pfc-circular-grain-boundary.mp4">Download the grain-boundary video.</a>
+            </video>
+            <figcaption>Small-angle circular grain boundary · PFC simulation.</figcaption>
+          </figure>
+          <div class="summary-prose"><p>I also use a small-angle circular grain boundary as a simpler case for following boundary motion and defects. This video shows a separate simulation from the polycrystal analysis above.</p></div>
+        </div>
       </div>
       <p class="research-note-links"><a href="./notes/#grain-boundaries">Grain boundaries, segmentation, and statistics →</a></p>
     </section>
@@ -102,10 +104,10 @@
       <div class="model-summaries">
         <section id="amplitude-models" class="research-example material-model" aria-labelledby="amplitude-models-title">
           <h3 id="amplitude-models-title">Amplitude phase-field crystal (APFC)</h3>
-          <div class="summary-prose"><p>APFC represents a crystal density through complex amplitudes. I built two-dimensional solvers in C++/FFTW and CUDA/cuFFT, evolved three amplitudes, and reconstructed the density. Rotated seeds, smooth amplitude transitions, and phase-consistent initialization were practical parts of this work; I inspected density, combined-amplitude, phase, and phase-gradient diagnostics together.</p></div>
+          <div class="summary-prose"><p>APFC represents a crystal using slowly varying complex amplitudes that modulate atomic-scale density waves. I evolved three amplitudes and reconstructed the density shown in the upper panels. Their summed magnitudes, shown below, are comparatively uniform inside each crystal and vary more strongly near its edges and the contact region.</p></div>
           <figure class="section-figure">
-<a class="figure-link" href="../assets/images/apfc-amplitude-panel.png"><img src="../assets/images/apfc-amplitude-panel.png" alt="Combined-amplitude field from an APFC development diagnostic." width="458" height="454" loading="lazy" decoding="async"></a>
-<figcaption>Combined amplitude · APFC diagnostic.</figcaption>
+<a class="figure-link" href="../assets/images/apfc-density-amplitude-overview.png"><img src="../assets/images/apfc-density-amplitude-overview.png" alt="APFC example: reconstructed atomic-scale density above and the sum of the three amplitude magnitudes below, at two stages of grain contact." width="672" height="396" loading="lazy" decoding="async"></a>
+<figcaption>Reconstructed density (top) and combined amplitude magnitude Σⱼ|Aⱼ| (bottom).</figcaption>
 </figure>
           <p class="research-note-links"><a href="./notes/#apfc-development">Initialization and diagnostic views →</a></p>
         </section>
@@ -120,8 +122,8 @@
         </section>
       </div>
       <section id="solidification" class="research-example material-model" aria-labelledby="solidification-title">
-        <h3 id="solidification-title">Phase-field (PF) modeling</h3>
-        <p class="application-field">Three-dimensional dendritic growth</p>
+        <h3 id="solidification-title">PF · Dendritic growth</h3>
+        <p class="application-field">Phase-field modeling · Three-dimensional solidification</p>
         <div class="section-copy summary-prose"><p>Phase-field models follow a moving solid–liquid boundary through continuous fields. I built a three-dimensional solver coupling phase and temperature, using finite differences, and developed CPU/OpenMP, MPI, and CUDA versions. The comparison below shows how the labeled anisotropy settings affect the developing dendritic morphology.</p></div>
         <figure class="section-figure">
 <a class="figure-link" href="../assets/images/pf-anisotropy-comparison.png"><img src="../assets/images/pf-anisotropy-comparison.png" alt="Complete phase-field dendritic morphology comparison at the anisotropy delta settings labeled in the original image." width="2638" height="1074" loading="lazy" decoding="async"></a>

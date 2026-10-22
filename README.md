@@ -10,7 +10,9 @@ Edit the page's `index.html`; shared typography and layout are in `assets/site.c
 
 For a local preview, run `python3 -m http.server 63541 --bind 127.0.0.1` from this repository and open `http://127.0.0.1:63541/`.
 
-The Research overview presents the work briefly; `research/notes/` holds solver development, a Cooley–Tukey and distributed FFT practice section, and the density-field-to-grain-statistics workflow. The threshold section intentionally contains only its title. Two empty figure slots in the grain-boundary overview are reserved for later illustrations.
+For video seeking, use a static server with HTTP byte-range support. The local workspace's `preview.command` starts such a server; the basic Python command above is sufficient for reviewing text and images.
+
+The Research overview presents the work briefly, with a grain-analysis figure and a separate circular grain-boundary video. APFC and XPFC share one contents entry; PF uses the same dendritic-growth title in the contents and body. `research/notes/` holds solver development, Cooley–Tukey and distributed FFT practice, and the detailed grain-statistics workflow. Two FFT figure slots are reserved for later illustrations; handwritten working notes remain available below them. The threshold section intentionally contains only its title.
 
 GitHub Pages publishes the `main` branch's root folder. After reviewing a change:
 
@@ -22,4 +24,4 @@ git push origin main
 
 Montserrat and PDF.js retain their licenses in `assets/fonts/` and `assets/vendor/`. Research figures are attributed to the [sp-DBA preprint](https://arxiv.org/abs/2609.03922) and [Zhang and Xia's DBA paper](https://doi.org/10.1038/s43588-025-00780-2); the phase-field example comes from my earlier solver work.
 
-The Home banner is an AI-generated conceptual illustration of frequency-block updates, not simulation data or a numerical Fourier transform. Holding a block means retaining its existing values. Research figures retain their original proportions and legends.
+The white Home banner is an AI-generated conceptual illustration of frequency-block updates, not simulation data or a numerical Fourier transform. Holding a block means retaining its existing values. Research figures retain their original proportions and legends. The grain-boundary clip uses H.264 for browser compatibility, with its original duration and frame rate, and loads only when played.
