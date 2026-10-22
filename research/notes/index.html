@@ -3,143 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Development notes on materials solvers, FFT implementations, and grain analysis by Jingkun Jiang.">
-  <link rel="canonical" href="https://raneccc.github.io/personal-website/research/notes/">
-  <meta name="theme-color" content="#b31a1b">
-  <title>Research notes | Jingkun Jiang</title>
-  <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=materials-white-22">
-  <script type="module" src="../../assets/research-nav.js?v=materials-white-22"></script>
+  <meta name="robots" content="noindex">
+  <title>Research | Jingkun Jiang</title>
+  <script>
+    const destinations = {
+      'solvers': '../#materials',
+      'pf-development': '../pf/',
+      'apfc-development': '../apfc/',
+      'xpfc-development': '../xpfc/',
+      'fft': '../fft/',
+      'distributed-practice': '../distributed-fft/',
+      'grain-boundaries': '../grain-analysis/',
+      'grain-statistics-workflow': '../grain-analysis/#grain-statistics-workflow',
+      'adaptive-updates': '../thresholds/'
+    };
+    location.replace(new URL(destinations[location.hash.slice(1)] || '../', location.href).href);
+  </script>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><div class="header-inner">
-  <a class="site-name" href="../../">Jingkun Jiang</a>
-  <nav class="desktop-nav" aria-label="Main navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../cv/">CV</a></nav>
-  <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../cv/">CV</a></nav></details>
-</div></header>
-<main id="main" class="research-main single-research notes-main">
-  <header class="research-page-heading research-detail-heading"><p class="research-breadcrumb"><a href="../">Research</a></p><h1>Research notes</h1><div class="summary-prose"><p>Much of this work happened between the first working solver and the current manuscript. These notes follow a few of those steps: building solvers, implementing FFTs, and turning density fields into information about grains and defects.</p></div></header>
-  <aside class="research-index-shell"><nav class="research-toc" aria-label="Research notes contents">
-    <div class="toc-group"><a href="#solvers">Material solvers</a><div class="toc-applications"><a href="#pf-development">PF · Dendritic growth</a><a href="#apfc-development">APFC &amp; XPFC</a></div><a href="#fft">FFT practice</a><a href="#grain-boundaries">Grains &amp; defects</a><a href="#adaptive-updates">Adaptive updates</a></div>
-  </nav></aside>
-  <div class="research-content">
-    <section id="solvers" class="research-group" aria-labelledby="solvers-title">
-      <header class="research-group-heading"><h2 id="solvers-title">Building the solvers</h2></header>
-      <div class="section-copy summary-prose">
-      <p>I started with coupled phase and temperature fields, then worked with atomic-periodic densities and complex amplitudes. These development views show the checks behind the solvers: how a seed is initialized, which quantities are inspected, and what changes when the model settings change.</p>
-      </div>
-      <section id="pf-development" class="research-example" aria-labelledby="pf-development-title">
-      <h3 id="pf-development-title">PF · Dendritic growth</h3>
-      <div class="section-copy summary-prose">
-      <p>A plausible dendrite shape was only a starting point. I varied anisotropy, undercooling, temperature-related parameters, and seed size while inspecting the coupled phase and temperature fields. I also reorganized the finite-difference loops and memory layout before building parallel versions. These snapshots record how the developing morphology responded to those choices.</p>
-      </div>
-      <figure class="section-figure">
-      <a class="figure-link" href="../../assets/images/pf-anisotropy-comparison.png"><img src="../../assets/images/pf-anisotropy-comparison.png" alt="Phase-field development comparison at the anisotropy delta settings shown in the original image." width="2638" height="1074" loading="lazy" decoding="async"></a>
-      <figcaption>Anisotropy comparison · Original settings and views retained.</figcaption>
-      </figure>
-      <figure class="section-figure">
-<a class="figure-link" href="../../assets/images/pf-gamma-comparison.png"><img src="../../assets/images/pf-gamma-comparison.png" alt="Complete phase-field morphology comparison at the three labeled gamma settings, with two views of each case." width="2270" height="1174" loading="lazy" decoding="async"></a>
-<figcaption>Temperature-related parameter comparison · Labeled γ settings.</figcaption>
-</figure>
-      <details class="notes-extra">
-      <summary>Seed-size and undercooling comparisons</summary>
-      <figure class="section-figure">
-      <a class="figure-link" href="../../assets/images/pf-seed-size-comparison.png"><img src="../../assets/images/pf-seed-size-comparison.png" alt="Phase-field development snapshots comparing initial seed sizes." width="2806" height="960" loading="lazy" decoding="async"></a>
-      <figcaption>Initial seed-size comparison.</figcaption>
-      </figure>
-      <figure class="section-figure">
-      <a class="figure-link" href="../../assets/images/pf-undercooling-comparison.png"><img src="../../assets/images/pf-undercooling-comparison.png" alt="Phase-field development comparison at the undercooling Delta settings labeled in the source." width="2582" height="1086" loading="lazy" decoding="async"></a>
-      <figcaption>Undercooling comparison.</figcaption>
-      </figure>
-      </details>
-      <p class="research-note-links"><a href="../#solidification">Back to PF modeling →</a>
-      </p>
-      </section>
-      <section id="apfc-development" class="research-example" aria-labelledby="apfc-development-title">
-      <h3 id="apfc-development-title">APFC · Looking beyond density</h3>
-      <div class="section-copy summary-prose">
-      <p>I initialized differently oriented seeds through the phases of three complex amplitudes. Later versions added a tanh amplitude taper and linked the third amplitude’s initial phase to the first two. I implemented FFTW and CUDA/cuFFT versions, with semi-implicit updates in Fourier space. The two montages compare reconstructed density, combined amplitude, phase, and phase-gradient views for different seed orientations and contacting grains. Comparing these fields helped me inspect initialization beyond the density image. Phase jumps needed care: the displayed phases wrap periodically, and their gradients can contain representation artifacts.</p>
-      </div>
-      <figure class="section-figure">
-      <a class="figure-link" href="../../assets/images/apfc-grain-diagnostics.png"><img src="../../assets/images/apfc-grain-diagnostics.png" alt="Complete density, amplitude, phase, and phase-gradient montage from APFC development tests." width="2772" height="1588" loading="lazy" decoding="async"></a>
-      <figcaption>Density, combined amplitude, phase, and phase-gradient diagnostics · Seed-orientation tests.</figcaption>
-      </figure>
-
-      <figure class="section-figure">
-      <a class="figure-link" href="../../assets/images/apfc-early-diagnostics.png"><img src="../../assets/images/apfc-early-diagnostics.png" alt="Additional early APFC density, amplitude, phase, and phase-gradient development views." width="2558" height="1464" loading="lazy" decoding="async"></a>
-      <figcaption>Density reconstruction and amplitude–phase diagnostics · Two-seed development views.</figcaption>
-      </figure>
-
-
-      <p class="model-references">Model background: <a href="https://doi.org/10.1103/PhysRevE.76.056706">Athreya et al. (2007)</a> · <a href="https://doi.org/10.1103/PhysRevE.98.033303">Berčič &amp; Kugler (2018)</a>.</p>
-      <p class="research-note-links"><a href="../#amplitude-models">Back to APFC →</a>
-      </p>
-      </section>
-      <section id="xpfc-development" class="research-example" aria-labelledby="xpfc-development-title">
-      <h3 id="xpfc-development-title">XPFC · Reading the model in both spaces</h3>
-      <div class="section-copy summary-prose">
-      <p>In XPFC, changing the model changes which lattice spacings the free energy favors. The nonlocal term becomes a multiplication by a correlation kernel in Fourier space. I compared density fields, Fourier-space views, and line cuts for different lattice setups and parameter settings. These paired views helped me inspect the solver’s response to the model. The montage pairs density fields with Fourier-space fields and line cuts, including two-dimensional and projected lattice cases.</p>
-      </div>
-      <figure class="section-figure">
-      <a class="figure-link" href="../../assets/images/xpfc-lattice-diagnostics.png"><img src="../../assets/images/xpfc-lattice-diagnostics.png" alt="Complete exploratory XPFC montage: real-space density, Fourier-space fields, and line cuts for two-dimensional and projected lattice cases." width="2464" height="1310" loading="lazy" decoding="async"></a>
-      <figcaption>Density fields, Fourier-space views, and line cuts · Original lattice-case labels retained.</figcaption>
-      </figure>
-      <div class="section-copy summary-prose">
-      <p>I also compared the labeled α settings at several stages of polycrystalline evolution. The paired real-space and Fourier-space views made changes in the developing patterns easier to inspect.</p>
-      </div>
-      <figure class="section-figure">
-      <a class="figure-link" href="../../assets/images/xpfc-alpha-comparison.png"><img src="../../assets/images/xpfc-alpha-comparison.png" alt="Complete real-space and Fourier-space XPFC diagnostic montage across the labeled alpha settings and stages." width="2832" height="1610" loading="lazy" decoding="async"></a>
-      <figcaption>Exploratory α comparison · Original settings and stage labels retained.</figcaption>
-      </figure>
-      <p class="model-references">Model background: <a href="https://doi.org/10.1103/PhysRevE.83.031601">Greenwood, Rottler &amp; Provatas (2011)</a>.</p>
-      <p class="research-note-links"><a href="../#structural-models">Back to XPFC →</a>
-      </p>
-      </section>
-      <p class="research-note-links"><a href="../#polycrystals">PFC and grain analysis →</a>
-      </p>
-      </section>
-    <section id="fft" class="research-group" aria-labelledby="fft-title">
-      <header class="research-group-heading"><h2 id="fft-title">FFT practice</h2></header>
-      <div class="section-copy summary-prose"><p>Writing an FFT helped me understand the transform I was using in my solvers. Moving it across GPUs then made memory layout and communication just as important as the arithmetic.</p></div>
-      <h3 class="notes-subheading">Cooley–Tukey implementation</h3>
-      <div class="section-copy summary-prose"><p>An early idea behind sp-DBA was to apply DBA-style activation to Fourier-space updates. I wanted to understand the transform inside my PFC solver, so I wrote the FFT library used in its first CPU version. What drew me in was how Cooley–Tukey breaks a large transform into smaller ones that fit together so neatly.</p><p>I started with a recursive implementation, then worked on iterative butterflies, bit-reversal reordering, precomputed twiddle factors, and memory layout. In my early CPU tests, the optimized implementation came close to FFTW on the larger power-of-two two-dimensional grids I tested. Working through these versions helped me connect the mathematics of the transform with the cost of moving and accessing data.</p></div>
-      <div class="fft-figure-slots" aria-label="Reserved illustrations for FFT implementation">
-        <figure class="section-figure"><div class="figure-slot fft-figure-slot" role="img" aria-label="Reserved figure: FFT within the PFC solver"></div><figcaption>FFT within the PFC solver</figcaption></figure>
-        <figure class="section-figure"><div class="figure-slot fft-figure-slot" role="img" aria-label="Reserved figure: recursive decomposition and iterative FFT implementation"></div><figcaption>From recursive to iterative FFT</figcaption></figure>
-      </div>
-      <details class="notes-extra fft-working-notes"><summary>Handwritten working notes</summary>
-      <figure class="section-figure fft-notes-figure"><a class="figure-link" href="../../assets/images/fft-working-notes.jpg"><img src="../../assets/images/fft-working-notes.jpg" alt="Handwritten working notes on roots of unity, even–odd polynomial decomposition, and the FFT." width="4032" height="3024" loading="lazy" decoding="async"></a><figcaption>Working notes · Cooley–Tukey decomposition.</figcaption></figure>
-      </details>
-      <h3 id="distributed-practice" class="notes-subheading">Distributed FFTs</h3>
-      <div class="section-copy summary-prose"><p>For larger PFC fields, I implemented a slab-decomposed workflow combining local cuFFT transforms with packing, MPI redistribution, and unpacking. This separates the local arithmetic from the data movement needed for a global transform. The workflow below retains the full FFT/IFFT and redistribution stages.</p></div>
-      <figure class="section-figure"><a class="figure-link" href="../../assets/images/distributed-workflow-s18.png"><img src="../../assets/images/distributed-workflow-s18.png" alt="Figure S18: local slabs, distributed FFT, local blocks with MPI state halos, adaptive updates and distributed inverse FFT. Global transpose and all-to-all communication remain." width="2400" height="1113" loading="lazy" decoding="async"></a></figure>
-      <div class="section-copy summary-prose"><p>For sp-DBA, I also added exchanges of block-state metadata between neighboring ranks. These small state halos coordinate adaptive updates near slab boundaries; they serve a different purpose from the global redistribution required by the FFT.</p></div>
-      <figure class="section-figure state-exchange-figure"><a class="figure-link" href="../../assets/images/distributed-state-exchange-s20.png"><img src="../../assets/images/distributed-state-exchange-s20.png" alt="Figure S20: neighboring MPI ranks exchange block-state metadata, then coordinate local boundary decisions using imported state halos." width="2400" height="1350" loading="lazy" decoding="async"></a></figure>
-      <p class="research-note-links"><a href="../#distributed-fft">Back to FFT implementations →</a></p>
-    </section>
-    <section id="grain-boundaries" class="research-group" aria-labelledby="grain-boundaries-title">
-      <header class="research-group-heading"><h2 id="grain-boundaries-title">From density fields to grain statistics</h2></header>
-      <div class="section-copy summary-prose"><p>A PFC simulation gives me a continuous field. To measure grains in a single atomic layer, I need to turn that field into particles, assign in-plane orientations, and group the particles into grains. The same particle dump supports two paths: Python analysis and visual inspection in OVITO. In the overview figure, particle colors show local orientation rather than grain identity.</p></div>
-      <ol id="grain-statistics-workflow" class="analysis-route">
-        <li><h3>Inspect the field and extract atoms</h3><p>I inspect the real-space density field in ParaView. My C++/CUDA routines locate density maxima, turning the periodic field into discrete particle positions while retaining a density value for each peak.</p></li>
-        <li><h3>Compute orientations and write a dump</h3><p>For this monolayer workflow, I calculate in-plane orientation myself from sixfold bond order. I export the positions, density, orientation angle, and a quaternion representing rotation about the layer normal in a LAMMPS-style dump. This supplies the orientation explicitly rather than relying on a bulk three-dimensional structure-identification step.</p></li>
-        <li><h3>Segment grains and calculate statistics</h3><p>My Python code selects grain cores using peak density and local distortion. Region growing joins periodic neighbors within a 3.5° misorientation tolerance, treating angles separated by 60° as equivalent. Neighborhood voting assigns boundary particles, followed by cleanup of small fragments and artifacts. Summing local atomic areas gives grain areas and equivalent diameters; CSV summaries then feed the grain-size distribution plots.</p></li>
-        <li><h3>Check the particle view in OVITO</h3><p>I load the original particle dump in OVITO to inspect positions and the exported orientations. Alongside it, I check the Python segmentation maps and distributions. This lets me examine defects, interfaces, and sensitivity to analysis settings before interpreting a change in grain statistics as physical evolution.</p></li>
-      </ol>
-      <p class="model-references">Definitions and analysis protocol: <a href="https://arxiv.org/abs/2609.03922">Supplementary Note S3 of our preprint</a>.</p>
-      <div class="pfc-analysis-figures">
-        <figure class="section-figure"><a class="figure-link" href="../../assets/images/pfc-polycrystal-density.png"><img src="../../assets/images/pfc-polycrystal-density.png" alt="An early polycrystalline PFC density-field snapshot from a solver development example." width="1280" height="1280" loading="lazy" decoding="async"></a><figcaption>PFC density field · A development example.</figcaption></figure>
-        <figure class="section-figure"><a class="figure-link" href="../../assets/images/notes-grain-segmentation.jpg"><img src="../../assets/images/notes-grain-segmentation.jpg" alt="A grain-segmentation output from an early PFC analysis test." width="456" height="450" loading="lazy" decoding="async"></a><figcaption>Grain segmentation · A separate development example.</figcaption></figure>
-        <figure class="section-figure"><a class="figure-link" href="../../assets/images/xpfc-gsd-8192.png"><img src="../../assets/images/xpfc-gsd-8192.png" alt="Normalized grain-size distributions from a separate 8192-squared XPFC case." width="1010" height="966" loading="lazy" decoding="async"></a><figcaption>Grain-size distributions · A separate 8192² XPFC example.</figcaption></figure>
-      </div>
-      <p class="model-references">Model background: <a href="https://doi.org/10.1103/PhysRevLett.88.245701">Original PFC formulation</a> · <a href="https://doi.org/10.1103/PhysRevB.75.064107">PFC and density-functional theory</a>.</p>
-      <p class="research-note-links"><a href="../#grain-boundaries">Back to grains and defects →</a></p>
-    </section>
-    <section id="adaptive-updates" class="research-group" aria-labelledby="adaptive-updates-title">
-      <header class="research-group-heading"><h2 id="adaptive-updates-title">From thresholds to a framework</h2></header>
-    </section>
-  </div>
-</main>
+  <p><a href="../">Research</a></p>
+  <noscript>
+    <p><a href="../pf/">Phase-field modeling</a> · <a href="../apfc/">APFC</a> · <a href="../xpfc/">XPFC</a> · <a href="../fft/">FFT kernel development</a> · <a href="../distributed-fft/">Distributed FFTs</a> · <a href="../grain-analysis/">Grain analysis</a> · <a href="../thresholds/">Adaptive thresholds</a></p>
+  </noscript>
 </body>
 </html>

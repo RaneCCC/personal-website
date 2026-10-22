@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Slab-decomposed PFC transforms, local cuFFT, MPI redistribution, and the separate exchange of adaptive block-state halos.">
+  <link rel="canonical" href="https://raneccc.github.io/personal-website/research/distributed-fft/">
+  <meta name="theme-color" content="#b31a1b">
+  <title>Distributed FFTs | Jingkun Jiang</title>
+  <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/site.css?v=compact-research-23">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="site-name" href="../../">Jingkun Jiang</a>
+  <nav class="desktop-nav" aria-label="Main navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav>
+  <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav></details>
+</div></header>
+<main id="main" class="detail-main">
+  <header class="detail-heading"><p class="detail-back"><a href="../#distributed-fft">← Research</a></p><h1 id="distributed-title">Distributed FFTs</h1></header>
+  <article id="distributed-practice" class="detail-content" aria-labelledby="distributed-title">
+<div class="section-copy summary-prose"><p>For larger PFC fields, I implemented a slab-decomposed workflow combining local cuFFT transforms with packing, MPI redistribution, and unpacking. This separates the local arithmetic from the data movement needed for a global transform. The workflow below retains the full FFT/IFFT and redistribution stages.</p></div>
+      <figure class="section-figure"><a class="figure-link" href="../../pictures/research/distributed_fft_main.png"><img src="../../pictures/research/distributed_fft_main.png" alt="Figure S18: local slabs, distributed FFT, local blocks with MPI state halos, adaptive updates and distributed inverse FFT. Global transpose and all-to-all communication remain." width="2400" height="1113" loading="lazy" decoding="async"></a></figure>
+      <div class="section-copy summary-prose"><p>For sp-DBA, I also added exchanges of block-state metadata between neighboring ranks. These small state halos coordinate adaptive updates near slab boundaries; they serve a different purpose from the global redistribution required by the FFT.</p></div>
+      <figure class="section-figure state-exchange-figure"><a class="figure-link" href="../../pictures/research/distributed_fft_states.png"><img src="../../pictures/research/distributed_fft_states.png" alt="Figure S20: neighboring MPI ranks exchange block-state metadata, then coordinate local boundary decisions using imported state halos." width="2400" height="1350" loading="lazy" decoding="async"></a></figure>
+  </article>
+</main>
+</body>
+</html>

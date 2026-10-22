@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A monolayer PFC analysis workflow: density peaks, in-plane orientations, periodic grain reconstruction, area and size statistics, and OVITO inspection.">
+  <link rel="canonical" href="https://raneccc.github.io/personal-website/research/grain-analysis/">
+  <meta name="theme-color" content="#b31a1b">
+  <title>From density fields to grain statistics | Jingkun Jiang</title>
+  <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/site.css?v=compact-research-23">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="site-name" href="../../">Jingkun Jiang</a>
+  <nav class="desktop-nav" aria-label="Main navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav>
+  <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav></details>
+</div></header>
+<main id="main" class="detail-main">
+  <header class="detail-heading"><p class="detail-back"><a href="../#grain-boundaries">← Research</a></p><h1 id="grain-boundaries-title">From density fields to grain statistics</h1></header>
+  <article id="grain-boundaries" class="detail-content" aria-labelledby="grain-boundaries-title">
+<div class="section-copy summary-prose"><p>A PFC simulation gives me a continuous field. To measure grains in a single atomic layer, I need to turn that field into particles, assign in-plane orientations, and group the particles into grains. The same particle dump supports two paths: Python analysis and visual inspection in OVITO.</p></div>
+      <ol id="grain-statistics-workflow" class="analysis-route">
+        <li><h3>Inspect the field and extract atoms</h3><p>I inspect the real-space density field in ParaView. My C++/CUDA routines locate density maxima, turning the periodic field into discrete particle positions while retaining a density value for each peak.</p></li>
+        <li><h3>Compute orientations and write a dump</h3><p>For this monolayer workflow, I calculate in-plane orientation myself from sixfold bond order. I export the positions, density, orientation angle, and a quaternion representing rotation about the layer normal in a LAMMPS-style dump. This supplies the orientation explicitly rather than relying on a bulk three-dimensional structure-identification step.</p></li>
+        <li><h3>Segment grains and calculate statistics</h3><p>My Python code selects grain cores using peak density and local distortion. Region growing joins periodic neighbors within a 3.5° misorientation tolerance, treating angles separated by 60° as equivalent. Neighborhood voting assigns boundary particles, followed by cleanup of small fragments and artifacts. Summing local atomic areas gives grain areas and equivalent diameters; CSV summaries then feed the grain-size distribution plots.</p></li>
+        <li><h3>Check the particle view in OVITO</h3><p>I load the original particle dump in OVITO to inspect positions and the exported orientations. Alongside it, I check the Python segmentation maps and distributions. This lets me examine defects, interfaces, and sensitivity to analysis settings before interpreting a change in grain statistics as physical evolution.</p></li>
+      </ol>
+      <p class="model-references">Definitions and analysis protocol: <a href="https://arxiv.org/abs/2609.03922">Supplementary Note S3 of our preprint</a>.</p>
+      <div class="pfc-analysis-figures">
+        <figure class="section-figure"><a class="figure-link" href="../../pictures/research/pfc_density.png"><img src="../../pictures/research/pfc_density.png" alt="An early polycrystalline PFC density-field snapshot from a solver development example." width="1280" height="1280" loading="lazy" decoding="async"></a><figcaption>PFC density field · A development example.</figcaption></figure>
+        <figure class="section-figure"><a class="figure-link" href="../../pictures/research/grain_segmentation.jpg"><img src="../../pictures/research/grain_segmentation.jpg" alt="A grain-segmentation output from an early PFC analysis test." width="456" height="450" loading="lazy" decoding="async"></a><figcaption>Grain segmentation · A separate development example.</figcaption></figure>
+        <figure class="section-figure"><a class="figure-link" href="../../pictures/research/grain_gsd.png"><img src="../../pictures/research/grain_gsd.png" alt="Normalized grain-size distributions from a separate 8192-squared XPFC case." width="1010" height="966" loading="lazy" decoding="async"></a><figcaption>Grain-size distributions · A separate 8192² XPFC example.</figcaption></figure>
+      </div>
+      <p class="model-references">Model background: <a href="https://doi.org/10.1103/PhysRevLett.88.245701">Original PFC formulation</a> · <a href="https://doi.org/10.1103/PhysRevB.75.064107">PFC and density-functional theory</a>.</p>
+  </article>
+</main>
+</body>
+</html>

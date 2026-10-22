@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Amplitude phase-field crystal implementation, initialization, and amplitude–phase diagnostic views.">
+  <link rel="canonical" href="https://raneccc.github.io/personal-website/research/apfc/">
+  <meta name="theme-color" content="#b31a1b">
+  <title>APFC · Looking beyond density | Jingkun Jiang</title>
+  <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/site.css?v=compact-research-23">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="site-name" href="../../">Jingkun Jiang</a>
+  <nav class="desktop-nav" aria-label="Main navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav>
+  <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav></details>
+</div></header>
+<main id="main" class="detail-main">
+  <header class="detail-heading"><p class="detail-back"><a href="../#amplitude-models">← Research</a></p><h1 id="apfc-development-title">APFC · Looking beyond density</h1></header>
+  <article id="apfc-development" class="detail-content" aria-labelledby="apfc-development-title">
+<div class="section-copy summary-prose">
+      <p>I initialized differently oriented seeds through the phases of three complex amplitudes. Later versions added a tanh amplitude taper and linked the third amplitude’s initial phase to the first two. I implemented FFTW and CUDA/cuFFT versions, with semi-implicit updates in Fourier space. The two montages compare reconstructed density, combined amplitude, phase, and phase-gradient views for different seed orientations and contacting grains. Comparing these fields helped me inspect initialization beyond the density image. Phase jumps needed care: the displayed phases wrap periodically, and their gradients can contain representation artifacts.</p>
+      </div>
+      <figure class="section-figure">
+      <a class="figure-link" href="../../pictures/research/apfc_details.png"><img src="../../pictures/research/apfc_details.png" alt="Complete density, amplitude, phase, and phase-gradient montage from APFC development tests." width="2772" height="1588" loading="lazy" decoding="async"></a>
+      <figcaption>Density, combined amplitude, phase, and phase-gradient diagnostics · Seed-orientation tests.</figcaption>
+      </figure>
+
+      <figure class="section-figure">
+      <a class="figure-link" href="../../pictures/research/apfc_initialization.png"><img src="../../pictures/research/apfc_initialization.png" alt="Additional early APFC density, amplitude, phase, and phase-gradient development views." width="2558" height="1464" loading="lazy" decoding="async"></a>
+      <figcaption>Density reconstruction and amplitude–phase diagnostics · Two-seed development views.</figcaption>
+      </figure>
+
+
+      <p class="model-references">Model background: <a href="https://doi.org/10.1103/PhysRevE.76.056706">Athreya et al. (2007)</a> · <a href="https://doi.org/10.1103/PhysRevE.98.033303">Berčič &amp; Kugler (2018)</a>.</p>
+  </article>
+</main>
+</body>
+</html>
