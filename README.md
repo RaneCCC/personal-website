@@ -8,7 +8,9 @@ Four navigation entries: Home, Research, Personal Statement, and CV. Personal St
 
 Edit the relevant `index.html`; shared typography and layout are in `assets/site.css`. Section links and IDs are maintained in `research/index.html`; `assets/research-nav.js` highlights the overview's current section. Detail pages each cover one topic and link back to the overview. `research/notes/` redirects older hash links to these pages.
 
-All public images and videos are in `pictures/home/`, `pictures/research/`, and `pictures/cv/`. Replace an existing file under its stable name, preserving capitalization such as `spDBA_main.png`. If dimensions, format, or meaning change, update the HTML's source, full-size link, width, height, alt text, and caption; video replacements also need a poster and fallback link. Keep research figures' original proportions and legends. The CV PDF remains in `assets/cv/`.
+All public images and videos are in `pictures/home/`, `pictures/research/`, and `pictures/cv/`. Replace an existing file under its stable name, preserving capitalization such as `spDBA_main.png`. If dimensions, format, or meaning change, update the HTML's source, full-size link, width, height, alt text, and caption; video replacements also need a poster and fallback link. Keep research figures' original proportions and legends. The sp-DBA overview uses panel a in `research/spDBA_main.png` and panel b in `research/spDBA_workflow.png`; panel c is omitted. Captions are centered descriptive titles, with paper links where relevant. The CV PDF remains in `assets/cv/` and matches the owner-supplied latest CV without content edits; its preview is `pictures/cv/preview.png`.
+
+Five model equations use native MathML, with no external math-rendering dependency. When editing, preserve the equation structure and check the model-specific notation and mobile layout.
 
 No build step is required. For text and image preview, run `python3 -m http.server 63541 --bind 127.0.0.1` here and open `http://127.0.0.1:63541/`. For video seeking, use a server with HTTP byte-range support; the author's local workspace launcher provides one.
 

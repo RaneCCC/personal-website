@@ -212,7 +212,8 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
 
   GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.min.mjs', import.meta.url).href;
   const loadingTask = getDocument({
-    url: new URL('./cv/Jingkun_Jiang_CV.pdf', import.meta.url).href,
+    // Read and download the same version, including its cache key.
+    url: document.querySelector('.download-link')?.href || new URL('./cv/Jingkun_Jiang_CV.pdf', import.meta.url).href,
     isEvalSupported: false
   });
   loadingTask.promise.then(async (document) => {
