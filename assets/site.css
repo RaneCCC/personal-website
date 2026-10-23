@@ -504,20 +504,23 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .research-example > h3 { font-size: 24px; margin-bottom: 12px; }
 .compact-research .application-field { font-size: 15px; margin: 0 0 14px; }
 .compact-research .application-context p { margin-bottom: 14px; }
-.compact-research .pfc-application-figure { max-width: 720px; margin-block: 18px; }
+.compact-research .pfc-application-figure { max-width: none; margin-block: 18px; }
+.compact-research .pfc-application-figure > .figure-link { max-width: 720px; margin-inline: auto; }
 .compact-research .application-row, .compact-research .fft-overview-row { grid-template-columns: minmax(0,.48fr) minmax(0,.52fr); }
 .compact-research .application-row img { width: 100%; height: auto; }
 .compact-research .dbp-row { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); }
 .compact-research .research-note-links { margin: 12px 0 0; font-size: 15px; }
 .detail-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; margin-top: 16px; }
-.compact-research .grain-workflow-figure { max-width: 720px; margin-block: 18px; }
+.compact-research .grain-workflow-figure { max-width: none; margin-block: 18px; }
+.compact-research .grain-workflow-figure > .figure-link { max-width: 720px; margin-inline: auto; }
 .compact-research .grain-case { grid-template-columns: minmax(0,.43fr) minmax(0,.57fr); gap: 24px; margin-top: 18px; }
 .compact-research .model-summaries { gap: 28px; margin-top: 30px; }
 .compact-research .model-summaries h3 { min-height: 62px; font-size: 22px; }
 .compact-research .model-summaries .figure-link { height: 220px; }
 .compact-research .model-summaries img { max-height: 220px; }
 .compact-research .model-summaries .research-note-links { margin-top: 0; }
-.compact-research .pf-overview-figure { max-width: 720px; margin-block: 18px; }
+.compact-research .pf-overview-figure { max-width: none; margin-block: 18px; }
+.compact-research .pf-overview-figure > .figure-link { max-width: 720px; margin-inline: auto; }
 .compact-research .section-copy { margin-block: 16px; }
 .model-equation { margin: 16px 0; padding: 16px 0 12px; border-block: 1px solid var(--rule); text-align: center; }
 .equation-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 28px; min-width: 0; }
@@ -525,8 +528,9 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .equation-expression { min-width: 0; max-width: 100%; }
 .equation-expression picture { display: block; }
 .model-equation .equation-image { width: var(--equation-width); max-width: 100%; height: auto; margin-inline: auto; }
-.model-equation .equation-note { margin: 12px auto 0; max-width: 76ch; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.model-equation .equation-note { margin: 12px auto 0; max-width: none; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .equation-note var { font-family: "Latin Modern Math", "Times New Roman", serif; }
+.equation-note .inline-math-group { white-space: nowrap; }
 .equation-note .inline-math { font-family: "Latin Modern Math", math; font-size: 1em; white-space: nowrap; }
 .model-summaries .model-equation { margin-top: 2px; }
 .compact-research .apfc-equations .equation-image, .compact-research .xpfc-equations .equation-image { width: calc(var(--equation-width) * .95); }
@@ -537,7 +541,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .detail-back { font-size: 15px; margin-bottom: 16px; }
 .detail-content { min-width: 0; }
 .detail-content p { font-size: 17px; line-height: 1.7; }
-.detail-content .section-figure { max-width: 760px; }
+.detail-content .section-figure { max-width: none; }
+.detail-content .section-figure > .figure-link { max-width: 760px; margin-inline: auto; }
 .detail-content .section-copy { margin-block: 20px; }
 @media (max-width: 900px) {
   .compact-research .overview-row, .compact-research .grain-case { grid-template-columns: minmax(0,1fr); gap: 18px; }
@@ -567,3 +572,9 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research figcaption, .compact-research .summary-prose p,
 .compact-research .equation-note, .statement-prose p { text-wrap: pretty; }
 .statement-prose { padding-bottom: 48px; }
+
+/* Captions use the available column; images retain their established size. */
+.compact-research figcaption, .detail-main figcaption { max-width: none; }
+@media (min-width: 901px) {
+  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.54fr) minmax(0,.46fr); }
+}
