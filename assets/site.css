@@ -23,6 +23,7 @@
   --paper: #f6f8f9;
   --display: "Montserrat", Arial, sans-serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --site-width: clamp(1168px, 90vw, 1480px);
 }
 * { box-sizing: border-box; }
 html { scroll-padding-top: 98px; }
@@ -42,15 +43,17 @@ h2 { font-size: 30px; }
 h3 { font-size: 18px; }
 .skip-link { position: fixed; top: -100px; left: 18px; z-index: 30; background: #fff; padding: 8px 14px; color: var(--accent); }
 .skip-link:focus { top: 8px; }
-.site-header { position: sticky; top: 0; z-index: 10; background: #fff; color: var(--ink); border-bottom: 1px solid var(--line); }
+.site-header { position: sticky; top: 0; z-index: 10; background: var(--accent); color: #fff; border-bottom: 1px solid #a21718; }
 .header-inner, .footer-inner { max-width: 960px; margin: 0 auto; padding: 0 48px; }
-.header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
-.site-name { font: 700 19px/1.4 var(--display); color: var(--ink); letter-spacing: -.035em; white-space: nowrap; }
+.header-inner { max-width: var(--site-width); min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.site-name { font: 700 19px/1.4 var(--display); color: #fff; letter-spacing: -.035em; white-space: nowrap; }
 .site-name:hover { text-decoration: none; }
 .desktop-nav { display: flex; align-items: center; gap: 30px; font-size: 16px; }
-.desktop-nav a { color: var(--muted); padding: 23px 0; position: relative; }
-.desktop-nav a[aria-current="page"] { color: var(--accent); }
-.desktop-nav a[aria-current="page"]::after { content: ""; position: absolute; height: 2px; left: 0; right: 0; bottom: 0; background: var(--accent); }
+.desktop-nav a { color: #ffffffe6; padding: 20px 0; position: relative; }
+.desktop-nav a[aria-current="page"] { color: #fff; font-weight: 600; }
+.desktop-nav a[aria-current="page"]::after { content: ""; position: absolute; height: 2px; left: 0; right: 0; bottom: 0; background: #fff; }
+.site-header :is(a,summary):focus-visible { outline-color: #fff; }
+.site-header .mobile-menu nav a:focus-visible { outline-color: var(--accent); }
 .mobile-menu { display: none; }
 .home-banner { background: #f3f7f8; border-bottom: 1px solid #edf0f2; }
 .banner-inner { max-width: 1080px; margin: 0 auto; text-align: center; padding: 43px 30px 40px; }
@@ -304,7 +307,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .textLayer ::selection { background: #246c9c40; }
 .textLayer br::selection { background: transparent; }
 @media (min-width: 1000px) {
-  .single-research { display: grid; grid-template-columns: 168px minmax(0,1fr); column-gap: 40px; max-width: 1168px; }
+  .single-research { display: grid; grid-template-columns: 168px minmax(0,1fr); column-gap: 40px; max-width: var(--site-width); }
   .single-research > .research-page-heading { grid-column: 2; grid-row: 1; }
   .research-content { grid-column: 2; grid-row: 2; }
   .research-index-shell { grid-column: 1; grid-row: 1 / span 2; min-width: 0; padding-top: 51px; }
@@ -480,6 +483,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 /* The Research overview stays brief; implementation details have their own pages. */
 .compact-research .research-page-heading { padding-top: 36px; }
 .compact-research .research-page-heading .summary-prose { margin-top: 16px; }
+.compact-research .research-page-heading > .summary-prose { max-width: 900px; }
 .compact-research .research-group { padding-top: 28px; }
 .compact-research .research-group-heading h2 { padding-block: 14px; font-size: clamp(27px,3vw,32px); }
 .compact-research .summary-prose { font-size: 17px; line-height: 1.65; }
@@ -632,4 +636,10 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 @media (max-width: 700px) {
   .compact-research .model-studies .xpfc-equations .equation-image { width: calc(var(--equation-narrow-width) * .9); }
   .equation-connector { font-size: 16px; }
+}
+@media (min-width: 1600px) {
+  .compact-research #coupled-fields .application-row > .summary-prose { transform: translateY(24px); }
+  .compact-research .pfc-application-figure > .figure-link,
+  .compact-research .grain-workflow-figure > .figure-link,
+  .compact-research .pf-overview-figure > .figure-link { max-width: 920px; }
 }
