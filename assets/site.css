@@ -275,7 +275,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .page-end { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 27px 0 48px; font-size: 16px; }
 .statement-main { max-width: 800px; margin: 0 auto; padding: 0 40px; }
 .statement-prose { padding-top: 31px; }
-.statement-prose p { font-family: var(--sans); font-size: 18px; line-height: 1.75; margin-bottom: 1.3em; color: #333d44; }
+.statement-prose p { font-family: var(--sans); font-size: 17px; line-height: 1.75; margin-bottom: 1.3em; color: #333d44; }
 .statement-prose p:first-child::first-letter { font-weight: 500; }
 .page-end { border-top: 1px solid var(--line); margin-top: 25px; }
 .cv-main { max-width: 960px; padding: 0 48px 48px; margin: 0 auto; }
@@ -440,7 +440,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   figcaption { font-size: 14px; }
   .statement-main { padding: 0 26px; }
   .statement-prose { padding-top: 24px; }
-  .statement-prose p { font-size: 17px; line-height: 1.75; }
+  .statement-prose p { font-size: 16px; line-height: 1.75; }
   .page-end { font-size: 16px; padding-bottom: 36px; }
   .cv-heading { align-items: flex-start; gap: 18px; flex-direction: column; }
   .cv-heading h1 { font-size: 35px; }
@@ -603,6 +603,12 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .model-studies .xpfc-equations .equation-row { column-gap: 32px; }
 .compact-research .model-studies .apfc-equations .equation-row { column-gap: 24px; }
 .compact-research .xpfc-equations > .equation-row + .equation-row { margin-top: 14px; }
+.equation-kernel { display: flex; align-items: center; gap: 12px; }
+.equation-kernel picture { min-width: 0; }
+.equation-connector { font: 18px/1.3 "Latin Modern Math", "Times New Roman", serif; }
+/* Display the original S20 inside its whitespace-only pixel crop (150,175,2290,1190). */
+.compact-research .fft-state-crop { position: relative; aspect-ratio: 2140 / 1015; overflow: hidden; }
+.compact-research .fft-state-crop > img { position: absolute; width: calc(100% * 2400 / 2140); max-width: none; height: auto; left: calc(-100% * 150 / 2140); top: calc(-100% * 175 / 1015); }
 @media (min-width: 901px) {
   .compact-research .overview-row, .compact-research .grain-case { grid-template-rows: auto auto; column-gap: 20px; row-gap: 0; align-items: stretch; }
   .compact-research .overview-row > figure, .compact-research .grain-case > figure { grid-column: 1; grid-row: 1 / span 2; display: grid; grid-template-rows: subgrid; align-self: stretch; }
@@ -612,7 +618,14 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .compact-research .spdba-workflow-row { grid-template-columns: minmax(0,.5fr) minmax(0,.5fr); }
   .compact-research .spdba-workflow-row > figure { grid-column: 2; }
   .compact-research .spdba-workflow-row > .summary-prose { grid-column: 1; }
+  /* Small optical adjustments account for the figures' uneven visual weight. */
+  .compact-research #coupled-fields .application-row > .summary-prose { transform: translateY(20px); }
+  .compact-research .dbp-row > .summary-prose { transform: translateY(12px); }
+  .compact-research #amplitude-models .model-overview-row > .summary-prose { transform: translateY(20px); }
+  .compact-research .fft-overview-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  .compact-research .fft-overview-row > .detail-links { grid-column: 2; grid-row: 2; align-self: start; margin-top: 10px; }
 }
 @media (max-width: 700px) {
   .compact-research .model-studies .xpfc-equations .equation-image { width: calc(var(--equation-narrow-width) * .9); }
+  .equation-connector { font-size: 16px; }
 }
