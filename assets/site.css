@@ -646,20 +646,20 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 }
 
 /* Personal photos accompany the biography without replacing the research introduction. */
-.about-intro-grid { display: grid; grid-template-columns: minmax(0,1fr) 200px; gap: 32px; align-items: start; }
+.about-intro-grid { display: grid; grid-template-columns: minmax(0,1fr) 240px; gap: 32px; align-items: start; }
 .about-intro-grid .about-copy { max-width: none; grid-column: 1; grid-row: 1; }
 .home-portrait { margin: 28px 0 0; grid-column: 2; grid-row: 1; }
-.home-portrait a { display: block; aspect-ratio: 4 / 5; overflow: hidden; }
-.home-portrait img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.55); transform-origin: 52% 85%; }
+.home-portrait a { display: block; aspect-ratio: auto; overflow: visible; }
+.home-portrait img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; transform: none; }
 .home-gallery { margin-top: 38px; padding-top: 25px; border-top: 1px solid var(--line); }
 .home-gallery h2 { font-size: 25px; margin-bottom: 20px; }
-.home-photo-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.home-photo-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; gap: 24px 18px; }
 .home-photo-grid figure { margin: 0; min-width: 0; }
-.home-photo-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.home-photo-grid figure:first-child img { object-position: center 38%; }
+.home-photo-grid a { height: 260px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; }
+.home-photo-grid img { width: auto; max-width: 100%; height: auto; max-height: 100%; aspect-ratio: auto; object-fit: contain; }
 .home-photo-grid figcaption { text-align: center; margin-top: 7px; font-size: 13px; }
 .compact-research .dba-row .figure-link { max-width: 380px; margin-inline: auto; }
-.compact-research .spdba-benefits { margin: 18px 0; }
+.compact-research .spdba-benefits { border-top: 1px solid var(--line); padding-top: 18px; margin: 24px 0 18px; }
 .compact-research .spdba-benefits .framework-benefits { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 38px; padding-left: 24px; margin: 0; }
 .compact-research .spdba-benefits .framework-benefits li { margin: 0; padding-left: 4px; }
 .compact-research .spdba-benefits .framework-benefits h3 { font-size: 16px; line-height: 1.6; }
@@ -669,8 +669,20 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .detail-section > video, .detail-section video { display: block; width: 100%; max-width: 640px; height: auto; margin-inline: auto; }
 @media (max-width: 700px) {
   .about-intro-grid { display: block; }
-  .home-portrait { width: 160px; margin: 0 auto 22px; }
+  .home-portrait { width: 220px; margin: 0 auto 22px; }
   .home-photo-grid { grid-template-columns: minmax(0,1fr); gap: 20px; }
-  .home-photo-grid img { aspect-ratio: 3 / 2; }
+  .home-photo-grid a { height: 300px; }
   .compact-research .spdba-benefits .framework-benefits { grid-template-columns: minmax(0,1fr); gap: 12px; }
+}
+
+/* Additional phase-field work and larger overview figures. */
+.compact-research .model-b-summary { margin-top: 28px; }
+.compact-research .model-b-summary h4 { margin: 0 0 14px; font-size: 21px; font-weight: 500; }
+.compact-research .model-b-overview-figure > .figure-link { max-width: 720px; margin-inline: auto; }
+@media (min-width: 901px) {
+  .compact-research .spdba-row { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); }
+  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.62fr) minmax(0,.38fr); }
+  .compact-research .dbp-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
+  .compact-research .model-overview-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
+  .compact-research #structural-models .model-overview-row { grid-template-columns: minmax(0,.68fr) minmax(0,.32fr); }
 }
