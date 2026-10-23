@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>From density fields to grain statistics | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=contact-margin-35">
+  <link rel="stylesheet" href="../../assets/site.css?v=research-home-36">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -30,7 +30,8 @@
       <p>I compute grain areas and equivalent diameters, then normalize each diameter by the mean to compare grain-size distributions.</p>
       <p class="model-references">The definitions and protocol are given in <a href="https://arxiv.org/abs/2609.03922">Supplementary Section S3.3 of our preprint</a>.</p>
 
-      <div class="pfc-analysis-figures">
+      <section id="grain-rotation" class="detail-section"><h2>A rotating small-angle grain</h2><figure class="section-figure"><video controls playsinline preload="none" poster="../../pictures/research/grain_rotation_poster.png" width="640" height="480" aria-label="PFC simulation of a small-angle circular grain boundary"><source src="../../pictures/research/grain_rotation.mp4" type="video/mp4"><a href="../../pictures/research/grain_rotation.mp4">Download the grain-boundary video.</a></video><figcaption>Particles are colored by coordination number. Over 2,000,000 PFC steps, the dislocation ring moves inward as the small-angle grain rotates and shrinks.</figcaption></figure>
+          </section><div class="pfc-analysis-figures">
         <figure class="section-figure"><a class="figure-link" href="../../pictures/research/pfc_density.png"><img src="../../pictures/research/pfc_density.png" alt="An early polycrystalline PFC density-field snapshot from a solver development example." width="1280" height="1280" loading="lazy" decoding="async"></a><figcaption>PFC density maxima resolve atom-like lattice sites in differently oriented regions. This development snapshot is independent of the segmentation and distribution examples.</figcaption></figure>
         <figure class="section-figure"><a class="figure-link" href="../../pictures/research/grain_segmentation.jpg"><img src="../../pictures/research/grain_segmentation.jpg" alt="A grain-segmentation output from an early PFC analysis test." width="456" height="450" loading="lazy" decoding="async"></a><figcaption>Particle-based segmentation partitions a polycrystal into grain regions for area and size statistics. This development case is independent of the surrounding images.</figcaption></figure>
         <figure class="section-figure"><a class="figure-link" href="../../pictures/research/grain_gsd.png"><img src="../../pictures/research/grain_gsd.png" alt="Normalized grain-size distributions from a separate 8192-squared XPFC case." width="1010" height="966" loading="lazy" decoding="async"></a><figcaption>Normalized grain-size distributions from a separate 8192² XPFC case. Equivalent diameters are divided by their mean, comparing Regular with four sp-DBA settings.</figcaption></figure>
