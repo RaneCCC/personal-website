@@ -483,7 +483,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .research-group { padding-top: 28px; }
 .compact-research .research-group-heading h2 { padding-block: 14px; font-size: clamp(27px,3vw,32px); }
 .compact-research .summary-prose { font-size: 17px; line-height: 1.65; }
-.compact-research .overview-row { display: grid; grid-template-columns: minmax(0,.54fr) minmax(0,.46fr); gap: 28px; align-items: center; margin: 22px 0; }
+.compact-research .overview-row { display: grid; grid-template-columns: minmax(0,.54fr) minmax(0,.46fr); gap: 20px; align-items: center; margin: 22px 0; }
 .compact-research .overview-row > * { min-width: 0; }
 .compact-research .overview-row .section-figure { margin: 0; }
 .compact-research .overview-row .summary-prose p { margin-bottom: 14px; }
@@ -531,7 +531,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .model-equation .equation-image { width: var(--equation-width); max-width: 100%; height: auto; margin-inline: auto; }
 .model-equation .equation-note { margin: 12px auto 0; max-width: none; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .equation-note var { font-family: "Latin Modern Math", "Times New Roman", serif; }
-.equation-note .inline-math-group { white-space: nowrap; }
+.equation-note .inline-math-group, .summary-prose .inline-math-group { white-space: nowrap; }
 .equation-note .inline-math, .summary-prose .inline-math { font-family: "Latin Modern Math", math; font-size: 1em; white-space: nowrap; }
 .model-summaries .model-equation { margin-top: 2px; }
 .compact-research .apfc-equations .equation-image, .compact-research .xpfc-equations .equation-image { width: calc(var(--equation-width) * .95); }
@@ -594,4 +594,25 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 }
 @media (max-width: 700px) {
   .compact-research .model-studies .equation-image { width: calc(var(--equation-narrow-width) * .9); }
+}
+
+/* Shared image rows align prose to the image body, leaving captions below. */
+.compact-research .fft-workflow-figure { margin-block: 20px; }
+.compact-research .fft-workflow-figure img { width: 100%; height: auto; }
+.compact-research .model-studies .xpfc-equations .equation-image { width: calc(var(--equation-width) * .9); }
+.compact-research .model-studies .xpfc-equations .equation-row { column-gap: 32px; }
+.compact-research .model-studies .apfc-equations .equation-row { column-gap: 24px; }
+.compact-research .xpfc-equations > .equation-row + .equation-row { margin-top: 14px; }
+@media (min-width: 901px) {
+  .compact-research .overview-row, .compact-research .grain-case { grid-template-rows: auto auto; column-gap: 20px; row-gap: 0; align-items: stretch; }
+  .compact-research .overview-row > figure, .compact-research .grain-case > figure { grid-column: 1; grid-row: 1 / span 2; display: grid; grid-template-rows: subgrid; align-self: stretch; }
+  .compact-research .overview-row > figure > .figure-link, .compact-research .grain-case > figure > video { grid-row: 1; align-self: center; }
+  .compact-research .overview-row > figure > figcaption, .compact-research .grain-case > figure > figcaption { grid-row: 2; align-self: start; margin-top: 10px; }
+  .compact-research .overview-row > .summary-prose, .compact-research .grain-case > .summary-prose { grid-column: 2; grid-row: 1; align-self: center; }
+  .compact-research .spdba-workflow-row { grid-template-columns: minmax(0,.5fr) minmax(0,.5fr); }
+  .compact-research .spdba-workflow-row > figure { grid-column: 2; }
+  .compact-research .spdba-workflow-row > .summary-prose { grid-column: 1; }
+}
+@media (max-width: 700px) {
+  .compact-research .model-studies .xpfc-equations .equation-image { width: calc(var(--equation-narrow-width) * .9); }
 }
