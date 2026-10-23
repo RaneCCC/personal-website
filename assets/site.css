@@ -603,7 +603,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .model-studies .xpfc-equations .equation-row { column-gap: 32px; }
 .compact-research .model-studies .apfc-equations .equation-row { column-gap: 24px; }
 .compact-research .xpfc-equations > .equation-row + .equation-row { margin-top: 14px; }
-.equation-kernel { display: flex; align-items: center; gap: 12px; }
+.equation-kernel { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; }
 .equation-kernel picture { min-width: 0; }
 .equation-connector { font: 18px/1.3 "Latin Modern Math", "Times New Roman", serif; }
 /* Display the original S20 inside its whitespace-only pixel crop (150,175,2290,1190). */
@@ -619,7 +619,11 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .compact-research .spdba-workflow-row > figure { grid-column: 2; }
   .compact-research .spdba-workflow-row > .summary-prose { grid-column: 1; }
   /* Small optical adjustments account for the figures' uneven visual weight. */
-  .compact-research #coupled-fields .application-row > .summary-prose { transform: translateY(20px); }
+  .compact-research .dba-row > .summary-prose { transform: translateY(24px); }
+  .compact-research .spdba-workflow-row > .summary-prose { transform: translateY(20px); }
+  .compact-research .fft-overview-row > .summary-prose { transform: translateY(24px); }
+  .compact-research .fft-overview-row { row-gap: 24px; }
+  .compact-research #coupled-fields .application-row > .summary-prose { transform: translateY(40px); }
   .compact-research .dbp-row > .summary-prose { transform: translateY(12px); }
   .compact-research #amplitude-models .model-overview-row > .summary-prose { transform: translateY(20px); }
   .compact-research .fft-overview-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
