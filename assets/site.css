@@ -136,7 +136,7 @@ h3 { font-size: 18px; }
 .research-toc { display: flex; flex-wrap: wrap; gap: 10px 24px; padding: 25px 0 27px; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6; }
 .toc-group, .toc-applications { display: contents; }
 .toc-group-label { display: none; }
-.research-toc a { color: var(--muted); }
+.research-toc a { color: #111; }
 .research-toc a[aria-current="location"] { color: var(--accent); }
 .application-context p { margin-bottom: 22px; }
 .research-entry .research-visual { align-self: center; }
@@ -314,7 +314,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .research-index-shell { grid-column: 1; grid-row: 1 / span 2; min-width: 0; padding-top: 51px; }
   .research-toc { position: sticky; top: 112px; display: block; max-height: calc(100svh - 144px); overflow-y: auto; padding: 3px 8px 3px 0; border-bottom: 0; font-size: 14px; }
   .toc-group { display: block; margin: 0 0 21px; }
-  .toc-group-label { display: block; margin: 0 0 7px; font-size: 12px; line-height: 1.5; font-weight: 600; color: var(--muted); }
+  .toc-group-label { display: block; margin: 0 0 7px; font-size: 12px; line-height: 1.5; font-weight: 600; color: #111; }
   .research-toc a { display: block; border-left: 2px solid var(--line); padding: 5px 0 5px 11px; }
   .research-toc a[aria-current="location"] { border-color: var(--accent); }
   .toc-applications { display: block; padding-left: 12px; }
@@ -536,8 +536,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .model-equation .equation-image { width: var(--equation-width); max-width: 100%; height: auto; margin-inline: auto; }
 .model-equation .equation-note { margin: 12px auto 0; max-width: none; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .equation-note var { font-family: "Latin Modern Math", "Times New Roman", serif; }
-.equation-note .inline-math-group, .summary-prose .inline-math-group { white-space: nowrap; }
-.equation-note .inline-math, .summary-prose .inline-math { font-family: "Latin Modern Math", math; font-size: 1em; white-space: nowrap; }
+.equation-note .inline-math-group, .summary-prose .inline-math-group, figcaption .inline-math-group { white-space: nowrap; }
+.equation-note .inline-math, .summary-prose .inline-math, figcaption .inline-math { font-family: "Latin Modern Math", math; font-size: 1em; white-space: nowrap; }
 .model-summaries .model-equation { margin-top: 2px; }
 .compact-research .apfc-equations .equation-image, .compact-research .xpfc-equations .equation-image { width: calc(var(--equation-width) * .95); }
 .equation-stack .equation-row { flex-direction: column; gap: 18px; }
@@ -646,11 +646,16 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 
 /* Complete photographs, with four original postcards grouped into one CSS tile. */
 .home-gallery { margin-top: 38px; padding-top: 25px; border-top: 1px solid var(--line); }
-.home-gallery h2 { font-size: 25px; margin-bottom: 26px; }
+.home-gallery-heading { padding: 20px 24px; margin-bottom: 18px; border-left: 3px solid var(--accent); background: #f8f4ef; }
+.gallery-heading-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.gallery-eyebrow { margin: 0; font-size: 12px; line-height: 1.4; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); }
+.gallery-mode { flex-shrink: 0; display: inline-flex; align-items: center; gap: 9px; font-size: 11px; line-height: 1.4; color: var(--muted); }
+.gallery-mode strong { padding: 3px 8px; border: 1px solid #d8d1c9; border-radius: 12px; font-size: 10px; letter-spacing: .07em; color: var(--ink); background: #fff; }
+.home-gallery-heading h2 { margin: 0; font-size: clamp(22px,2.2vw,28px); line-height: 1.4; color: var(--ink); }
 .home-theme-row { display: grid; grid-template-columns: 128px minmax(0,1fr); gap: 20px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
 .home-theme-row:first-of-type { border-top: none; padding-top: 0; }
 .home-theme-copy h3 { color: var(--accent); font-size: 16px; line-height: 1.4; margin-bottom: 0; }
-.home-theme-strip { display: grid; grid-template-columns: repeat(var(--photo-count),minmax(0,1fr)); gap: 10px; min-width: 0; }
+.home-theme-strip { display: grid; grid-template-columns: repeat(var(--photo-columns,var(--photo-count)),minmax(0,1fr)); gap: 10px; min-width: 0; }
 .home-theme-strip figure { margin: 0; min-width: 0; }
 .home-theme-strip a { display: flex; align-items: center; justify-content: center; height: 160px; }
 .home-theme-strip img { width: auto; height: auto; max-width: 100%; max-height: 160px; aspect-ratio: auto; object-fit: contain; }
@@ -664,6 +669,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .home-postcard-strip { grid-template-columns: minmax(160px,1fr); grid-auto-flow: column; grid-auto-columns: minmax(0,1fr); }
 }
 @media (max-width: 900px) {
+  .home-gallery-heading { padding: 18px 16px; }
   .home-theme-row { grid-template-columns: minmax(0,1fr); gap: 8px; padding-block: 12px; }
   .home-theme-row:first-of-type { padding-top: 0; }
   .home-theme-strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 180px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; padding-bottom: 10px; }
@@ -673,6 +679,10 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .home-photo-montage .postcard-grid { width: 150px; height: 150px; }
   .home-photo-montage .postcard-grid a { height: auto; }
   .home-photo-montage .postcard-grid img { max-height: 100%; }
+}
+@media (max-width: 480px) {
+  .gallery-mode { font-size: 10px; gap: 5px; }
+  .gallery-eyebrow { font-size: 10px; }
 }
 .compact-research .dba-row .figure-link { max-width: 380px; margin-inline: auto; }
 .compact-research .spdba-benefits { border-top: 1px solid var(--line); padding-top: 18px; margin: 24px 0 18px; }
