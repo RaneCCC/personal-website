@@ -644,20 +644,32 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .compact-research .pf-overview-figure > .figure-link { max-width: 920px; }
 }
 
-/* Interest galleries keep the complete photographs; only approved collages are split. */
+/* Complete photographs, with four original postcards grouped into one CSS tile. */
 .home-gallery { margin-top: 38px; padding-top: 25px; border-top: 1px solid var(--line); }
 .home-gallery h2 { font-size: 25px; margin-bottom: 26px; }
-.home-theme-row { display: grid; grid-template-columns: 160px minmax(0,1fr); gap: 24px; align-items: center; padding: 24px 0; border-top: 1px solid var(--line); }
+.home-theme-row { display: grid; grid-template-columns: 128px minmax(0,1fr); gap: 20px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
 .home-theme-row:first-of-type { border-top: none; padding-top: 0; }
-.home-theme-copy h3 { color: var(--accent); font-size: 18px; line-height: 1.4; margin-bottom: 0; }
-.home-theme-strip { display: grid; grid-template-columns: repeat(var(--photo-count),minmax(0,1fr)); gap: 12px; min-width: 0; }
+.home-theme-copy h3 { color: var(--accent); font-size: 16px; line-height: 1.4; margin-bottom: 0; }
+.home-theme-strip { display: grid; grid-template-columns: repeat(var(--photo-count),minmax(0,1fr)); gap: 10px; min-width: 0; }
 .home-theme-strip figure { margin: 0; min-width: 0; }
-.home-theme-strip a { display: flex; align-items: center; justify-content: center; height: 220px; }
-.home-theme-strip img { width: auto; height: auto; max-width: 100%; max-height: 220px; aspect-ratio: auto; object-fit: contain; }
+.home-theme-strip a { display: flex; align-items: center; justify-content: center; height: 160px; }
+.home-theme-strip img { width: auto; height: auto; max-width: 100%; max-height: 160px; aspect-ratio: auto; object-fit: contain; }
+.home-photo-montage .postcard-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: repeat(2,minmax(0,1fr)); gap: 4px; width: 160px; max-width: 100%; height: 160px; margin-inline: auto; }
+.home-photo-montage .postcard-grid a { height: auto; min-width: 0; min-height: 0; }
+.home-photo-montage .postcard-grid img { max-width: 100%; max-height: 100%; }
+@media (min-width: 901px) {
+  .home-postcard-strip { grid-template-columns: minmax(160px,1fr); grid-auto-flow: column; grid-auto-columns: minmax(0,1fr); }
+}
 @media (max-width: 900px) {
-  .home-theme-row { grid-template-columns: minmax(0,1fr); gap: 14px; }
-  .home-theme-strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(76vw,260px); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; padding-bottom: 10px; }
+  .home-theme-row { grid-template-columns: minmax(0,1fr); gap: 8px; padding-block: 12px; }
+  .home-theme-row:first-of-type { padding-top: 0; }
+  .home-theme-strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 180px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; padding-bottom: 10px; }
   .home-theme-strip figure { scroll-snap-align: start; }
+  .home-theme-strip a { height: 150px; }
+  .home-theme-strip img { max-height: 150px; }
+  .home-photo-montage .postcard-grid { width: 150px; height: 150px; }
+  .home-photo-montage .postcard-grid a { height: auto; }
+  .home-photo-montage .postcard-grid img { max-height: 100%; }
 }
 .compact-research .dba-row .figure-link { max-width: 380px; margin-inline: auto; }
 .compact-research .spdba-benefits { border-top: 1px solid var(--line); padding-top: 18px; margin: 24px 0 18px; }
