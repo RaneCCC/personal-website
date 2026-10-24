@@ -664,6 +664,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .home-photo-montage .postcard-grid .postcard-crop { position: relative; overflow: hidden; }
 .home-photo-montage .postcard-grid .postcard-crop img { position: absolute; width: var(--preview-width); height: auto; max-width: none; max-height: none; left: var(--preview-left); top: var(--preview-top); }
 @media (min-width: 901px) {
+  .home-theme-row[aria-labelledby="photos-outdoors"] .home-theme-strip { display: flex; justify-content: center; gap: 24px; }
+  .home-theme-row[aria-labelledby="photos-outdoors"] .home-theme-strip figure { flex: 0 1 auto; }
   .home-postcard-strip { grid-template-columns: minmax(160px,1fr); grid-auto-flow: column; grid-auto-columns: minmax(0,1fr); }
 }
 @media (max-width: 900px) {
