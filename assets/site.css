@@ -515,7 +515,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .application-row { grid-template-columns: minmax(0,.48fr) minmax(0,.52fr); }
 .compact-research .fft-overview-row { grid-template-columns: minmax(0,.54fr) minmax(0,.46fr); align-items: start; }
 .compact-research .application-row img { width: 100%; height: auto; }
-.compact-research .dbp-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
+.compact-research .dbp-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
 .compact-research .research-note-links { margin: 12px 0 0; font-size: 15px; }
 .detail-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; margin-top: 16px; }
 .compact-research .grain-workflow-figure { max-width: none; margin-block: 18px; }
@@ -555,7 +555,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .compact-research .overview-row, .compact-research .grain-case { grid-template-columns: minmax(0,1fr); gap: 18px; }
   .compact-research .dba-row .section-figure { max-width: 430px; margin-inline: auto; }
   .compact-research .spdba-row .framework-figure, .compact-research .spdba-workflow-row .workflow-detail-figure { max-width: 440px; margin-inline: auto; }
-  .compact-research .application-row .section-figure { max-width: 500px; margin-inline: auto; }
+  .compact-research .application-row .section-figure { max-width: 640px; margin-inline: auto; }
   .compact-research .grain-case { max-width: 560px; margin-inline: auto; }
   .compact-research .model-summaries h3 { min-height: 0; }
   .compact-research .model-summaries .figure-link { height: auto; }
@@ -682,7 +682,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 @media (max-width: 480px) {
   .gallery-eyebrow { font-size: 10px; }
 }
-.compact-research .dba-row .figure-link { max-width: 380px; margin-inline: auto; }
+.compact-research .dba-row .figure-link { max-width: 400px; margin-inline: auto; }
 .compact-research .spdba-benefits { border-top: 1px solid var(--line); padding-top: 18px; margin: 24px 0 18px; }
 .compact-research .spdba-benefits .framework-benefits { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 38px; padding-left: 24px; padding-bottom: 18px; margin: 0; border-bottom: 1px solid var(--line); }
 .compact-research .spdba-benefits .framework-benefits li { margin: 0; padding-left: 4px; }
@@ -706,8 +706,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .fft-practice { margin-top: 20px; }
 @media (min-width: 901px) {
   .compact-research .spdba-row { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); }
-  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
-  .compact-research .dbp-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
+  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.62fr) minmax(0,.38fr); }
+  .compact-research .dbp-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
   .compact-research .model-overview-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
 }
 
@@ -732,16 +732,11 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .about-contact { margin-top: 15px; margin-bottom: 0; font-size: 14px; }
 .about-contact a { color: var(--muted); }
 .research-lead-links { font-size: 15px; margin: 12px 0 0; }
-.compact-research .dba-context { padding: 14px 18px; margin: 20px 0 0; border-left: 2px solid var(--line); background: #fafafa; scroll-margin-top: 0; }
-.compact-research .dba-context h3 { font: 600 16px/1.5 var(--sans); color: var(--ink); margin: 0 0 5px; }
-.compact-research .dba-context p { font-size: 17px; line-height: 1.65; margin: 0; }
 .compact-research #adaptive-computing > .research-group-heading h2 { font-size: 34px; }
 .compact-research #distributed-fft > .research-group-heading h2,
 .compact-research #materials > .research-group-heading h2 { font-size: 28px; padding-block: 12px; }
 .compact-research .material-model { margin-top: 24px; }
 .compact-research .material-model > h3 { font-size: 22px; margin-bottom: 10px; }
-.compact-research .materials-intro { margin-top: 16px; }
-.compact-research .materials-intro p { margin-bottom: 18px; }
 @media (max-width: 900px) {
   /* Read contribution and paper before the feature illustration on a small screen. */
   .compact-research .spdba-row > .summary-prose { grid-row: 1; }
@@ -750,3 +745,11 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 
 .detail-content .publication-note { font-size: 14px; line-height: 1.65; color: var(--muted); }
 .detail-content #dba-background .figure-link { max-width: 430px; }
+
+/* Prior work introduces the physical idea; sp-DBA remains the main contribution. */
+.compact-research .dba-starting-point > .research-group-heading h2 { font-size: 24px; color: var(--ink); padding-block: 10px; }
+.compact-research .dba-bridge { margin: 16px 0 0; }
+.compact-research .dba-bridge p { margin-bottom: 0; }
+@media (min-width: 901px) {
+  .compact-research .dba-row { grid-template-columns: minmax(0,.42fr) minmax(0,.58fr); }
+}
