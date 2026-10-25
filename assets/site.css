@@ -706,7 +706,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .fft-practice { margin-top: 20px; }
 @media (min-width: 901px) {
   .compact-research .spdba-row { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); }
-  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.62fr) minmax(0,.38fr); }
+  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
   .compact-research .dbp-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
   .compact-research .model-overview-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
 }
@@ -729,6 +729,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .about-selected h2 { font-size: 18px; color: var(--ink); margin-bottom: 9px; }
 .about-selected p { margin: 0; font-size: 16px; line-height: 1.6; }
 .selected-authors { display: block; margin-top: 5px; color: var(--muted); font-size: 14px; }
+.selected-authors .corresponding-author { white-space: nowrap; }
 .about-contact { margin-top: 15px; margin-bottom: 0; font-size: 14px; }
 .about-contact a { color: var(--muted); }
 .research-lead-links { font-size: 15px; margin: 12px 0 0; }
