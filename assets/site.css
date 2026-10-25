@@ -488,11 +488,12 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .research-group { padding-top: 28px; }
 .compact-research .research-group-heading h2 { padding-block: 14px; font-size: clamp(27px,3vw,32px); }
 .compact-research .summary-prose { font-size: 17px; line-height: 1.65; }
-.compact-research .overview-row { display: grid; grid-template-columns: minmax(0,.54fr) minmax(0,.46fr); gap: 20px; align-items: center; margin: 22px 0; }
+.compact-research .overview-row { display: grid; grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); gap: 20px; align-items: center; margin: 18px 0; }
 .compact-research .overview-row > * { min-width: 0; }
 .compact-research .overview-row .section-figure { margin: 0; }
 .compact-research .overview-row .summary-prose p { margin-bottom: 14px; }
 .compact-research .overview-row .summary-prose p:last-child { margin-bottom: 0; }
+.compact-research .overview-row > .summary-prose { margin-block: 0; }
 .compact-research .dba-row, .compact-research .spdba-row { grid-template-columns: minmax(0,.48fr) minmax(0,.52fr); }
 .compact-research .spdba-workflow-row { grid-template-columns: minmax(0,.54fr) minmax(0,.46fr); }
 .compact-research .spdba-outcomes { margin: 22px 0; }
@@ -514,7 +515,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .application-row { grid-template-columns: minmax(0,.48fr) minmax(0,.52fr); }
 .compact-research .fft-overview-row { grid-template-columns: minmax(0,.54fr) minmax(0,.46fr); align-items: start; }
 .compact-research .application-row img { width: 100%; height: auto; }
-.compact-research .dbp-row { grid-template-columns: minmax(0,.62fr) minmax(0,.38fr); }
+.compact-research .dbp-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
 .compact-research .research-note-links { margin: 12px 0 0; font-size: 15px; }
 .detail-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; margin-top: 16px; }
 .compact-research .grain-workflow-figure { max-width: none; margin-block: 18px; }
@@ -623,14 +624,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .compact-research .spdba-workflow-row { grid-template-columns: minmax(0,.5fr) minmax(0,.5fr); }
   .compact-research .spdba-workflow-row > figure { grid-column: 2; }
   .compact-research .spdba-workflow-row > .summary-prose { grid-column: 1; }
-  /* Small optical adjustments account for the figures' uneven visual weight. */
-  .compact-research .dba-row > .summary-prose { transform: translateY(24px); }
-  .compact-research .spdba-workflow-row > .summary-prose { transform: translateY(20px); }
-  .compact-research .fft-overview-row > .summary-prose { transform: translateY(24px); }
-  .compact-research .fft-overview-row { row-gap: 24px; }
-  .compact-research #coupled-fields .application-row > .summary-prose { transform: translateY(40px); }
-  .compact-research .dbp-row > .summary-prose { transform: translateY(12px); }
-  .compact-research #amplitude-models .model-overview-row > .summary-prose { transform: translateY(20px); }
+
+  .compact-research .fft-overview-row { row-gap: 10px; }
   .compact-research .fft-overview-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
 }
 @media (max-width: 700px) {
@@ -638,7 +633,6 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .equation-connector { font-size: 16px; }
 }
 @media (min-width: 1600px) {
-  .compact-research #coupled-fields .application-row > .summary-prose { transform: translateY(24px); }
   .compact-research .pfc-application-figure > .figure-link,
   .compact-research .grain-workflow-figure > .figure-link,
   .compact-research .pf-overview-figure > .figure-link { max-width: 920px; }
@@ -712,8 +706,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .fft-practice { margin-top: 20px; }
 @media (min-width: 901px) {
   .compact-research .spdba-row { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); }
-  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.62fr) minmax(0,.38fr); }
-  .compact-research .dbp-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
+  .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
+  .compact-research .dbp-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
   .compact-research .model-overview-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
 }
 
@@ -728,3 +722,31 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .xpfc-detail-equations .equation-expression picture { width: max-content; margin-inline: auto; }
 .xpfc-detail-equations .equation-image { width: var(--equation-width); max-width: none; height: auto; }
 .xpfc-detail-equations .equation-note { text-wrap: pretty; }
+
+/* Academic entries share a reading column; the full personal gallery follows unchanged. */
+.about-selected, .about-contact { max-width: 720px; margin-inline: auto; }
+.about-selected { border-left: 2px solid var(--accent); padding: 2px 0 2px 18px; margin-top: 26px; }
+.about-selected h2 { font-size: 18px; color: var(--ink); margin-bottom: 9px; }
+.about-selected p { margin: 0; font-size: 16px; line-height: 1.6; }
+.selected-authors { display: block; margin-top: 5px; color: var(--muted); font-size: 14px; }
+.about-contact { margin-top: 15px; margin-bottom: 0; font-size: 14px; }
+.about-contact a { color: var(--muted); }
+.research-lead-links { font-size: 15px; margin: 12px 0 0; }
+.compact-research .dba-context { padding: 14px 18px; margin: 20px 0 0; border-left: 2px solid var(--line); background: #fafafa; scroll-margin-top: 0; }
+.compact-research .dba-context h3 { font: 600 16px/1.5 var(--sans); color: var(--ink); margin: 0 0 5px; }
+.compact-research .dba-context p { font-size: 17px; line-height: 1.65; margin: 0; }
+.compact-research #adaptive-computing > .research-group-heading h2 { font-size: 34px; }
+.compact-research #distributed-fft > .research-group-heading h2,
+.compact-research #materials > .research-group-heading h2 { font-size: 28px; padding-block: 12px; }
+.compact-research .material-model { margin-top: 24px; }
+.compact-research .material-model > h3 { font-size: 22px; margin-bottom: 10px; }
+.compact-research .materials-intro { margin-top: 16px; }
+.compact-research .materials-intro p { margin-bottom: 18px; }
+@media (max-width: 900px) {
+  /* Read contribution and paper before the feature illustration on a small screen. */
+  .compact-research .spdba-row > .summary-prose { grid-row: 1; }
+  .compact-research .spdba-row > figure { grid-row: 2; }
+}
+
+.detail-content .publication-note { font-size: 14px; line-height: 1.65; color: var(--muted); }
+.detail-content #dba-background .figure-link { max-width: 430px; }

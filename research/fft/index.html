@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>FFT kernel development | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=research-refine-48">
+  <link rel="stylesheet" href="../../assets/site.css?v=admissions-refine-49">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -21,10 +21,12 @@
   <header class="detail-heading"><p class="detail-back"><a href="../#distributed-fft">← Research</a></p><h1 id="fft-title">FFT kernel development</h1></header>
   <article id="fft" class="detail-content" aria-labelledby="fft-title">
 <div class="section-copy summary-prose"><p>An early idea behind sp-DBA was to apply block activation to Fourier-space updates. I wanted to understand the transform itself, so I tried writing an FFT library and comparing it with FFTW. What drew me in was how Cooley–Tukey breaks a large transform into smaller ones that fit together so neatly.</p><p>I started with recursive decomposition, then worked on iterative butterflies, bit-reversal reordering, precomputed twiddle factors, and memory layout. On the larger power-of-two two-dimensional grids in my early CPU tests, the optimized version came close to FFTW. Comparing these versions helped me understand how arithmetic and memory access share the cost of a transform.</p></div>
+      <template id="fft-illustrations-hidden">
       <div class="fft-figure-slots" aria-label="Reserved illustrations for FFT implementation">
         <figure class="section-figure"><div class="figure-slot fft-figure-slot" role="img" aria-label="Reserved figure: FFT library structure"></div><figcaption>FFT library structure</figcaption></figure>
         <figure class="section-figure"><div class="figure-slot fft-figure-slot" role="img" aria-label="Reserved figure: recursive decomposition and iterative FFT implementation"></div><figcaption>From recursive to iterative FFT</figcaption></figure>
       </div>
+      </template>
       <details class="notes-extra fft-working-notes"><summary>Handwritten working notes</summary>
       <figure class="section-figure fft-notes-figure"><a class="figure-link" href="../../pictures/research/fft_notes.jpg"><img src="../../pictures/research/fft_notes.jpg" alt="Handwritten working notes on roots of unity, even–odd polynomial decomposition, and the FFT." width="4032" height="3024" loading="lazy" decoding="async"></a><figcaption>Working notes connect polynomial evaluation, even–odd decomposition, and roots of unity. They guided my FFT implementation and comparison with FFTW.</figcaption></figure>
       </details>
