@@ -722,3 +722,9 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .compact-research .model-b-row > figure > video { grid-row: 1; align-self: center; }
   .compact-research .model-b-row > .summary-prose { max-width: 500px; }
 }
+
+/* Keep each full XPFC equation on one line; small screens can scroll the formula. */
+.xpfc-detail-equations .equation-expression { width: 100%; overflow-x: auto; padding-block: 5px; }
+.xpfc-detail-equations .equation-expression picture { width: max-content; margin-inline: auto; }
+.xpfc-detail-equations .equation-image { width: var(--equation-width); max-width: none; height: auto; }
+.xpfc-detail-equations .equation-note { text-wrap: pretty; }
