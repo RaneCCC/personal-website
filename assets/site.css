@@ -645,7 +645,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 }
 
 /* Complete photographs, with four original postcards grouped into one CSS tile. */
-.home-gallery { margin-top: 70px; padding-top: 25px; border-top: 1px solid var(--line); }
+.home-gallery { margin-top: clamp(180px, 22vh, 260px); padding-top: 25px; border-top: 1px solid var(--line); }
 .home-gallery-heading { padding: 20px 24px; margin-bottom: 18px; border-left: 3px solid var(--accent); background: #f8f4ef; }
 .gallery-heading-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .gallery-eyebrow { margin: 0; font-size: 12px; line-height: 1.4; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); }
@@ -673,7 +673,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .home-postcard-strip { grid-template-columns: minmax(160px,1fr); grid-auto-flow: column; grid-auto-columns: minmax(0,1fr); }
 }
 @media (max-width: 900px) {
-  .home-gallery { margin-top: 56px; }
+  .home-gallery { margin-top: clamp(120px, 18vh, 180px); }
   .home-gallery-heading { padding: 18px 16px; }
   .home-theme-row { grid-template-columns: minmax(0,1fr); gap: 8px; padding-block: 12px; }
   .home-theme-row:first-of-type { padding-top: 0; }
