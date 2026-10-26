@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>From density fields to grain statistics | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=source-copy-51">
+  <link rel="stylesheet" href="../../assets/site.css?v=research-final-52">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -20,12 +20,12 @@
 <main id="main" class="detail-main">
   <header class="detail-heading"><p class="detail-back"><a href="../#grain-boundaries">← Research</a></p><h1 id="grain-boundaries-title">From density fields to grain statistics</h1></header>
   <article id="grain-boundaries" class="detail-content" aria-labelledby="grain-boundaries-title">
-<div class="section-copy summary-prose"><p>A single-layer PFC simulation gives me a continuous density field, but measuring its microstructure requires identifiable grains. I use C++/CUDA to extract density peaks and write atomic coordinates, local orientations, and quaternions to a particle dump. Python performs grain reconstruction and statistics, while OVITO provides a particle-level check of the input and orientation data.</p></div>
+<div class="section-copy summary-prose"><p>A single-layer PFC simulation gives me a continuous density field, but measuring its microstructure requires identifiable grains. I use C++/CUDA to extract density peaks and write atomic coordinates, local orientations, and quaternions to a particle dump. Python performs grain reconstruction and statistics, while I use OVITO to inspect the particle data and visualize the segmented grains.</p></div>
       <ol id="grain-statistics-workflow" class="analysis-route">
         <li><h3>Inspect the field and extract atoms</h3><p>I inspect the real-space density field in ParaView. My C++/CUDA routines locate density maxima, turning the periodic field into discrete particle positions while retaining a density value for each peak.</p></li>
         <li><h3>Compute orientations and write a dump</h3><p>For this monolayer workflow, I calculate in-plane orientation myself from sixfold bond order. I export the positions, density, orientation angle, and a quaternion representing rotation about the layer normal in a LAMMPS-style dump.</p></li>
         <li><h3>Segment grains and calculate statistics</h3><p>My Python code selects grain cores using peak density and local distortion. Region growing joins periodic neighbors within a 3.5° misorientation tolerance, treating angles separated by 60° as equivalent. Neighborhood voting assigns boundary particles, followed by cleanup of small fragments and artifacts. Summing local atomic areas gives grain areas and equivalent diameters; CSV summaries then feed the grain-size distribution plots.</p></li>
-        <li><h3>Check the particle view in OVITO</h3><p>I load the original particle dump in OVITO to inspect positions and the exported orientations. I compare this particle view with the Python segmentation maps and grain-size distributions.</p></li>
+        <li><h3>Inspect particles and grains in OVITO</h3><p>I use OVITO to inspect particle positions and exported orientations and to visualize the segmented grains. I compare these views with the Python segmentation maps and grain-size distributions.</p></li>
       </ol>
       <p class="model-references">The definitions and protocol are given in <a href="https://arxiv.org/abs/2609.03922">Supplementary Section S3.3 of our preprint</a>.</p>
 

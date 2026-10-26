@@ -539,6 +539,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .equation-note var { font-family: "Latin Modern Math", "Times New Roman", serif; }
 .equation-note .inline-math-group, .summary-prose .inline-math-group, figcaption .inline-math-group { white-space: nowrap; }
 .equation-note .inline-math, .summary-prose .inline-math, figcaption .inline-math { font-family: "Latin Modern Math", math; font-size: 1em; white-space: nowrap; }
+figcaption .caption-math { display: inline-block; width: var(--caption-equation-width); max-width: none; height: auto; vertical-align: -.25em; }
 .model-summaries .model-equation { margin-top: 2px; }
 .compact-research .apfc-equations .equation-image, .compact-research .xpfc-equations .equation-image { width: calc(var(--equation-width) * .95); }
 .equation-stack .equation-row { flex-direction: column; gap: 18px; }
@@ -749,8 +750,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 
 /* Prior work introduces the physical idea; sp-DBA remains the main contribution. */
 .compact-research .dba-starting-point > .research-group-heading h2 { font-size: 24px; color: var(--ink); padding-block: 10px; }
-.compact-research .dba-bridge { margin: 16px 0 0; }
-.compact-research .dba-bridge p { margin-bottom: 0; }
+.compact-research .transform-context { margin: 0 0 22px; }
+.compact-research .transform-context p { margin-bottom: 0; }
 @media (min-width: 901px) {
   .compact-research .dba-row { grid-template-columns: minmax(0,.42fr) minmax(0,.58fr); }
 }
