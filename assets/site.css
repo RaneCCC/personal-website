@@ -308,7 +308,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .textLayer br::selection { background: transparent; }
 @media (min-width: 1000px) {
   .header-inner, .single-research { padding-right: 88px; }
-  .single-research { display: grid; grid-template-columns: 168px minmax(0,1fr); column-gap: 40px; max-width: var(--site-width); }
+  .single-research { display: grid; grid-template-columns: 188px minmax(0,1fr); column-gap: 20px; max-width: var(--site-width); }
   .single-research > .research-page-heading { grid-column: 2; grid-row: 1; }
   .research-content { grid-column: 2; grid-row: 2; }
   .research-index-shell { grid-column: 1; grid-row: 1 / span 2; min-width: 0; padding-top: 51px; }

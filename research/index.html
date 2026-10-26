@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#b31a1b">
   <title>Research | Jingkun Jiang</title>
   <link rel="preload" href="../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site.css?v=research-final-52">
-  <script type="module" src="../assets/research-nav.js?v=research-final-52"></script>
+  <link rel="stylesheet" href="../assets/site.css?v=dba-sidebar-53">
+  <script type="module" src="../assets/research-nav.js?v=dba-sidebar-53"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -23,14 +23,14 @@
   <aside class="research-index-shell"><nav class="research-toc" aria-label="Research contents">
     <div class="toc-group"><p class="toc-group-label">Adaptive computing</p><a href="#dba">DBA · Prior work</a><a href="#spdba">sp-DBA</a><div class="toc-applications"><a href="#spdba-pfc">PFC</a><a href="#coupled-fields">RCD</a><a href="#digital-backpropagation">DBP</a></div></div>
     <div class="toc-group"><p class="toc-group-label">Numerical computing</p><a href="#distributed-fft">FFT &amp; Distributed FFTs</a></div>
-    <div class="toc-group"><p class="toc-group-label">Materials modeling</p><a href="#grain-boundaries">Grains &amp; defects</a><a href="#structural-models">XPFC &amp; APFC</a><a href="#solidification">Dendritic growth</a><a href="#reactive-model-b">Macromolecular phase separation</a></div>
+    <div class="toc-group"><p class="toc-group-label">Materials modeling</p><a href="#grain-boundaries">Grains &amp; defects</a><a href="#structural-models">XPFC &amp; APFC</a><a href="#solidification">Dendritic growth</a><a href="#reactive-model-b">Phase separation</a></div>
   </nav></aside>
   <div class="research-content">
     <section id="dba" class="research-group dba-starting-point" aria-labelledby="dba-title">
       <header class="research-group-heading"><h2 id="dba-title">DBA · Prior work</h2></header>
       <div class="overview-row dba-row publication-row">
 <figure class="section-figure"><a class="figure-link" href="../pictures/research/dba_main.png"><img src="../pictures/research/dba_main.png" alt="Zhang and Xia (2025), Figure 2a–b: dendritic growth and the active blocks for phase and temperature." width="1060" height="1024" loading="lazy" decoding="async"></a><figcaption>Three-dimensional dendritic growth. Active phase-field and temperature blocks cluster around the moving interface.</figcaption></figure>
-        <div class="summary-prose reference-column"><p>Phase-field models describe evolving structures through continuous order parameters, with sharp changes often concentrated near interfaces. Where adaptive mesh refinement (AMR) changes local resolution, dynamic block activation (DBA) selects which fixed-grid blocks need updating. Developed by Ruoyao Zhang and Yang Xia, it combines GPU-aligned blocks with shared-memory state checks to accelerate continuum models in materials science, biophysics, and fluid dynamics. Its dendritic-growth tests preserved morphology and tip-profile accuracy, with near-ideal scaling to 32 GPUs.</p><p class="publication-note">Ruoyao Zhang and Yang Xia. <a href="https://doi.org/10.1038/s43588-025-00780-2">A dynamic block activation framework for continuum models.</a> <i>Nature Computational Science</i> 5, 345–354 (2025).</p></div>
+        <div class="summary-prose reference-column"><p>Phase-field evolution is often concentrated near moving interfaces, so updating the slowly changing bulk can waste computation. Ruoyao Zhang and Yang Xia developed dynamic block activation (DBA) to update active blocks and retain values in inactive ones. It keeps a fixed grid while adaptive mesh refinement changes resolution. GPU-aligned blocks and shared-memory state checks make this selective execution efficient across continuum models in materials science, biophysics, and fluid dynamics. Dendritic-growth tests retained morphology and tip-profile accuracy, with near-ideal scaling to 32 GPUs.</p><p class="publication-note">Ruoyao Zhang and Yang Xia. <a href="https://doi.org/10.1038/s43588-025-00780-2">A dynamic block activation framework for continuum models.</a> <i>Nature Computational Science</i> 5, 345–354 (2025).</p></div>
       </div>
     </section>
     <section id="adaptive-computing" class="research-group" aria-labelledby="spdba">
