@@ -1,10 +1,11 @@
-import { getDocument, GlobalWorkerOptions, TextLayer } from './vendor/pdfjs/pdf.min.mjs';
+import { AnnotationType, getDocument, GlobalWorkerOptions, TextLayer } from './vendor/pdfjs/pdf.min.mjs';
 
 const viewer = document.querySelector('#pdf-viewer');
 const scroll = document.querySelector('#pdf-scroll');
 const pageFrame = document.querySelector('#pdf-page');
 const canvas = document.querySelector('#cv-canvas');
 const textContainer = document.querySelector('#cv-text-layer');
+const linkContainer = document.querySelector('#cv-link-layer');
 const preview = document.querySelector('#cv-preview');
 const status = document.querySelector('#pdf-status');
 const zoomOut = document.querySelector('#zoom-out');
@@ -13,7 +14,7 @@ const fitButton = document.querySelector('#fit-width');
 const zoomValue = document.querySelector('#zoom-value');
 const pageCount = document.querySelector('#page-count');
 
-if (viewer && scroll && pageFrame && canvas && textContainer) {
+if (viewer && scroll && pageFrame && canvas && textContainer && linkContainer) {
   const MIN_SCALE = 0.4;
   const MAX_SCALE = 2;
   const ZOOM_STEP = 0.15;
@@ -23,6 +24,7 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
   let pdf = null;
   let page = null;
   let textContentPromise = null;
+  let annotationsPromise = null;
   let baseWidth = 1;
   let scale = 1;
   let renderedScale = 0;
@@ -66,6 +68,29 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
     };
   }
 
+  function createLinkRegions(annotations, viewport) {
+    const regions = document.createDocumentFragment();
+    for (const annotation of annotations) {
+      // PDF.js supplies a validated URL; never use its unsafeUrl fallback.
+      if (annotation.annotationType !== AnnotationType.LINK || !annotation.url) continue;
+      if (!Array.isArray(annotation.rect) || annotation.rect.length !== 4 || !annotation.rect.every(Number.isFinite)) continue;
+      const [x1, y1, x2, y2] = viewport.convertToViewportRectangle(annotation.rect);
+      const width = Math.abs(x2 - x1);
+      const height = Math.abs(y2 - y1);
+      if (!width || !height) continue;
+      const link = document.createElement('a');
+      link.href = annotation.url;
+      link.title = annotation.url;
+      link.setAttribute('aria-label', annotation.url);
+      link.style.left = `${Math.min(x1, x2)}px`;
+      link.style.top = `${Math.min(y1, y2)}px`;
+      link.style.width = `${width}px`;
+      link.style.height = `${height}px`;
+      regions.append(link);
+    }
+    return regions;
+  }
+
   function showFallback() {
     failed = true;
     ready = false;
@@ -74,6 +99,8 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
     canvas.hidden = true;
     if (preview) preview.hidden = false;
     textContainer.replaceChildren();
+    linkContainer.replaceChildren();
+    linkContainer.hidden = true;
     pageFrame.style.removeProperty('width');
     pageFrame.style.removeProperty('height');
     viewer.setAttribute('aria-busy', 'false');
@@ -86,6 +113,8 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
   function requestRender() {
     if (!page || failed) return;
     revision += 1;
+    linkContainer.replaceChildren();
+    linkContainer.hidden = true;
     renderTask?.cancel();
     textLayer?.cancel();
     if (!processing) void renderLatest();
@@ -142,7 +171,22 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
         }
         if (currentRevision !== revision) continue;
 
+        let linksAvailable = false;
+        try {
+          const annotations = await annotationsPromise;
+          if (currentRevision !== revision) continue;
+          if (annotations) {
+            linkContainer.replaceChildren(createLinkRegions(annotations, viewport));
+            linksAvailable = true;
+          }
+        } catch (error) {
+          // Link annotations are independent of the page and text rendering.
+          linkContainer.replaceChildren();
+        }
+        if (currentRevision !== revision) continue;
+
         canvas.hidden = false;
+        linkContainer.hidden = !linksAvailable;
         if (preview) preview.hidden = true;
         canvas.setAttribute('aria-label', `Curriculum vitae of Jingkun Jiang, page 1 of ${pdf.numPages}.`);
         if (pageCount) pageCount.textContent = `1 / ${pdf.numPages}`;
@@ -157,6 +201,7 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
           status.textContent = selectable
             ? 'CV loaded. Use the controls to zoom; text can be selected.'
             : 'CV loaded. Text selection is unavailable; the PDF download remains available.';
+          if (!linksAvailable) status.textContent += ' Embedded links are unavailable in this reader.';
         }
         viewer.setAttribute('aria-busy', 'false');
         refreshControls();
@@ -221,6 +266,7 @@ if (viewer && scroll && pageFrame && canvas && textContainer) {
     page = await pdf.getPage(1);
     baseWidth = page.getViewport({ scale: 1 }).width;
     textContentPromise = page.getTextContent().catch(() => null);
+    annotationsPromise = page.getAnnotations({ intent: 'display' }).catch(() => null);
     previousWidth = scroll.clientWidth;
     scale = fitScale();
     refreshControls();

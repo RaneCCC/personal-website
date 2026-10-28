@@ -134,10 +134,12 @@ h3 { font-size: 18px; }
 .research-detail-heading > .summary-prose p { margin-bottom: 0; }
 .research-breadcrumb { margin: 0 0 19px; font-size: 16px; }
 .research-toc { display: flex; flex-wrap: wrap; gap: 10px 24px; padding: 25px 0 27px; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6; }
-.toc-group, .toc-applications { display: contents; }
+.toc-group, .toc-links, .toc-applications { display: contents; }
 .toc-group-label { display: none; }
 .research-toc a { color: #111; }
-.research-toc a[aria-current="location"] { color: var(--accent); }
+.research-toc a[aria-current="location"] { color: var(--accent); font-weight: 600; }
+.prior-work-tag { color: var(--muted); font-family: var(--sans); font-size: inherit; font-weight: 500; line-height: inherit; letter-spacing: normal; white-space: nowrap; }
+.research-toc .prior-work-tag { display: inline-block; margin-left: 5px; }
 .application-context p { margin-bottom: 22px; }
 .research-entry .research-visual { align-self: center; }
 .research-entry .research-topic-heading a { color: inherit; }
@@ -187,6 +189,8 @@ h3 { font-size: 18px; }
 
 .spdba-intro a { font-weight: 600; }
 .application-field { font: 17px/1.6 var(--sans); color: var(--muted); margin: -10px 0 22px; }
+.spdba-applications .summary-prose a, .compact-research #materials .summary-prose a { white-space: nowrap; }
+.spdba-row .summary-prose > p:not(.publication-note) > a { white-space: nowrap; }
 .application-stack > .research-example { margin-top: 48px; }
 .application-figure { width: 100%; margin: 26px auto; }
 .application-figure > .figure-link { border: none; padding: 0; }
@@ -306,19 +310,33 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .textLayer .markedContent { display: contents; }
 .textLayer ::selection { background: #246c9c40; }
 .textLayer br::selection { background: transparent; }
+#cv-link-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+#cv-link-layer a { position: absolute; display: block; pointer-events: auto; }
+#cv-link-layer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (min-width: 1000px) {
-  .header-inner, .single-research { padding-right: 88px; }
-  .single-research { display: grid; grid-template-columns: 188px minmax(0,1fr); column-gap: 20px; max-width: var(--site-width); }
+  .header-inner { padding-right: 88px; }
+  .single-research { display: grid; grid-template-columns: 188px minmax(0,1fr); column-gap: 20px; max-width: var(--site-width); padding-left: 36px; padding-right: 100px; }
   .single-research > .research-page-heading { grid-column: 2; grid-row: 1; }
   .research-content { grid-column: 2; grid-row: 2; }
-  .research-index-shell { grid-column: 1; grid-row: 1 / span 2; min-width: 0; padding-top: 51px; }
-  .research-toc { position: sticky; top: 112px; display: block; max-height: calc(100svh - 144px); overflow-y: auto; padding: 3px 8px 3px 0; border-bottom: 0; font-size: 14px; }
-  .toc-group { display: block; margin: 0 0 21px; }
-  .toc-group-label { display: block; margin: 0 0 7px; font-size: 12px; line-height: 1.5; font-weight: 600; color: #111; }
-  .research-toc a { display: block; border-left: 2px solid var(--line); padding: 5px 0 5px 11px; }
-  .research-toc a[aria-current="location"] { border-color: var(--accent); }
-  .toc-applications { display: block; padding-left: 12px; }
-  .toc-applications a { font-size: 13px; padding-block: 4px; }
+  .research-index-shell { grid-column: 1; grid-row: 1 / span 2; min-width: 0; }
+  /* Expand into the outer margin and gutter without moving the research column. */
+  .research-toc { --toc-line: #dce1e4; position: fixed; top: calc(50svh + 34px); transform: translateY(-50%); display: block; width: 224px; margin-left: -20px; max-height: calc(100svh - 144px); overflow-y: auto; padding: 5px 8px 5px 0; border-bottom: 0; font-size: 14px; }
+  .toc-group { display: block; margin: 0 0 20px; }
+  .toc-group:last-child { margin-bottom: 0; }
+  .toc-group-label { display: block; margin: 0 0 7px; font-size: 16px; line-height: 1.5; font-weight: 600; color: #111; }
+  .toc-links { display: block; }
+  .research-toc a { position: relative; display: block; padding: 4px 0 4px 17px; }
+  .research-toc a::before { content: ""; position: absolute; z-index: 1; left: 1.5px; top: calc(50% - 3px); width: 6px; height: 6px; border: 1px solid #9ba4aa; border-radius: 50%; background: #fff; }
+  .research-toc a::after { content: ""; position: absolute; left: 4px; top: 0; bottom: 0; width: 1px; background: var(--toc-line); }
+  .toc-links > a:first-child::after, .toc-applications > a:first-child::after { top: 50%; }
+  .toc-links > a:last-child::after, .toc-applications > a:last-child::after { bottom: 50%; }
+  .research-toc a[aria-current="location"]::before { border-color: var(--accent); background: var(--accent); }
+  .toc-applications { display: block; padding-left: 12px; margin-top: 0; }
+  .toc-applications a { font-size: 13px; white-space: nowrap; }
+  .toc-applications + .toc-links { margin-top: 8px; }
+}
+@media (min-width: 1200px) {
+  .single-research { padding-left: 28px; padding-right: 108px; }
 }
 @media (max-width: 900px) {
   .grain-case, .fft-figure-slots { grid-template-columns: minmax(0,1fr); gap: 24px; }
@@ -508,6 +526,8 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .publication-note a:hover { color: var(--accent); }
 .compact-research .research-example { margin-top: 26px; }
 .compact-research .research-example > h3 { font-size: 24px; margin-bottom: 12px; }
+.compact-research :is(.spdba-applications > .research-example, .materials-feature, .model-studies > .material-model) > h3 { position: relative; }
+.compact-research :is(.spdba-applications > .research-example, .materials-feature, .model-studies > .material-model) > h3::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--line); pointer-events: none; }
 .compact-research .application-field { font-size: 15px; margin: 0 0 14px; }
 .compact-research .application-context p { margin-bottom: 14px; }
 .compact-research .pfc-application-figure { max-width: none; margin-block: 18px; }
@@ -683,8 +703,9 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
 @media (max-width: 480px) {
   .gallery-eyebrow { font-size: 10px; }
 }
-.compact-research .dba-row .figure-link { max-width: 400px; margin-inline: auto; }
+.compact-research .dba-row .figure-link { max-width: 480px; margin-inline: auto; }
 .compact-research .spdba-benefits { border-top: 1px solid var(--line); padding-top: 18px; margin: 24px 0 18px; }
+.compact-research .spdba-benefits .benefits-title { margin: 0 0 14px; font: 600 20px/1.5 var(--sans); color: var(--ink); }
 .compact-research .spdba-benefits .framework-benefits { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 38px; padding-left: 24px; padding-bottom: 18px; margin: 0; border-bottom: 1px solid var(--line); }
 .compact-research .spdba-benefits .framework-benefits li { margin: 0; padding-left: 4px; }
 .compact-research .spdba-benefits .framework-benefits h3 { font-size: 16px; line-height: 1.6; }
@@ -749,9 +770,9 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
 .detail-content #dba-background .figure-link { max-width: 430px; }
 
 /* Prior work introduces the physical idea; sp-DBA remains the main contribution. */
-.compact-research .dba-starting-point > .research-group-heading h2 { font-size: 24px; color: var(--ink); padding-block: 10px; }
-.compact-research .transform-context { margin: 0 0 22px; }
-.compact-research .transform-context p { margin-bottom: 0; }
+.compact-research .dba-heading { display: flex; align-items: center; gap: 10px; border-block: 2px solid var(--rule); padding-block: 10px; }
+.compact-research .dba-heading > h2 { border: 0; padding: 0; font-size: 24px; color: var(--ink); }
+.compact-research .dba-heading .prior-work-tag { font-size: 24px; line-height: 1.25; }
 @media (min-width: 901px) {
-  .compact-research .dba-row { grid-template-columns: minmax(0,.42fr) minmax(0,.58fr); }
+  .compact-research .dba-row { grid-template-columns: minmax(0,.52fr) minmax(0,.48fr); }
 }
