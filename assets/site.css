@@ -82,7 +82,7 @@ h3 { font-size: 18px; }
 .home-publication article > p strong { font-weight: 600; color: var(--ink); }
 .home-publication article > .publication-meta { font-size: 16px; color: var(--muted); margin-bottom: 15px; }
 .about-main { max-width: var(--site-width); min-height: calc(100svh - 157px); margin: 0 auto; padding: 56px 88px 64px 48px; }
-.about-heading h1 { font-size: clamp(36px, 4.5vw, 48px); border-block: 3px solid var(--rule); padding: 24px 0; margin-bottom: 20px; }
+.about-heading h1 { color: #171717; font-size: clamp(36px, 4.5vw, 48px); border-block: 3px solid var(--rule); padding: 24px 0; margin-bottom: 20px; }
 .about-hero { margin: 24px 0 30px; }
 .about-hero img { display: block; width: 100%; height: auto; }
 .about-copy { max-width: 720px; margin-inline: auto; padding-top: 22px; }
@@ -343,15 +343,15 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
   .toc-links { display: block; }
   .research-toc a { position: relative; display: block; min-height: 0; padding: var(--toc-pad) 0 var(--toc-pad) 16px; }
   .research-toc a:focus-visible { outline-offset: -2px; }
-  .research-toc a::before { content: ""; position: absolute; z-index: 1; left: -3px; top: calc(50% - 3px); width: 6px; height: 6px; border: 1px solid var(--toc-node); border-radius: 50%; background: #fff; }
+  .research-toc a::before { content: ""; position: absolute; z-index: 1; left: 0; top: 50%; transform: translate(-50%, -50%); width: 6px; height: 6px; border: 1px solid var(--toc-node); border-radius: 50%; background: #fff; }
   .research-toc a.toc-group-label { padding-left: 16px; font-size: 17px; line-height: 1.5; white-space: nowrap; }
-  .research-toc a.toc-group-label::before { left: -6px; top: calc(50% - 6px); width: 12px; height: 12px; border: 0; background: var(--accent); opacity: .45; }
+  .research-toc a.toc-group-label::before { width: 12px; height: 12px; border: 0; background: var(--accent); opacity: .45; }
   .toc-group.is-current-group > .toc-group-label::before { opacity: 1; }
   .research-toc a[aria-current="location"]::before { border-color: var(--accent); background: var(--accent); }
   .toc-applications { position: relative; display: block; margin: 0; padding: 2px 0 2px 20px; border-left: 0; font-size: 14px; }
   .toc-applications::before { content: ""; position: absolute; pointer-events: none; left: 20px; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); background: linear-gradient(to bottom, transparent, var(--toc-line) 8px, var(--toc-line) calc(100% - 8px), transparent); clip-path: polygon(50% 0, 100% 8px, 100% calc(100% - 8px), 50% 100%, 0 calc(100% - 8px), 0 8px); }
-  .toc-applications a { font-size: 14px; white-space: nowrap; }
-  .toc-applications a::before { left: -2.5px; top: calc(50% - 2.5px); width: 5px; height: 5px; }
+  .toc-applications a { padding-left: 12px; font-size: 14px; white-space: nowrap; }
+  .toc-applications a::before { width: 5px; height: 5px; }
   .toc-applications + .toc-links { margin-top: 8px; }
 }
 @media (min-width: 1000px) and (max-height: 560px) {
@@ -569,7 +569,7 @@ figcaption { font-size: 14px; color: var(--muted); line-height: 1.65; margin: 12
 .compact-research .research-note-links { margin: 12px 0 0; font-size: 15px; }
 .detail-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; margin-top: 16px; }
 .compact-research .grain-workflow-figure { max-width: none; margin-block: 18px; }
-.compact-research .grain-workflow-figure > .figure-link { max-width: 720px; margin-inline: auto; }
+.compact-research .grain-workflow-figure > .figure-link { max-width: 680px; margin-inline: auto; }
 .compact-research .grain-case { grid-template-columns: minmax(0,.48fr) minmax(0,.52fr); gap: 24px; margin-top: 18px; align-items: start; }
 .compact-research .model-summaries { gap: 28px; margin-top: 30px; }
 .compact-research .model-summaries h3 { min-height: 62px; font-size: 22px; }
@@ -686,16 +686,19 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
 }
 @media (min-width: 1600px) {
   .compact-research .pfc-application-figure > .figure-link,
-  .compact-research .grain-workflow-figure > .figure-link,
   .compact-research .pf-overview-figure > .figure-link { max-width: 920px; }
 }
 
 /* Complete photographs, with four original postcards grouped into one CSS tile. */
 .home-gallery { margin-top: clamp(180px, 22vh, 260px); padding-top: 25px; border-top: 1px solid var(--line); }
-.home-gallery-heading { padding: 20px 24px; margin-bottom: 18px; border-left: 3px solid var(--accent); background: #f8f4ef; }
-.gallery-heading-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-.gallery-eyebrow { margin: 0; font-size: 12px; line-height: 1.4; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); }
-.home-gallery-heading h2 { margin: 0; font-size: clamp(22px,2.2vw,28px); line-height: 1.4; color: var(--ink); }
+.home-gallery-heading { max-width: 920px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 24px; padding: 20px 24px; border-left: 3px solid var(--accent); background: #f8f4ef; }
+.home-gallery-heading h2 { flex: 1 1 440px; margin: 0; font-size: clamp(22px,2.2vw,28px); line-height: 1.4; color: var(--ink); }
+.gallery-emoji { display: inline-block; margin-left: .4em; font-size: calc(.85em + 2px); white-space: nowrap; }
+.gallery-toggle { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; min-width: 142px; min-height: 44px; padding: 10px 16px; margin-left: auto; border: 1px solid var(--accent); border-radius: 6px; background: #fff; color: var(--accent); font: 600 14px/1.4 var(--sans); white-space: nowrap; cursor: pointer; }
+.gallery-toggle:hover { background: #fbf3f3; }
+.gallery-close-label, .gallery-toggle[aria-expanded="true"] .gallery-open-label { display: none; }
+.gallery-toggle[aria-expanded="true"] .gallery-close-label { display: inline; }
+#home-gallery-photos:not([hidden]) { padding-top: 18px; }
 .home-theme-row { display: grid; grid-template-columns: 128px minmax(0,1fr); gap: 20px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
 .home-theme-row:first-of-type { border-top: none; padding-top: 0; }
 .home-theme-copy h3 { color: var(--accent); font-size: 16px; line-height: 1.4; margin-bottom: 0; }
@@ -731,22 +734,20 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
   .home-photo-montage .postcard-grid a { height: auto; }
   .home-photo-montage .postcard-grid img { max-height: 100%; }
 }
-@media (max-width: 480px) {
-  .gallery-eyebrow { font-size: 10px; }
-}
 .compact-research .dba-row .figure-link { max-width: 480px; margin-inline: auto; }
 .compact-research .spdba-benefits { width: min(100%, 820px); border: 0; padding-top: 0; margin: 24px auto 18px; }
 .compact-research .spdba-benefits .benefits-title { border-block: 1px solid var(--line); padding-block: 14px; margin: 0 0 14px; text-align: center; font: 600 21px/1.5 var(--sans); color: var(--ink); }
-.compact-research .spdba-benefits .framework-benefits { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 30px; padding-left: 24px; padding-bottom: 0; margin: 0; }
+.compact-research .spdba-benefits .framework-benefits { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px 30px; padding-left: 24px; padding-bottom: 0; margin: 0; }
 .compact-research .spdba-benefits .framework-benefits li { margin: 0; padding-left: 4px; }
 .compact-research .spdba-benefits .framework-benefits p { margin: 0; font: 400 16px/1.6 var(--sans); }
+.compact-research .spdba-benefits .framework-benefits strong { display: block; margin-bottom: 4px; }
 .compact-research .framework-benefits strong, .compact-research strong.contribution { font-weight: 600; }
 .detail-section { margin-top: 32px; }
 .detail-section:first-child { margin-top: 0; }
 .detail-section > h2 { font-size: 25px; margin-bottom: 18px; }
 .detail-section > video, .detail-section video { display: block; width: 100%; max-width: 640px; height: auto; margin-inline: auto; }
 @media (max-width: 700px) {
-  .compact-research .spdba-benefits .framework-benefits { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .compact-research .spdba-benefits .framework-benefits { grid-template-columns: minmax(0,1fr); gap: 20px; }
 }
 
 /* Additional phase-field work and larger overview figures. */
@@ -812,4 +813,27 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
 .compact-research .dba-heading .prior-work-tag { font-size: 24px; line-height: 1.25; }
 @media (min-width: 1200px) {
   .compact-research .dba-row { grid-template-columns: minmax(0,.52fr) minmax(0,.48fr); }
+}
+
+/* Detail-page navigation stays in the reading column and wraps on small screens. */
+.detail-main .detail-jumps { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 16px 0 0; font-size: 15px; }
+.detail-main .detail-jumps a, .detail-main .detail-return a { display: inline-flex; align-items: center; min-height: 44px; }
+.detail-content .detail-return { max-width: 720px; margin: 32px auto 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 15px; }
+
+/* A compact application example follows the grain-analysis workflow figure. */
+.compact-research .grain-application-row { display: grid; grid-template-columns: minmax(0,1fr); gap: 18px; align-items: center; width: 100%; max-width: 800px; margin: 24px auto 0; }
+.compact-research .grain-application-video { margin: 0; min-width: 0; }
+.compact-research .grain-application-video video { display: block; width: 100%; max-width: 300px; height: auto; margin-inline: auto; }
+.compact-research .grain-application-video figcaption { max-width: 300px; margin-inline: auto; }
+.compact-research .grain-application-row > .summary-prose { width: 100%; max-width: 720px; margin-inline: auto; }
+.compact-research .grain-application-row > .summary-prose p { margin: 0; }
+@media (min-width: 1200px) {
+  .compact-research .grain-application-row { grid-template-columns: 300px minmax(0,1fr); gap: 28px; }
+}
+
+/* Keep secondary image/text rows concentrated on wide displays. */
+@media (min-width: 1200px) {
+  .compact-research .fft-overview-row,
+  .compact-research #amplitude-models .model-overview-row { max-width: 840px; margin-inline: auto; }
+  .compact-research .model-b-row { max-width: 800px; margin-inline: auto; }
 }

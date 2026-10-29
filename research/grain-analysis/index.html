@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>From density fields to grain statistics | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=hpc-heading-83">
+  <link rel="stylesheet" href="../../assets/site.css?v=advantages-95">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -20,7 +20,7 @@
 <main id="main" class="detail-main">
   <header class="detail-heading"><p class="detail-back"><a href="../#grain-boundaries">← Research</a></p><h1 id="grain-boundaries-title">From density fields to grain statistics</h1></header>
   <article id="grain-boundaries" class="detail-content" aria-labelledby="grain-boundaries-title">
-<div class="section-copy summary-prose"><p>A single-layer PFC simulation gives me a continuous density field, but measuring its microstructure requires identifiable grains. I use C++/CUDA to extract density peaks and write atomic coordinates, local orientations, and quaternions to a particle dump. Python performs grain reconstruction and statistics, while I use OVITO to inspect the particle data and visualize the segmented grains.</p></div>
+<div class="section-copy summary-prose"><p>I built a pipeline that converts single-layer phase-field crystal (PFC) density fields into crystal orientations and grain-size statistics.</p></div>
       <ol id="grain-statistics-workflow" class="analysis-route">
         <li><h3>Inspect the field and extract atoms</h3><p>I inspect the real-space density field in ParaView. My C++/CUDA routines locate density maxima, turning the periodic field into discrete particle positions while retaining a density value for each peak.</p></li>
         <li><h3>Compute orientations and write a dump</h3><p>For this monolayer workflow, I calculate in-plane orientation myself from sixfold bond order. I export the positions, density, orientation angle, and a quaternion representing rotation about the layer normal in a LAMMPS-style dump.</p></li>
@@ -31,6 +31,7 @@
 
       <section id="grain-rotation" class="detail-section"><h2>A rotating small-angle grain</h2><figure class="section-figure"><video controls playsinline preload="none" poster="../../pictures/research/grain_rotation_poster.png" width="640" height="480" aria-label="PFC simulation of a small-angle circular grain boundary"><source src="../../pictures/research/grain_rotation.mp4" type="video/mp4"><a href="../../pictures/research/grain_rotation.mp4">Download the grain-boundary video.</a></video><figcaption>Particles are colored by coordination number. Over 2,000,000 PFC steps, the dislocation ring moves inward as the small-angle grain rotates and shrinks.</figcaption></figure>
           </section>
+      <p class="detail-return"><a href="../#grain-boundaries">← Research</a></p>
   </article>
 </main>
 </body>

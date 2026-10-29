@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>Distributed FFTs | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=hpc-heading-83">
+  <link rel="stylesheet" href="../../assets/site.css?v=advantages-95">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -24,7 +24,7 @@
       <figure class="section-figure"><a class="figure-link" href="../../pictures/research/distributed_fft_main.png"><img src="../../pictures/research/distributed_fft_main.png" alt="Figure S18: local slabs, distributed FFT, local blocks with MPI state halos, adaptive updates and distributed inverse FFT. Global transpose and all-to-all communication remain." width="2400" height="1113" loading="lazy" decoding="async"></a><figcaption>Slab-decomposed PFC computation combines local FFTs, MPI redistribution, and adaptive updates. Neighbor-state halos support block decisions separately from global FFT communication.</figcaption></figure>
       <div class="section-copy summary-prose"><p>At slab boundaries, neighboring MPI ranks exchange block-state halos so local activation decisions include adjacent blocks on the other rank. In weak-scaling tests on one to eight NVIDIA A800 GPUs, sp-DBA reduced per-GPU update time by about 2–3× relative to Regular. Timing the full workflow showed that distributed transforms and communication remained the main overall cost.</p></div>
       <figure class="section-figure state-exchange-figure"><a class="figure-link" href="../../pictures/research/distributed_fft_states.png"><img src="../../pictures/research/distributed_fft_states.png" alt="Figure S20: neighboring MPI ranks exchange block-state metadata, then coordinate local boundary decisions using imported state halos." width="2400" height="1350" loading="lazy" decoding="async"></a><figcaption>State halos carry neighboring blocks’ activation information across MPI rank boundaries. Imported states guide local boundary updates.</figcaption></figure>
-  </article>
+  <p class="detail-return"><a href="../#distributed-fft">← Research</a></p></article>
 </main>
 </body>
 </html>
