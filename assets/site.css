@@ -606,7 +606,8 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
 @media (max-width: 1199px) {
   .compact-research .overview-row, .compact-research .grain-case { grid-template-columns: minmax(0,1fr); gap: 18px; }
   .compact-research .dba-row .section-figure { max-width: 430px; margin-inline: auto; }
-  .compact-research .spdba-row .framework-figure, .compact-research .spdba-workflow-row .workflow-detail-figure { max-width: 440px; margin-inline: auto; }
+  .compact-research .spdba-row .framework-figure { max-width: 520px; margin-inline: auto; }
+  .compact-research .spdba-workflow-row .workflow-detail-figure { max-width: 440px; margin-inline: auto; }
   .compact-research .application-row .section-figure { max-width: 640px; margin-inline: auto; }
   .compact-research .grain-case { max-width: 560px; margin-inline: auto; }
   .compact-research .model-summaries h3 { min-height: 0; }
@@ -760,7 +761,7 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
 .compact-research .xpfc-overview > .summary-prose { margin-top: 18px; }
 .compact-research .fft-practice { margin-top: 20px; }
 @media (min-width: 1200px) {
-  .compact-research .spdba-row { grid-template-columns: minmax(0,.58fr) minmax(0,.42fr); }
+  .compact-research .spdba-row { grid-template-columns: minmax(0,.62fr) minmax(0,.38fr); }
   .compact-research #coupled-fields .application-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
   .compact-research .dbp-row { grid-template-columns: minmax(0,.66fr) minmax(0,.34fr); }
   .compact-research .model-overview-row { grid-template-columns: minmax(0,.56fr) minmax(0,.44fr); }
