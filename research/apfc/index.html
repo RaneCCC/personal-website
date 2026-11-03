@@ -6,9 +6,16 @@
   <meta name="description" content="Amplitude phase-field crystal implementation, initialization, and amplitude–phase diagnostic views.">
   <link rel="canonical" href="https://raneccc.github.io/personal-website/research/apfc/">
   <meta name="theme-color" content="#b31a1b">
-  <title>APFC · Looking beyond density | Jingkun Jiang</title>
+  <title>APFC | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/site.css?v=dendrite-layout-101">
+  <style>
+    .detail-content .apfc-concept { max-width: 640px; margin: 24px auto; }
+    .detail-content .apfc-amr-background { max-width: 600px; }
+    .detail-content .apfc-amplitude-reference { max-width: 640px; }
+    .detail-content .apfc-amplitude-reference > .figure-link { max-width: 374px; }
+    @media (max-width: 700px) { .detail-content .apfc-concept { max-width: 340px; } }
+  </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -18,11 +25,18 @@
   <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav></details>
 </div></header>
 <main id="main" class="detail-main">
-  <header class="detail-heading"><p class="detail-back"><a href="../#amplitude-models">← Research</a></p><h1 id="apfc-development-title">APFC · Looking beyond density</h1></header>
+  <header class="detail-heading"><p class="detail-back"><a href="../#amplitude-models">← Research</a></p><h1 id="apfc-development-title">APFC</h1></header>
   <article id="apfc-development" class="detail-content" aria-labelledby="apfc-development-title">
-<p>I implemented CPU (FFTW) and GPU (CUDA/cuFFT) solvers for the three-amplitude form of the amplitude phase-field crystal (APFC) model, using semi-implicit updates in Fourier space.</p>
-<div class="model-equation apfc-equations equation-stack" role="group" aria-label="APFC expanded model equations"><div class="equation-row"><div class="equation-expression"><picture><img class="equation-image" src="../../pictures/equations/apfc-reconstruction.svg?v=28" width="218.077" height="60.522" style="--equation-width:218.077px;--equation-narrow-width:218.077px" alt="The atomic-density field is reconstructed from three slowly varying complex amplitudes and their lattice waves." data-tex="\psi=\bar\psi+2\operatorname{Re}\sum_{j=1}^{3}A_j e^{i\bm k_j\cdot\bm r}" decoding="async"></picture></div><div class="equation-expression"><picture><source media="(max-width: 700px)" srcset="../../pictures/equations/apfc-expanded-fourier-narrow.svg?v=28" width="310.565" height="212.737"><img class="equation-image" src="../../pictures/equations/apfc-evolution-compact.svg?v=37" width="763.797" height="47.447" style="--equation-width:763.797px;--equation-narrow-width:310.565px" alt="The complete Fourier-space evolution used in the three-amplitude APFC solver, with its linear density and wavevector terms, nonlinear self- and cross-amplitude coupling, and triangular coupling written explicitly." data-tex="\frac{\partial\widehat A_j}{\partial t}=-|\bm q+\bm k_j|^2[r+3\bar\psi^2+(|\bm q|^2+2\bm k_j\cdot\bm q)^2]\widehat A_j-3\widehat{A_j(|A_j|^2+2\textstyle\sum_{s\ne j}|A_s|^2)}-6\bar\psi\widehat{A_k^*A_\ell^*}" decoding="async"></picture></div></div><p class="equation-note">Complex amplitudes <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>A</mi><mi>j</mi></msub></math> reconstruct <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>ψ</mi></math> around its mean <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mover accent="true"><mi>ψ</mi><mo>¯</mo></mover></math>. Vectors <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>𝒌</mi><mi>j</mi></msub></math> define lattice waves, <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>𝒒</mi></math> is the Fourier wavevector, and <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>r</mi></math> controls ordering. Distinct indices <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>ℓ</mi></mrow></math> label the three amplitudes; hats indicate Fourier transforms and stars complex conjugation.</p></div><div class="section-copy summary-prose">
-      <p>I initialized differently oriented seeds through the phases of three complex amplitudes. Later versions added a tanh amplitude taper and linked the third amplitude’s initial phase to the first two. The two montages compare reconstructed density, combined amplitude, phase, and phase-gradient views for different seed orientations and contacting grains. Comparing these fields helped me inspect initialization beyond the density image. Phase jumps needed care: the displayed phases wrap periodically, and their gradients can contain representation artifacts.</p>
+<p>In the three-amplitude form of the amplitude phase-field crystal (APFC) model, three lattice waves have amplitudes and phases that vary across the crystal; together they reconstruct its density pattern. I implemented CPU (FFTW) and GPU (CUDA/cuFFT) solvers for this model, using semi-implicit updates in Fourier space.</p>
+<figure class="section-figure apfc-concept">
+  <a class="figure-link" href="../../pictures/research/apfc_concept.svg"><picture><source media="(max-width: 700px)" srcset="../../pictures/research/apfc_concept_narrow.svg" width="320" height="338"><img src="../../pictures/research/apfc_concept.svg" width="640" height="218" alt="Model illustration: three lattice-wave contributions in different directions are added to a mean density to reconstruct a periodic pattern. The amplitudes are constant in this example." decoding="async"></picture></a>
+  <figcaption>Model illustration: three lattice-wave contributions combine with the mean density to reconstruct the pattern. The amplitudes are constant here; in APFC they can vary across the crystal and evolve in time.</figcaption>
+</figure>
+<div class="model-equation apfc-equations equation-stack" role="group" aria-label="APFC expanded model equations"><div class="equation-row"><div class="equation-expression"><picture><img class="equation-image" src="../../pictures/equations/apfc-reconstruction.svg?v=28" width="218.077" height="60.522" style="--equation-width:218.077px;--equation-narrow-width:218.077px" alt="The atomic-density field is reconstructed from three slowly varying complex amplitudes and their lattice waves." data-tex="\psi=\bar\psi+2\operatorname{Re}\sum_{j=1}^{3}A_j e^{i\bm k_j\cdot\bm r}" decoding="async"></picture></div><div class="equation-expression"><picture><source media="(max-width: 700px)" srcset="../../pictures/equations/apfc-expanded-fourier-narrow.svg?v=28" width="310.565" height="212.737"><img class="equation-image" src="../../pictures/equations/apfc-evolution-compact.svg?v=37" width="763.797" height="47.447" style="--equation-width:763.797px;--equation-narrow-width:310.565px" alt="The complete Fourier-space evolution used in the three-amplitude APFC solver, with its linear density and wavevector terms, nonlinear self- and cross-amplitude coupling, and triangular coupling written explicitly." data-tex="\frac{\partial\widehat A_j}{\partial t}=-|\bm q+\bm k_j|^2[r+3\bar\psi^2+(|\bm q|^2+2\bm k_j\cdot\bm q)^2]\widehat A_j-3\widehat{A_j(|A_j|^2+2\textstyle\sum_{s\ne j}|A_s|^2)}-6\bar\psi\widehat{A_k^*A_\ell^*}" decoding="async"></picture></div></div><p class="equation-note">Complex amplitudes <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>A</mi><mi>j</mi></msub></math> reconstruct <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>ψ</mi></math> around its mean <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mover accent="true"><mi>ψ</mi><mo>¯</mo></mover></math>. Vectors <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>𝒌</mi><mi>j</mi></msub></math> define lattice waves, <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>𝒒</mi></math> is the Fourier wavevector, and <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>r</mi></math> controls ordering. Distinct indices <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>ℓ</mi></mrow></math> label the three amplitudes; hats indicate Fourier transforms and stars complex conjugation.</p></div>
+<section id="implementation-checks" class="detail-section">
+  <h2>My implementation and checks</h2>
+<div class="section-copy summary-prose">
+      <p>I set seed orientations through the amplitude phases and used a smooth tanh taper at the seed edges. I checked density, amplitude, phase, and phase gradients together. Phase wraps periodically, so the gradient views can contain artifacts from the representation.</p>
       </div>
       <figure class="section-figure">
       <a class="figure-link" href="../../pictures/research/apfc_details.png"><img src="../../pictures/research/apfc_details.png" alt="Complete density, amplitude, phase, and phase-gradient montage from APFC development tests." width="2772" height="1588" loading="lazy" decoding="async"></a>
@@ -35,7 +49,33 @@
       </figure>
 
 
-      <p class="model-references">Model background · <a href="https://doi.org/10.1103/PhysRevE.76.056706">Athreya et al. (2007)</a> · <a href="https://doi.org/10.1103/PhysRevE.98.033303">Berčič &amp; Kugler (2018)</a>.</p>
+</section>
+
+<p>This literature example shows nearly uniform amplitude magnitudes and phase gradients inside grains, with stronger changes near their boundaries.</p>
+<figure class="section-figure apfc-amplitude-reference">
+  <a class="figure-link" href="../../pictures/research/apfc_amplitude_phase_background.jpg"><img src="../../pictures/research/apfc_amplitude_phase_background.jpg" width="374" height="206" alt="Literature example from RG-derived amplitude equations: the magnitude of one amplitude in panel a and its phase gradient in panel b during two-dimensional grain growth." loading="lazy" decoding="async"></a>
+  <figcaption>Literature example: amplitude magnitude (a) and phase gradient (b) for one lattice-wave component during two-dimensional grain growth. <a href="https://doi.org/10.1007/s10955-005-9013-7">Goldenfeld, Athreya &amp; Dantzig (2006), Fig. 2</a>.</figcaption>
+</figure>
+<section id="early-adaptivity" class="detail-section">
+  <h2>An early idea for adaptivity</h2>
+  <p>Work on adaptive mesh refinement (AMR) helped motivate my early exploration of <a href="../spdba/#dba-background">dynamic block activation (DBA)</a> for APFC. I wanted to focus updates around evolving interfaces and defects while keeping a regular grid.</p>
+  <figure class="section-figure apfc-amr-background">
+    <a class="figure-link" href="../../pictures/research/apfc_amr_background.png?v=106"><img src="../../pictures/research/apfc_amr_background.png?v=106" width="1021" height="689" alt="Literature comparison: density in panels a to c and mean amplitude magnitude in panels g to i, comparing uniform-grid APFC, AMR and locally rotated AMR; adaptive grids are overlaid." loading="lazy" decoding="async"></a>
+    <figcaption>Literature comparison: density (top) and mean amplitude magnitude (bottom), with adaptive grids overlaid. From left: uniform grid, AMR, and AMR with a local-rotation field. <a href="https://doi.org/10.1103/PhysRevE.98.033303">Berčič &amp; Kugler (2018), Fig. 4</a>.</figcaption>
+  </figure>
+</section>
+
+
+<section id="early-initialization" class="detail-section">
+  <h2>An early initialization problem</h2>
+  <p>Early simulations sometimes produced distorted crystal patterns. I compared seed-edge smoothing and different ways of initializing the third amplitude, then set its initial phase from the first two.</p>
+  <figure class="section-figure">
+    <a class="figure-link" href="../../pictures/research/apfc_early_diagnostic.png"><img src="../../pictures/research/apfc_early_diagnostic.png" width="3826" height="930" alt="Four reconstructed-density snapshots from an early APFC development run, showing a distorted crystal pattern developing across the sequence." loading="lazy" decoding="async"></a>
+    <figcaption>Early APFC development snapshots: the reconstructed crystal pattern becomes distorted as the simulation progresses.</figcaption>
+  </figure>
+</section>
+
+      <p class="model-references">Model background · <a href="https://doi.org/10.1007/s10955-005-9013-7">Goldenfeld, Athreya &amp; Dantzig (2006)</a> · <a href="https://doi.org/10.1103/PhysRevE.76.056706">Athreya et al. (2007)</a> · <a href="https://doi.org/10.1103/PhysRevE.98.033303">Berčič &amp; Kugler (2018)</a>.</p>
       <p class="detail-return"><a href="../#amplitude-models">← Research</a></p>
   </article>
 </main>
