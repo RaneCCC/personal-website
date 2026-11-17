@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Jingkun Jiang’s research: adaptive scientific computing, phase-field and crystal models, GPU/MPI implementation, and grain analysis.">
+  <meta name="description" content="Jingkun Jiang’s research portfolio: Scientific Computing &amp; HPC (sp-DBA adaptive transform-domain computation, GPU acceleration, distributed FFTs) and Computational Modeling.">
   <link rel="canonical" href="https://raneccc.github.io/personal-website/research/">
   <meta name="theme-color" content="#b31a1b">
   <title>Research | Jingkun Jiang</title>
   <link rel="preload" href="../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site.css?v=spdba-image-111">
-  <script type="module" src="../assets/research-nav.js?v=toc-scroll-74"></script>
+  <link rel="stylesheet" href="../assets/site.css?v=nav-release-20261117">
+  <script type="module" src="../assets/research-nav.js?v=toc-release-20261117"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -19,70 +19,206 @@
   <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../">Home</a><a href="../research/" aria-current="page">Research</a><a href="../personal-statement/">Personal Statement</a><a href="../cv/">CV</a></nav></details>
 </div></header>
 <main id="main" class="research-main single-research compact-research">
-  <header class="research-page-heading research-detail-heading"><h1>Research</h1><div class="summary-prose"><p>I develop adaptive and parallel methods for large-scale physical simulations, with a focus on reducing repeated work in numerical solvers. Under Prof. Yang Xia’s supervision, I led sp-DBA from method design through GPU implementation and validation across materials simulation, pattern formation, and optical communications.</p></div><p class="research-lead-links"><a href="https://arxiv.org/abs/2609.03922">arXiv →</a></p></header>
-  <aside class="research-index-shell"><nav class="research-toc" aria-label="Research contents"><div class="toc-track">
-    <div class="toc-group"><a class="toc-group-label" href="#dba">HPC &amp; adaptivity</a><div class="toc-links"><a href="#dba"><span class="toc-entry-label">DBA</span> <span class="prior-work-tag">Prior work</span></a><a href="#spdba"><span class="toc-entry-label">sp-DBA</span></a></div><div class="toc-applications"><a href="#spdba-pfc"><span class="toc-entry-label">Polycrystalline coarsening</span></a><a href="#coupled-fields"><span class="toc-entry-label">Pattern formation</span></a><a href="#digital-backpropagation"><span class="toc-entry-label">Optical signal processing</span></a></div><div class="toc-links"><a href="#distributed-fft"><span class="toc-entry-label">FFT &amp; distributed FFTs</span></a></div></div>
-    <div class="toc-group"><a class="toc-group-label" href="#materials">Materials modeling</a><div class="toc-links"><a href="#grain-boundaries"><span class="toc-entry-label">Grains &amp; defects</span></a><a href="#structural-models"><span class="toc-entry-label">XPFC &amp; APFC</span></a><a href="#solidification"><span class="toc-entry-label">Dendritic growth</span></a><a href="#reactive-model-b"><span class="toc-entry-label">Phase separation</span></a></div></div>
-  </div></nav></aside>
+  <header class="research-page-heading research-detail-heading">
+    <h1>Research</h1>
+    <div class="summary-prose">
+      <p>I develop numerical methods and parallel computing workflows for physical simulations, with a focus on adaptive transform-domain computation, GPU computing, and phase-field modeling.</p>
+      <p>My main project is <a href="#spdba">sp-DBA</a>, an adaptive framework for transform-domain solvers. I led its design and implementation under Prof. Yang Xia’s supervision.</p>
+    </div>
+  </header>
+  <aside class="research-index-shell"><details class="research-directory" open><summary>Contents</summary><nav class="research-toc" aria-label="Research contents"><div class="toc-track">
+    <div class="toc-group toc-prior-group">
+      <div class="toc-links">
+        <a class="toc-group-label toc-prior-link" href="#dba"><span class="toc-entry-label">DBA <span class="prior-work-tag">Prior work</span></span></a>
+      </div>
+    </div>
+    <div class="toc-group">
+      <a class="toc-group-label" href="#adaptive-computing"><span class="toc-entry-label">Scientific Computing &amp; HPC</span></a>
+      <div class="toc-links">
+        <a href="#spdba"><span class="toc-entry-label">sp-DBA</span></a>
+      </div>
+      <div class="toc-applications">
+        <a href="#spdba-pfc"><span class="toc-entry-label">Polycrystalline Coarsening</span></a>
+        <a href="#coupled-fields"><span class="toc-entry-label">Pattern Formation</span></a>
+        <a href="#digital-backpropagation"><span class="toc-entry-label">Optical Communications</span></a>
+      </div>
+      <div class="toc-links">
+        <a href="#distributed-fft"><span class="toc-entry-label">FFT &amp; Distributed Computing</span></a>
+      </div>
+    </div>
+    <div class="toc-group">
+      <a class="toc-group-label" href="#materials"><span class="toc-entry-label">Computational Modeling</span></a>
+      <div class="toc-links">
+        <a href="#solidification"><span class="toc-entry-label">Dendritic Growth</span></a>
+        <a href="#crystal-models"><span class="toc-entry-label">Microstructure Evolution</span></a>
+        <a href="#grain-boundaries"><span class="toc-entry-label">Grain and Defect Analysis</span></a>
+        <a href="#reactive-model-b"><span class="toc-entry-label">Reactive Phase Separation</span></a>
+      </div>
+    </div>
+  </div></nav></details></aside>
   <div class="research-content">
-    <section id="dba" class="research-group dba-starting-point" aria-labelledby="dba-title">
-      <header class="research-group-heading dba-heading"><h2 id="dba-title">DBA</h2><span class="prior-work-tag">Prior work</span></header>
+    <section id="dba" class="dba-prior-context" aria-labelledby="dba-title">
+      <header class="dba-context-heading">
+        <h2 id="dba-title">DBA</h2>
+        <span class="prior-work-tag">Prior work</span>
+      </header>
       <div class="overview-row dba-row publication-row">
-<figure class="section-figure"><a class="figure-link" href="../pictures/research/dba_main.png"><img src="../pictures/research/dba_main.png" alt="Zhang and Xia (2025), Figure 2a–b: dendritic growth and the active blocks for phase and temperature." width="1060" height="1024" loading="lazy" decoding="async"></a><figcaption>In a dendritic-growth test, strong variations in the phase and temperature fields concentrate around moving interfaces. DBA activates the corresponding blocks, reducing computation in the nearly steady bulk.</figcaption></figure>
-        <div class="summary-prose reference-column"><p>Dynamic block activation (DBA), developed by Ruoyao Zhang and Yang Xia, is an adaptive acceleration framework that selectively updates GPU-aligned data blocks. Applications span materials science, biophysics, and fluid dynamics. In the reported benchmarks, it accelerates computation with minor solver changes while retaining numerical accuracy, with near-ideal strong and weak scaling across multiple GPUs.</p><p class="publication-note">Ruoyao Zhang and Yang Xia. <a href="https://doi.org/10.1038/s43588-025-00780-2">A dynamic block activation framework for continuum models.</a> <i>Nature Computational Science</i> 5, 345–354 (2025).</p></div>
-      </div>
-    </section>
-    <section id="adaptive-computing" class="research-group" aria-labelledby="spdba">
-      <header class="research-group-heading"><h2 id="spdba">sp-DBA</h2></header>
-      <div class="spdba-intro">
-        <div class="overview-row spdba-row">
-          <figure class="section-figure framework-figure"><a class="figure-link" href="../pictures/research/spDBA_main.png?v=research-equations-24"><img src="../pictures/research/spDBA_main.png?v=research-equations-24" alt="sp-DBA data blocks, adaptive block states, and their mapping to GPU execution." width="1588" height="1152" loading="lazy" decoding="async"></a><figcaption>The data–algorithm–hardware workflow of sp-DBA: transformed data are partitioned into blocks, assigned adaptive states, and mapped to GPU thread blocks for execution.</figcaption></figure>
-          <div class="summary-prose"><p>To address DBA’s limitations in transform-domain workflows and cases with widespread real-space variation, we developed sp-DBA, a GPU-friendly adaptive acceleration framework. <strong class="contribution">I led its design and implementation under Prof. Yang Xia’s supervision.</strong> <a class="framework-details-link" href="./spdba/#workflow">Framework and model equations →</a></p><p class="publication-note">Jingkun Jiang, Pingchuan Deng, and Yang Xia. <a href="https://arxiv.org/abs/2609.03922">sp-DBA: a general framework for adaptive transform-domain computation.</a> arXiv (2026).</p></div>
+        <figure class="section-figure"><a class="figure-link" href="../pictures/research/dba_main.png"><img src="../pictures/research/dba_main.png" alt="Zhang and Xia (2025), Figure 2a–b: dendritic growth and the active blocks for phase and temperature." width="1060" height="1024" loading="lazy" decoding="async"></a><figcaption>In a dendritic-growth test, strong variations in the phase and temperature fields concentrate around moving interfaces. DBA activates the corresponding blocks, reducing computation in the nearly steady bulk.</figcaption></figure>
+        <div class="summary-prose reference-column">
+          <p>Dynamic Block Activation (DBA), developed by Ruoyao Zhang and Yang Xia, is a prior real-space adaptive acceleration framework that selectively updates GPU-aligned data blocks across materials science, biophysics, and fluid dynamics. In the reported benchmarks, it accelerates computation with minor solver changes while retaining numerical accuracy, with near-ideal strong and weak scaling across multiple GPUs. <strong>sp-DBA extends this block-activation foundation to transform-domain workflows.</strong> <a href="./spdba/#dba-background">Prior work details →</a></p>
+          <p class="publication-note">Ruoyao Zhang and Yang Xia<sup title="Corresponding author">*</sup>. <a href="https://doi.org/10.1038/s43588-025-00780-2">A dynamic block activation framework for continuum models.</a> <i>Nature Computational Science</i> 5, 345–354 (2025).</p>
         </div>
-        <div class="spdba-benefits summary-prose"><h3 class="benefits-title">Key advantages</h3><ol class="framework-benefits"><li><p><strong>Efficient GPU execution.</strong> Hardware-aligned block adaptivity reduces unnecessary updates and thread divergence.</p></li><li><p><strong>Works with existing optimizations.</strong> Works alongside optimized transforms and model-specific acceleration.</p></li><li><p><strong>Solver compatibility.</strong> Preserves equations, discretization, and transformed representations.</p></li><li><p><strong>Lightweight integration.</strong> Reuses existing update routines with minimal solver-specific code changes.</p></li></ol></div>
       </div>
-      <div id="applications" class="spdba-applications">
-        <section id="spdba-pfc" class="research-example" aria-labelledby="spdba-pfc-title"><h3 id="spdba-pfc-title">Polycrystalline coarsening</h3>
-          <div class="overview-row selected-panel-row pfc-selected-row">
-<figure class="section-figure pfc-application-figure"><a class="figure-link" href="../pictures/research/spDBA_pfc_selected.png"><img src="../pictures/research/spDBA_pfc_selected.png" alt="One representative XPFC coarsening state, shown as crystal structure, Fourier amplitudes and adaptive block states, with a grain-boundary close-up." width="1324" height="722" loading="lazy" decoding="async"></a><figcaption>Grain coarsening viewed through crystal structure, Fourier amplitudes, and adaptive block states.</figcaption></figure>
-<div class="summary-prose application-context"><p><strong>Phase-field crystal (PFC)</strong> models describe crystal microstructure through a spatially periodic density field. In our coarsening tests, the dominant Fourier amplitudes concentrate near Bragg rings (ring-shaped features associated with the crystal lattice), providing localized spectral blocks for sp-DBA to update selectively. <a href="./spdba/#pfc-model">More details →</a></p></div></div>
-        </section>
-        <section id="coupled-fields" class="research-example" aria-labelledby="rcd-title"><h3 id="rcd-title">Pattern formation</h3><div class="overview-row application-row">
-<figure class="section-figure"><a class="figure-link" href="../pictures/research/spDBA_rcd_selected.png"><img src="../pictures/research/spDBA_rcd_selected.png" alt="Blue sp-DBA morphology overlaps the Regular gray wireframe; the companion Fourier-space view shows active and transition blocks from the same calculation." width="1516" height="724" loading="lazy" decoding="async"></a><figcaption>Real-space pattern formation (left) and Fourier-space block activation from the same calculation (right).</figcaption></figure>
-          <div class="summary-prose"><p><strong>Reaction–cross-diffusion (RCD)</strong> models describe interacting species and coupled transport. More components make Fourier-space updates increasingly costly, giving selective execution greater value for complex pattern-forming systems. <strong class="contribution">I combined sp-DBA with eigendecomposition</strong>, retaining close agreement with full-update morphologies and structure factors in the tested cases. <a href="./spdba/#rcd-model">More details →</a></p></div></div>
-        </section>
-        <section id="digital-backpropagation" class="research-example" aria-labelledby="dbp-title"><h3 id="dbp-title">Optical signal processing</h3>
-<figure class="section-figure dbp-overview-figure"><a class="figure-link" href="../pictures/research/spDBA_dbp_selected.png"><img src="../pictures/research/spDBA_dbp_selected.png" alt="Controlled Gaussian wave-packet transmission through a multimode fiber, adaptive digital backpropagation, and the recovered signal compared with the reference." width="2012" height="606" loading="lazy" decoding="async"></a><figcaption>Recovering a controlled Gaussian wave packet with adaptive frequency-domain updates.</figcaption></figure>
-<div class="summary-prose dbp-overview-copy"><p><strong>Digital backpropagation (DBP)</strong> is an engineering transform-domain workflow for recovering signals propagated through multimode optical fibers. I integrated sp-DBA into the repeated frequency-domain linear updates of a split-step solver. Controlled Gaussian wave-packet tests retained close agreement with the transmitted reference; in the reported benchmark, the frequency-domain linear updates were <strong>21.3× faster</strong> than full-update Regular. <a href="./spdba/#dbp-model">More details →</a></p></div>
-        </section>
-      </div>
-      <div class="summary-prose spdba-outlook"><p>I am also exploring how these ideas might extend to other transforms, multiresolution methods, and unstructured meshes.</p></div>
-      <template id="submission-history-hidden"><p id="manuscript-history" class="submission-history-link"><a href="./submission-history/">Submission history</a></p></template>
     </section>
-    <section id="distributed-fft" class="research-group" aria-labelledby="distributed-title">
-      <header class="research-group-heading"><h2 id="distributed-title">FFT &amp; distributed FFTs</h2></header>
-      <figure id="distributed-workflow" class="section-figure fft-workflow-figure"><a class="figure-link" href="../pictures/research/distributed_fft_main.png"><img src="../pictures/research/distributed_fft_main.png" alt="Distributed PFC workflow: slab decomposition, local FFTs, MPI redistribution, adaptive updates and the inverse transform." width="2400" height="1113" loading="lazy" decoding="async"></a><figcaption>From local FFTs to data exchange across multiple GPUs.</figcaption></figure>
-      <div class="summary-prose section-copy"><p><strong class="contribution">I developed a multi-GPU PFC workflow</strong> combining distributed Fourier transforms with sp-DBA. End-to-end profiling showed how local update savings interact with global transform and communication costs.</p></div>
-    <div class="summary-prose fft-practice"><p>I also wrote a small FFT library and compared it with FFTW, exploring how decomposition and memory access affect runtime.</p></div><div class="detail-links"><a href="./fft/">FFT kernel development →</a><a href="./distributed-fft/">Distributed FFT tuning →</a></div>
-      </section>
 
-    <section id="materials" class="research-group" aria-labelledby="materials-title"><header class="research-group-heading"><h2 id="materials-title">Materials modeling</h2></header>
-      <section id="polycrystals" class="research-example materials-feature" aria-labelledby="grain-boundaries"><h3 id="grain-boundaries">Grain boundaries &amp; defects</h3>
-        <div id="grain-analysis" class="grain-overview">
-<figure class="section-figure grain-workflow-figure"><a class="figure-link" href="../pictures/research/grain_extract.png"><img src="../pictures/research/grain_extract.png" alt="Density-to-grain analysis: density maxima become atom-like sites, local orientations and grain statistics. Colors show orientation, not grain identity." width="1788" height="994" loading="lazy" decoding="async"></a><figcaption>From a simulated density field to crystal orientations and grain statistics.</figcaption></figure>
-<div class="grain-application-row"><figure class="grain-application-video"><video controls playsinline preload="none" poster="../pictures/research/grain_rotation_poster.png" width="640" height="480" aria-label="PFC simulation of a small-angle circular grain boundary"><source src="../pictures/research/grain_rotation.mp4" type="video/mp4"><a href="../pictures/research/grain_rotation.mp4">Download the grain-boundary video.</a></video><figcaption>Long-time PFC simulation of a rotating, shrinking small-angle grain over 2,000,000 steps; particles are colored by coordination number.</figcaption></figure><div class="summary-prose"><p>I combine long-time <strong>phase-field crystal (PFC)</strong> simulations with a single-layer grain-analysis pipeline to follow slow microstructural changes while retaining lattice-scale detail. C++/CUDA extracts particles and orientations, Python reconstructs grains and calculates size statistics, and OVITO supports inspection and visualization. This connects visible defect evolution with quantitative grain measurements. The video illustrates a small-angle grain rotating and shrinking as its dislocation ring moves inward. <a href="./grain-analysis/">More details →</a></p></div></div>
+    <section id="adaptive-computing" class="research-group" aria-labelledby="hpc-section-title">
+      <header class="research-group-heading">
+        <h2 id="hpc-section-title">Scientific Computing &amp; HPC</h2>
+      </header>
+
+      <article id="spdba" class="spdba-project" aria-labelledby="spdba-heading">
+        <h3 id="spdba-heading">sp-DBA</h3>
+        <div class="spdba-intro">
+          <div class="overview-row spdba-row">
+            <figure class="section-figure framework-figure">
+              <a class="figure-link" href="../pictures/research/spdba_cover.png?v=b8648a7d679d">
+                <img src="../pictures/research/spdba_cover.png?v=b8648a7d679d" alt="sp-DBA maps Fourier-space data blocks to adaptive states and GPU thread blocks." width="1658" height="1322" loading="lazy" decoding="async">
+              </a>
+              <figcaption>From Fourier-space blocks and adaptive states to GPU execution.</figcaption>
+            </figure>
+            <div class="summary-prose">
+              <p>Transform-domain workflows repeatedly update large spectral or frequency-space arrays even when significant changes concentrate in localized modes, while widespread real-space variation limits traditional spatial block adaptivity. To address this, we developed <strong>sp-DBA</strong>, an adaptive block-activation framework with GPU-aligned execution.</p>
+              <p><strong class="contribution">I led the design and implementation under Prof. Yang Xia’s supervision.</strong></p>
+              <p class="project-links">
+                <a class="framework-details-link" href="./spdba/" aria-label="sp-DBA details">Details</a>
+                <a href="https://arxiv.org/abs/2609.03922">arXiv</a>
+              </p>
+              <p class="publication-note">Jingkun Jiang, Pingchuan Deng, and Yang Xia<sup title="Corresponding author">*</sup>. <cite>sp-DBA: a general framework for adaptive transform-domain computation.</cite> (2026).</p>
+            </div>
+          </div>
+          <div class="spdba-benefits summary-prose">
+            <h4 class="benefits-title">Key Advantages</h4>
+            <ol class="framework-benefits">
+              <li><p><strong>Efficient GPU execution.</strong> Hardware-aligned block adaptivity reduces unnecessary updates and thread divergence.</p></li>
+              <li><p><strong>Compatibility with existing optimizations.</strong> Works alongside optimized transforms and model-specific acceleration.</p></li>
+              <li><p><strong>Solver compatibility.</strong> Preserves equations, discretization, and transformed representations.</p></li>
+              <li><p><strong>Lightweight integration.</strong> Reuses existing update routines with minimal solver-specific code changes.</p></li>
+            </ol>
+          </div>
+        </div>
+
+        <div id="applications" class="spdba-applications">
+          <section id="spdba-pfc" class="research-example application-subitem" aria-labelledby="spdba-pfc-title">
+            <h4 id="spdba-pfc-title">Polycrystalline Coarsening <span class="model-label">(Phase-field crystal, PFC)</span></h4>
+            <div class="overview-row selected-panel-row pfc-selected-row">
+              <figure class="section-figure pfc-application-figure"><a class="figure-link" href="../pictures/research/spDBA_pfc_selected.png?v=4791869d054e"><img src="../pictures/research/spDBA_pfc_selected.png?v=4791869d054e" alt="One representative XPFC coarsening state, shown as crystal structure, Fourier amplitudes and adaptive block states, with a grain-boundary close-up." width="1492" height="824" loading="lazy" decoding="async"></a><figcaption>Grain coarsening viewed through crystal structure, Fourier amplitudes, and adaptive block states.</figcaption></figure>
+              <div class="summary-prose application-context"><p>PFC models describe crystal microstructure through a spatially periodic density field. In our coarsening tests, the dominant Fourier amplitudes concentrate near Bragg rings (ring-shaped features associated with the crystal lattice), providing localized spectral blocks for sp-DBA to update selectively. <a href="./spdba/#pfc-model">More details →</a></p></div>
+            </div>
+          </section>
+          <section id="coupled-fields" class="research-example application-subitem" aria-labelledby="rcd-title">
+            <h4 id="rcd-title">Pattern Formation <span class="model-label">(Reaction–cross-diffusion, RCD)</span></h4>
+            <div class="overview-row application-row">
+              <figure class="section-figure"><a class="figure-link" href="../pictures/research/spDBA_rcd_selected.png"><img src="../pictures/research/spDBA_rcd_selected.png" alt="Blue sp-DBA morphology overlaps the Regular gray wireframe; the companion Fourier-space view shows active and transition blocks from the same calculation." width="1516" height="724" loading="lazy" decoding="async"></a><figcaption>Real-space pattern formation (left) and Fourier-space block activation from the same calculation (right).</figcaption></figure>
+              <div class="summary-prose"><p>RCD models describe interacting species and coupled transport. More components make Fourier-space updates increasingly costly, giving selective execution greater value for complex pattern-forming systems. <strong class="contribution">I combined sp-DBA with eigendecomposition</strong>, retaining close agreement with full-update morphologies and structure factors in the tested cases. <a href="./spdba/#rcd-model">More details →</a></p></div>
+            </div>
+          </section>
+          <section id="digital-backpropagation" class="research-example application-subitem" aria-labelledby="dbp-title">
+            <h4 id="dbp-title">Optical Communications <span class="model-label">(Digital backpropagation, DBP)</span></h4>
+            <figure class="section-figure dbp-overview-figure"><a class="figure-link" href="../pictures/research/spDBA_dbp_selected.png"><img src="../pictures/research/spDBA_dbp_selected.png" alt="Controlled Gaussian wave-packet transmission through a multimode fiber, adaptive digital backpropagation, and the recovered signal compared with the reference." width="2012" height="606" loading="lazy" decoding="async"></a><figcaption>Recovering a controlled Gaussian wave packet with adaptive frequency-domain updates.</figcaption></figure>
+            <div class="summary-prose dbp-overview-copy"><p>DBP is an engineering transform-domain workflow for recovering signals propagated through multimode optical fibers. I integrated sp-DBA into the repeated frequency-domain linear updates of a split-step solver. Controlled Gaussian wave-packet tests retained close agreement with the transmitted reference; in the reported benchmark, the frequency-domain linear updates were <strong>21.3× faster</strong> than full-update Regular. <a href="./spdba/#dbp-model">More details →</a></p></div>
+          </section>
+        </div>
+
+        <div class="summary-prose spdba-outlook"><p>I am also exploring how these ideas might extend to other transforms, multiresolution methods, and unstructured meshes.</p></div>
+        <template id="submission-history-hidden"><p id="manuscript-history" class="submission-history-link"><a href="./submission-history/">Submission history</a></p></template>
+      </article>
+
+      <section id="distributed-fft" class="research-subsection fft-computing-section" aria-labelledby="distributed-title">
+        <header class="subsection-heading">
+          <h3 id="distributed-title">FFT &amp; Distributed Computing</h3>
+        </header>
+        <div class="distributed-fft-block">
+          <figure id="distributed-workflow" class="section-figure fft-workflow-figure">
+            <a class="figure-link" href="../pictures/research/distributed_fft_overview.png">
+              <img src="../pictures/research/distributed_fft_overview.png" alt="Slab partitioning, distributed FFTs, MPI block-state exchange and adaptive updates, then the inverse transform." width="2090" height="952" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Distributed FFTs with MPI block-state exchange and adaptive updates between transforms.</figcaption>
+          </figure>
+          <div class="summary-prose section-copy">
+            <p><strong class="contribution">I built a multi-GPU PFC workflow</strong> combining distributed FFTs with sp-DBA. I profiled the complete solver to see how local update savings compare with the cost of transforms and communication. <a href="./distributed-fft/">Distributed FFT details →</a></p>
+          </div>
+        </div>
+        <div class="fft-kernel-supporting">
+          <h4 class="supporting-subheading">FFT Kernel Development</h4>
+          <div class="summary-prose">
+            <p>I also wrote a custom C++ FFT library exploring Cooley–Tukey decomposition, iterative butterflies, bit-reversal ordering, and runtime comparison with FFTW to examine how decomposition and memory access affect transform performance. <a href="./fft/">FFT kernel development →</a></p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="materials" class="research-group" aria-labelledby="materials-title">
+      <header class="research-group-heading">
+        <h2 id="materials-title">Computational Modeling</h2>
+      </header>
+
+      <div id="material-solvers" class="model-studies">
+        <section id="solidification" class="research-example material-model" aria-labelledby="solidification-title">
+          <h3 id="solidification-title">Dendritic Growth <span class="model-label">(Phase-field model, PF)</span></h3>
+          <div class="overview-row selected-panel-row">
+            <figure class="section-figure pf-overview-figure">
+              <a class="figure-link" href="../pictures/research/pf_selected.png" aria-label="Open the full dendritic growth figure with parameter labels">
+                <span class="pf-figure-crop"><img src="../pictures/research/pf_selected.png" alt="Two views of three-dimensional dendritic morphology for each anisotropy setting." width="1290" height="1074" loading="lazy" decoding="async"></span>
+              </a>
+              <figcaption>Branching and tip shape at anisotropy settings δ = 0.25 (left) and δ = 0.4 (right).</figcaption>
+            </figure>
+            <div class="summary-prose section-copy"><p>I implemented a three-dimensional phase-field solver coupling crystal growth with heat diffusion, using finite differences and CPU/GPU parallel versions. By varying anisotropy, undercooling, temperature sensitivity, and seed size, I examined how these choices affect branching and tip shape. <a href="./pf/">More details →</a></p></div>
+          </div>
+        </section>
+
+        <section id="crystal-models" class="research-example material-model" aria-labelledby="crystal-models-title">
+          <h3 id="crystal-models-title">Microstructure Evolution</h3>
+          <div id="structural-models" class="crystal-submodel" aria-labelledby="structural-models-title">
+            <div class="overview-row selected-panel-row xpfc-overview">
+              <figure class="section-figure"><a class="figure-link" href="../pictures/research/xpfc_selected.png"><img src="../pictures/research/xpfc_selected.png" width="1368" height="968" alt="Two XPFC settings: hexagonal and square/BCC projection. The top row shows two-dimensional density fields and the bottom row their Fourier-space views; original row and column labels are retained." loading="lazy" decoding="async"></a><figcaption>Two correlation-kernel settings, shown through two-dimensional density fields and their Fourier-space patterns.</figcaption></figure>
+              <div class="summary-prose"><p><strong id="structural-models-title">Structural phase-field crystal (XPFC)</strong> uses correlation kernels <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>C</mi><mn>2</mn></msub></math> to select lattice spacings and symmetries. I implemented Fourier-space solvers to compare how different kernels shape two-dimensional density patterns and spectra. <a href="./xpfc/">More details →</a></p></div>
+            </div>
           </div>
 
-      </section>
-      <div id="material-solvers" class="model-studies">
-<section id="structural-models" class="research-example material-model" aria-labelledby="structural-models-title"><h3 id="structural-models-title">Structural phase-field crystal (XPFC)</h3><div class="overview-row selected-panel-row xpfc-overview"><figure class="section-figure"><a class="figure-link" href="../pictures/research/xpfc_selected.png"><img src="../pictures/research/xpfc_selected.png" width="1368" height="968" alt="Two XPFC settings: hexagonal and square/BCC projection. The top row shows two-dimensional density fields and the bottom row their Fourier-space views; original row and column labels are retained." loading="lazy" decoding="async"></a><figcaption>Two correlation-kernel settings, shown through two-dimensional density fields and their Fourier-space patterns.</figcaption></figure><div class="summary-prose"><p>XPFC uses correlation kernels <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>C</mi><mn>2</mn></msub></math> to select lattice spacings and symmetries. I implemented Fourier-space solvers to compare how different kernels shape two-dimensional density patterns and spectra. <a href="./xpfc/">More details →</a></p></div></div></section>
+          <div id="amplitude-models" class="crystal-submodel" aria-labelledby="amplitude-models-title">
+            <div class="overview-row model-overview-row">
+              <figure class="section-figure"><a class="figure-link" href="../pictures/research/apfc_main.png?v=37"><img src="../pictures/research/apfc_main.png?v=37" width="1714" height="852" alt="APFC grain contact advancing from left to right, with reconstructed density above and summed amplitude magnitudes below." loading="lazy" decoding="async"></a><figcaption>Two grains grow into contact in an amplitude-based crystal model.</figcaption></figure>
+              <div class="summary-prose"><p><strong id="amplitude-models-title">Amplitude phase-field crystal (APFC)</strong> describes crystal order through slowly varying complex amplitudes <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>A</mi><mi>j</mi></msub></math> and reconstructs the density <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>ψ</mi></math>. I implemented CPU and GPU Fourier-space solvers and inspected grain contact through reconstructed density, amplitude, and phase fields. <a href="./apfc/">More details →</a></p></div>
+            </div>
+          </div>
+        </section>
 
-<section id="amplitude-models" class="research-example material-model" aria-labelledby="amplitude-models-title"><h3 id="amplitude-models-title">Amplitude phase-field crystal (APFC)</h3><div class="overview-row model-overview-row"><figure class="section-figure"><a class="figure-link" href="../pictures/research/apfc_main.png?v=37"><img src="../pictures/research/apfc_main.png?v=37" width="1714" height="852" alt="APFC grain contact advancing from left to right, with reconstructed density above and summed amplitude magnitudes below." loading="lazy" decoding="async"></a><figcaption>Two grains grow into contact in an amplitude-based crystal model.</figcaption></figure><div class="summary-prose"><p>APFC describes crystal order through slowly varying complex amplitudes <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><msub><mi>A</mi><mi>j</mi></msub></math> and reconstructs the density <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mi>ψ</mi></math>. I implemented CPU and GPU Fourier-space solvers and inspected grain contact through reconstructed density, amplitude, and phase fields. <a href="./apfc/">More details →</a></p></div></div></section>
-      <section id="solidification" class="research-example material-model" aria-labelledby="solidification-title"><h3 id="solidification-title">Dendritic growth</h3><div class="overview-row selected-panel-row">
-<figure class="section-figure pf-overview-figure"><a class="figure-link" href="../pictures/research/pf_selected.png"><img src="../pictures/research/pf_selected.png" alt="Dendritic morphology at anisotropy delta 0.25 and 0.4, with two views of each setting and the original parameter labels." width="1290" height="1074" loading="lazy" decoding="async"></a><figcaption>How anisotropy changes branching and tip shape in three-dimensional crystal growth.</figcaption></figure>
-<div class="summary-prose section-copy"><p>I implemented a three-dimensional phase-field solver coupling crystal growth with heat diffusion, using finite differences and CPU/GPU parallel versions. By varying anisotropy, undercooling, temperature sensitivity, and seed size, I examined how these choices affect branching and tip shape. <a href="./pf/">More details →</a></p></div>
-</div></section>
-<section id="reactive-model-b" class="research-example material-model model-b-summary" aria-labelledby="model-b-title"><h3 id="model-b-title">Macromolecular phase separation</h3><div class="overview-row model-b-row"><figure class="section-figure model-b-overview-figure"><video controls preload="none" playsinline width="1416" height="1652" poster="../pictures/research/model_b_evolution_poster.jpg?v=38" aria-label="Reactive Model B real-space concentration and Fourier-space update evolution"><source src="../pictures/research/model_b_evolution.mp4?v=38" type="video/mp4">Your browser does not support embedded video. <a href="../pictures/research/model_b_evolution.mp4?v=38">Download the Model B example</a>.</video><figcaption>Real-space concentration <math class="inline-math" xmlns="http://www.w3.org/1998/Math/MathML" display="inline" aria-label="Z"><mi>Z</mi></math> (top) and Fourier-coefficient update magnitude <span class="inline-math-group" translate="no"><img class="caption-math" src="../pictures/equations/model-b-update-inline.svg?v=52" width="37.963" height="24.842" style="--caption-equation-width:1.898150em" alt="Fourier-coefficient update magnitude, absolute delta Z-hat." data-tex="\lvert\Delta\widehat Z\rvert" decoding="async"></span> (bottom).</figcaption></figure><div class="summary-prose"><p>Reactive Model B couples diffusion and chemical reactions to describe phase separation in macromolecular mixtures. I implemented three-dimensional Fourier pseudo-spectral solvers on CPUs and GPUs, and developed a prototype for selectively updating Fourier coefficients. <a href="./pf/#model-b">More details →</a></p></div></div></section>
+        <section id="polycrystals" class="research-example materials-feature" aria-labelledby="grain-boundaries">
+          <header class="subsection-heading">
+            <h3 id="grain-boundaries">Grain and Defect Analysis</h3>
+          </header>
+          <div id="grain-analysis" class="grain-overview">
+            <figure class="section-figure grain-workflow-figure"><a class="figure-link" href="../pictures/research/grain_extract.png"><img src="../pictures/research/grain_extract.png" alt="Density-to-grain analysis: density maxima become atom-like sites, local orientations and grain statistics. Colors show orientation, not grain identity." width="1788" height="994" loading="lazy" decoding="async"></a><figcaption>From a simulated density field to crystal orientations and grain statistics.</figcaption></figure>
+            <div class="grain-application-row">
+              <figure class="grain-application-video"><video controls playsinline preload="none" poster="../pictures/research/grain_rotation_poster.png" width="640" height="480" aria-label="PFC simulation of a small-angle circular grain boundary"><source src="../pictures/research/grain_rotation.mp4" type="video/mp4"><a href="../pictures/research/grain_rotation.mp4">Download the grain-boundary video.</a></video><figcaption>Long-time PFC simulation of a rotating, shrinking small-angle grain over 2,000,000 steps; particles are colored by coordination number.</figcaption></figure>
+              <div class="summary-prose"><p>I combine long-time <strong>phase-field crystal (PFC)</strong> simulations with a single-layer grain-analysis pipeline to follow slow microstructural changes while retaining lattice-scale detail. C++/CUDA extracts density-peak particles and crystal orientations, Python reconstructs grains and calculates grain-size statistics, and OVITO supports inspection and visualization. This connects visible defect evolution with quantitative grain measurements. The video illustrates a small-angle grain rotating and shrinking as its dislocation ring moves inward. <a href="./grain-analysis/">More details →</a></p></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="reactive-model-b" class="research-example material-model model-b-summary" aria-labelledby="model-b-title">
+          <h3 id="model-b-title">Reactive Phase Separation <span class="model-label">(Reactive Model B)</span></h3>
+          <div class="overview-row model-b-row">
+            <figure class="section-figure model-b-overview-figure">
+              <video controls preload="none" playsinline width="1416" height="826" poster="../pictures/research/model_b_concentration_poster.jpg" aria-label="Reactive Model B concentration evolution in real space">
+                <source src="../pictures/research/model_b_concentration.mp4" type="video/mp4">
+                Your browser does not support embedded video. <a href="../pictures/research/model_b_concentration.mp4">Download the Model B example</a>.
+              </video>
+              <figcaption>Evolution of the real-space concentration field during reactive phase separation.</figcaption>
+            </figure>
+            <div class="summary-prose"><p>Reactive Model B couples diffusion and chemical reactions to describe multicomponent phase separation in macromolecular mixtures. I implemented three-dimensional Fourier pseudo-spectral solvers on CPUs and GPUs, and developed a prototype for selectively updating Fourier coefficients. <a href="./pf/#model-b">More details →</a></p></div>
+          </div>
+        </section>
       </div>
     </section>
   </div>

@@ -1,19 +1,18 @@
 const contents = document.querySelector('.research-toc');
 
 if (contents) {
-  const entries = [...contents.querySelectorAll('.toc-links > a[href^="#"], .toc-applications > a[href^="#"]')]
+  const directory = contents.closest('.research-directory');
+  if (directory) {
+    const desktopLayout = window.matchMedia('(min-width: 1000px)');
+    // Keep the fixed desktop index visible; narrow screens start with Contents closed.
+    const setDirectoryLayout = () => { directory.open = desktopLayout.matches; };
+    desktopLayout.addEventListener('change', setDirectoryLayout);
+    setDirectoryLayout();
+  }
+
+  const entries = [...contents.querySelectorAll('.toc-group-label[href^="#"], .toc-links > a[href^="#"], .toc-applications > a[href^="#"]')]
     .map((link) => ({ link, section: document.getElementById(link.hash.slice(1)), group: link.closest('.toc-group') }))
     .filter(({ section }) => section);
-  const groups = [...contents.querySelectorAll('.toc-group')]
-    .map((element) => {
-      const link = element.querySelector('a.toc-group-label[href^="#"]');
-      return {
-        element,
-        section: link && document.getElementById(link.hash.slice(1)),
-        entries: entries.filter((entry) => entry.group === element),
-      };
-    })
-    .filter(({ section, entries: groupEntries }) => section && groupEntries.length);
   let pending = false;
   let currentEntry = null;
   let currentGroup = null;
@@ -21,24 +20,12 @@ if (contents) {
   function highlightCurrentSection() {
     pending = false;
     const header = document.querySelector('.site-header');
-    const readingLine = (header?.getBoundingClientRect().bottom || 0) + 50;
-    // A group anchor can precede its first topic heading; select that first topic
-    // as soon as the group enters the reading area.
-    let groupEntries = entries;
-    for (const group of groups) {
-      if (group.section.getBoundingClientRect().top <= readingLine) groupEntries = group.entries;
-    }
-    let current = groupEntries[0];
-    let currentTop = -Infinity;
-    for (const entry of groupEntries) {
+    const readingLine = (header?.getBoundingClientRect().bottom || 0) + Math.min(140, window.innerHeight * 0.2);
+    let current = entries[0];
+    // Entries follow the document order, including nested applications.
+    for (const entry of entries) {
       const top = entry.section.getBoundingClientRect().top;
-      if (top > readingLine) continue;
-      // Side-by-side topics share a row; keep the selected link highlighted.
-      const sameRow = Math.abs(top - currentTop) < 2;
-      if (!sameRow || entry.link.hash === window.location.hash) {
-        current = entry;
-        currentTop = top;
-      }
+      if (top <= readingLine) current = entry;
     }
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
       current = entries.at(-1);
@@ -65,5 +52,6 @@ if (contents) {
   window.addEventListener('resize', scheduleHighlight);
   window.addEventListener('hashchange', scheduleHighlight);
   window.addEventListener('load', scheduleHighlight);
+  directory?.addEventListener('toggle', scheduleHighlight);
   scheduleHighlight();
 }

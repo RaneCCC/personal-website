@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>APFC | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=dendrite-layout-101">
+  <link rel="stylesheet" href="../../assets/site.css?v=nav-release-20261117">
   <style>
     .detail-content .apfc-concept { max-width: 640px; margin: 24px auto; }
     .detail-content .apfc-amr-background { max-width: 600px; }
@@ -25,7 +25,7 @@
   <details class="mobile-menu"><summary><span class="menu-icon" aria-hidden="true">☰</span> Menu</summary><nav aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../research/" aria-current="page">Research</a><a href="../../personal-statement/">Personal Statement</a><a href="../../cv/">CV</a></nav></details>
 </div></header>
 <main id="main" class="detail-main">
-  <header class="detail-heading"><p class="detail-back"><a href="../#amplitude-models">← Research</a></p><h1 id="apfc-development-title">APFC</h1></header>
+  <header class="detail-heading"><p class="detail-back"><a href="../#amplitude-models">← Research</a></p><h1 id="apfc-development-title">Amplitude Phase-Field Crystal (APFC)</h1><nav class="detail-jumps" aria-label="On this page"><a href="#apfc-development">Overview &amp; Equations</a><a href="#implementation-checks">Implementation &amp; Checks</a><a href="#early-adaptivity">Adaptivity Motivation</a></nav></header>
   <article id="apfc-development" class="detail-content" aria-labelledby="apfc-development-title">
 <p>In the three-amplitude form of the amplitude phase-field crystal (APFC) model, three lattice waves have amplitudes and phases that vary across the crystal; together they reconstruct its density pattern. I implemented CPU (FFTW) and GPU (CUDA/cuFFT) solvers for this model, using semi-implicit updates in Fourier space.</p>
 <figure class="section-figure apfc-concept">
