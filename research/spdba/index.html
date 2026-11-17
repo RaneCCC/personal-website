@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#b31a1b">
   <title>sp-DBA · Framework and applications | Jingkun Jiang</title>
   <link rel="preload" href="../../assets/fonts/montserrat-latin-700-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../../assets/site.css?v=line-polish-20261117">
+  <link rel="stylesheet" href="../../assets/site.css?v=crystal-align-20261117">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -29,9 +29,12 @@
       <h2 id="dba-background-title">Building on Dynamic Block Activation (DBA) · Prior work</h2>
       <div class="dba-background-content">
 
-        <div class="summary-prose reference-column"><p>In the dendritic-growth example below, most of the change occurs around the moving crystal boundary. Updating the nearly steady bulk at every step repeats much of the work. Ruoyao Zhang and Yang Xia developed DBA as prior work in our group to make these decisions in GPU-aligned blocks, using shared memory to coordinate activation. It keeps a fixed grid, whereas adaptive mesh refinement changes spatial resolution. Their reported dendritic tests retained full-update morphology and tip-profile accuracy, with near-ideal scaling to 32 GPUs by overlapping computation and communication.</p><p class="publication-note">Ruoyao Zhang and Yang Xia<sup title="Corresponding author">*</sup>. <a href="https://doi.org/10.1038/s43588-025-00780-2">A dynamic block activation framework for continuum models.</a> <i>Nature Computational Science</i> 5, 345–354 (2025).</p></div>
+        <div class="summary-prose reference-column"><p>In the phase-separation example below, droplets coarsen as the mixture evolves, leaving growing regions where little changes. In their prior work, Ruoyao Zhang and Yang Xia developed DBA to make update decisions in GPU-aligned blocks, using shared memory to coordinate activation. It keeps a fixed grid, whereas adaptive mesh refinement changes spatial resolution. Their reported dendritic tests retained full-update morphology and tip-profile accuracy, with near-ideal scaling to 32 GPUs by overlapping computation and communication.</p><p class="publication-note">Ruoyao Zhang and Yang Xia<sup title="Corresponding author">*</sup>. <a href="https://doi.org/10.1038/s43588-025-00780-2">A dynamic block activation framework for continuum models.</a> <i>Nature Computational Science</i> 5, 345–354 (2025).</p></div>
       </div>
-<figure class="section-figure"><a class="figure-link" href="../../pictures/research/dba_main.png"><img src="../../pictures/research/dba_main.png" alt="Zhang and Xia (2025), Figure 2a–b: dendritic growth and the active blocks for phase and temperature." width="1060" height="1024" loading="lazy" decoding="async"></a><figcaption>Three-dimensional dendritic growth. Active phase-field and temperature blocks cluster around the moving interface.</figcaption></figure>
+      <div class="dba-figure-pair">
+        <figure class="section-figure"><a class="figure-link" href="../../pictures/research/dba_phase_separation.png"><img src="../../pictures/research/dba_phase_separation.png" alt="Zhang and Xia (2025), Figure 4a: four stages of condensate coarsening, with idle blocks shown in green." width="1380" height="1485" loading="lazy" decoding="async"></a><figcaption>Phase separation and coarsening; green marks idle blocks. Zhang and Xia (2025), Figure 4a.</figcaption></figure>
+        <figure class="section-figure"><a class="figure-link" href="../../pictures/research/dba_framework.png"><img src="../../pictures/research/dba_framework.png" alt="Zhang and Xia (2025), Figure 1: DBA block activation workflow and comparison with a representative adaptive method." width="1870" height="1271" loading="lazy" decoding="async"></a><figcaption>DBA workflow and comparison with a representative adaptive method. Zhang and Xia (2025), Figure 1.</figcaption></figure>
+      </div>
     </section>
 <p class="detail-return"><a href="../#spdba">← Research</a></p></article></main>
 </body>

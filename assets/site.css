@@ -991,3 +991,23 @@ figcaption .caption-math { display: inline-block; width: var(--caption-equation-
 .detail-applications-group { margin-top: 36px; padding-top: 20px; border-top: 2px solid var(--rule); }
 .detail-group-header { max-width: 720px; margin: 0 auto 8px; }
 .dba-background-section { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+.detail-content .dba-figure-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; margin-top: 24px; }
+.detail-content .dba-figure-pair .section-figure { min-width: 0; margin: 0; }
+.detail-content .dba-figure-pair .figure-link { max-width: 100%; }
+.compact-research .pfc-selected-row .pfc-application-figure > .figure-link { max-width: 580px; }
+.compact-research .grain-workflow-figure > .figure-link { max-width: 740px; }
+.compact-research .model-b-row { margin-top: 30px; }
+.compact-research .model-b-overview-figure video { max-width: 400px; }
+@media (min-width: 1200px) {
+  .compact-research .pfc-selected-row { grid-template-columns: minmax(0, .61fr) minmax(0, .39fr); }
+  .compact-research #amplitude-models .model-overview-row { max-width: none; }
+  .compact-research .model-b-row { max-width: 840px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .detail-content .dba-figure-pair { grid-template-columns: minmax(0, 1fr); }
+}
+/* Equalize the visible panel widths within the two differently padded source images. */
+.compact-research .xpfc-overview > .section-figure > .figure-link { width: 94%; margin-inline: auto; }
+@media (max-width: 1199px) {
+  .compact-research #amplitude-models .section-figure { width: 100%; max-width: 560px; }
+}
